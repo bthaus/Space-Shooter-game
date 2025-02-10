@@ -1,0 +1,17 @@
+# Created by Kenney (www.kenney.nl)
+
+newmtl _defaultMat(Clone)
+Kd 0.939 0.953 1
+
+newmtl metalOrange(Clone)
+Kd 1 0.702 0
+map_Kd Textures/metalOrange(Clone).png
+
+newmtl dark(Clone)
+Kd 1 0 0
+map_Kd Textures/dark(Clone).png
+
+newmtl metalDark(Clone)
+Kd 0.008000004 0 0.172
+map_Kd Textures/metalDark(Clone).png
+

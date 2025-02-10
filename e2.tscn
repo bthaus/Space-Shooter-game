@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://7ds6ylww2hrw"]
+
+[ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_apsdx"]
+[ext_resource type="ArrayMesh" uid="uid://dfe24cojtvwri" path="res://Assets/e2.obj" id="2_pdalp"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_t4x4t"]
+viewport_path = NodePath("SpaceShip")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4asqu"]
+viewport_path = NodePath("SpaceShip")
+
+[node name="Node2D" instance=ExtResource("1_apsdx")]
+
+[node name="origin" parent="SpaceShip" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Spaceship" parent="SpaceShip/origin" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0939965, -0.190923, -0.14111)
+mesh = ExtResource("2_pdalp")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("ViewportTexture_t4x4t")
+
+[node name="MultiViewPort" parent="." index="2"]
+position = Vector2(-18, 10)
+texture = SubResource("ViewportTexture_4asqu")

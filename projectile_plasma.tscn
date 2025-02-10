@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyyp4tp4ok25u"]
+
+[ext_resource type="Texture2D" uid="uid://b8hwqggah6lmc" path="res://Assets/Effects/Cryo_Explosion/c1.png" id="1_eehcq"]
+[ext_resource type="Texture2D" uid="uid://dq8lpcsu0q0r0" path="res://Assets/Effects/Cryo_Explosion/c2.png" id="2_qyktf"]
+[ext_resource type="Texture2D" uid="uid://c7ur0yncc3slb" path="res://Assets/Effects/Cryo_Explosion/c3.png" id="3_eq7di"]
+[ext_resource type="Script" path="res://projectile_plasma.gd" id="4_g2i8v"]
+[ext_resource type="Texture2D" uid="uid://b1elovjp85683" path="res://Assets/Effects/Cryo_Explosion/c4.png" id="4_vpfar"]
+[ext_resource type="Texture2D" uid="uid://dqeykvvshqgr6" path="res://Assets/Effects/Cryo_Explosion/c5.png" id="5_y81ty"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rtm66"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_eehcq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qyktf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eq7di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qyktf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_eehcq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qyktf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eq7di")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vpfar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y81ty")
+}],
+"loop": false,
+"name": &"splash",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
+radius = 81.0987
+
+[node name="projectile_plasma" type="AnimatedSprite2D"]
+position = Vector2(11, -237)
+sprite_frames = SubResource("SpriteFrames_rtm66")
+autoplay = "default"
+frame_progress = 0.200184
+script = ExtResource("4_g2i8v")
+
+[node name="projectile_hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile_hitbox"]
+position = Vector2(-17, 7)
+shape = SubResource("CircleShape2D_mphox")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="area_entered" from="projectile_hitbox" to="." method="_on_projectile_hitbox_area_entered"]
