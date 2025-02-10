@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct4tslr0vj22"]
+
+[ext_resource type="Script" path="res://text_output.gd" id="1_aa20o"]
+[ext_resource type="PackedScene" uid="uid://vgk51tk3uutm" path="res://texter.tscn" id="2_cecwr"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_aa20o")
+
+[node name="Node" parent="." instance=ExtResource("2_cecwr")]
+
+[connection signal="on_letter_press" from="Node" to="." method="_on_node_on_letter_press"]

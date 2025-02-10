@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc0kl70droeuu"]
+
+[ext_resource type="Script" path="res://texturiser.gd" id="1_5qpl6"]
+[ext_resource type="ArrayMesh" uid="uid://cunhb7mxvw27o" path="res://Assets/spaceship.obj" id="1_ctwti"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_5qpl6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.833201, 0.318016, -0.452373, 0.222928, 0.941833, 0.251505, 0.506042, 0.108708, -0.855631, -1.66485, 1.77963, -1.28616)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Spaceship" type="MeshInstance3D" parent="SubViewport"]
+mesh = ExtResource("1_ctwti")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.155, 1.885, 0)
+projection = 1
+size = 2.905
