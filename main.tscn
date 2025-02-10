@@ -19,8 +19,8 @@ shader_parameter/bigStarAmount = 0.02
 
 [sub_resource type="Environment" id="Environment_5613x"]
 glow_enabled = true
-glow_intensity = 1.0
-glow_bloom = 0.21
+glow_intensity = 1.87
+glow_bloom = 0.48
 glow_hdr_threshold = 3.53
 
 [node name="Node2D" type="Node2D"]

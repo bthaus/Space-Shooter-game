@@ -21,8 +21,8 @@ func _process(delta: float) -> void:
 	var direction=Vector2.ZERO
 	direction.x=Input.get_axis(&"ui_left",&"ui_right")
 	direction.y=Input.get_axis(&"ui_up",&"ui_down")
-	
-	if Input.is_action_just_pressed(&"shoot"):
+		
+	if Input.is_action_just_pressed(&"shoot") and not Input.is_action_pressed(&'laser'):
 		var p=$projectile_plasma.duplicate()
 		p.visible=true
 		get_parent().add_child(p)
@@ -43,10 +43,24 @@ func _process(delta: float) -> void:
 		get_tree().create_timer(0.2).timeout.connect(end_twirl)
 		twirling+=Vector2(d*4,0)
 		$MultiViewPort/particles_boost.toggle(true)
+	if Input.is_action_pressed(&'laser'):
+		direction=Vector2.ZERO
+		twirling=direction
+		laser_power+=delta
+		laser_power=clamp(laser_power,0,1)
+		$laser.show()
+		$laser.material.set_shader_parameter("progress",laser_power)
+	else:
+		laser_power-=delta
+		var cp=$laser.material.get_shader_parameter("progress")
+		if cp<0.1:
+			$laser.hide()
+		$laser.material.set_shader_parameter("progress",laser_power)	
 	move(twirling,delta)
 	move(direction,delta)	
 	
 	pass
+var laser_power=0.0	
 func end_twirl():
 	twirling=Vector2.ZERO
 	pass;	

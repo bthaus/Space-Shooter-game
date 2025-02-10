@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cl0e0qexuj16p"]
+[gd_scene load_steps=37 format=3 uid="uid://cl0e0qexuj16p"]
 
 [ext_resource type="Script" path="res://spaceship.gd" id="1_5mnrl"]
 [ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://propagation.gd" id="8_kxeok"]
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="9_mw1gw"]
 [ext_resource type="PackedScene" uid="uid://dyyp4tp4ok25u" path="res://projectile_plasma.tscn" id="11_62g3x"]
+[ext_resource type="Shader" path="res://laser.gdshader" id="12_s3ktn"]
+[ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="13_umu2r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ggdry"]
 render_priority = 0
@@ -165,6 +167,25 @@ color_ramp = SubResource("GradientTexture1D_7k1ri")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
 radius = 81.0987
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37msr"]
+shader = ExtResource("12_s3ktn")
+shader_parameter/beams = 1
+shader_parameter/energy = 10.59
+shader_parameter/roughness = 3
+shader_parameter/frequency = 10
+shader_parameter/speed = -1.125
+shader_parameter/thickness = 0.064
+shader_parameter/outline_thickness = 0.038
+shader_parameter/beam_difference = 1.0
+shader_parameter/glow = 3.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Vector4(0.91, 1, 1, 1)
+shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
+shader_parameter/progress = 0.0
+shader_parameter/y_offset = -0.012
+shader_parameter/fixed_edge_size = 0.268
+shader_parameter/noise_scale = Vector2(1, 1)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_5mnrl")
@@ -337,3 +358,18 @@ visible = false
 modulate = Color(2, 2, 2, 1)
 position = Vector2(1, -237)
 scale = Vector2(0.51, 0.51)
+
+[node name="laser" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_37msr")
+position = Vector2(9, -1347)
+rotation = 1.57079
+scale = Vector2(16.7452, 6.80244)
+texture = ExtResource("13_umu2r")
+
+[node name="RayCast2D" type="RayCast2D" parent="laser"]
+position = Vector2(70.4679, -0.734646)
+rotation = -0.785397
+target_position = Vector2(-76.964, -74.8857)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
