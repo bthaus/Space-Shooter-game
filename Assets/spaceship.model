@@ -2,21 +2,21 @@
 
 :materials
 
-[name:dark;color:RGBA(0.224, 0.235, 0.275, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.35;valueB:0;]
-[name:_defaultMat;color:RGBA(0.939, 0.953, 1.000, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
-[name:metalOrange;color:RGBA(1.000, 0.702, 0.000, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.5;valueB:0.2;]
+[name:dark;color:RGBA(0.120, 0.129, 0.159, 1.000);scale:(1.0, 1.0);texture:Metal/shack.png;shader:Default;mapping:0;valueA:0.2;valueB:0.6;]
+[name:_defaultMat;color:RGBA(1.000, 0.993, 0.000, 1.000);scale:(1.0, 1.0);texture:Brick/greybricks.png;shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
+[name:metalOrange;color:RGBA(0.876, 0.876, 0.876, 1.000);scale:(1.0, 1.0);texture:Metal/circuit.png;shader:Default;mapping:1;valueA:0.25;valueB:0.25;]
 [name:custom3;color:RGBA(0.000, 0.000, 0.000, 0.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.5;valueB:0.15;]
 [name:metalLight;color:RGBA(0.698, 0.686, 0.867, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
 [name:metalGreen;color:RGBA(0.047, 0.847, 0.624, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.35;valueB:0.75;]
 
 :models
 
-[name:;collection:Mech;type:weapon_turretLarge;position:(7.0000, 0.0000, -2.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]
-[name:;collection:Mech;type:tank_doubleDetailed;position:(8.3000, 0.4000, -2.3000);rotation:(0.0000, 270.0000, 270.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalOrange+_defaultMat;]
-[name:;collection:Mech;type:tank_doubleDetailed;position:(6.7000, 0.4000, -2.3000);rotation:(0.0000, 270.0000, 270.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalOrange+_defaultMat;]
-[name:;collection:Mech;type:weapon_turretLarge;position:(8.0000, 0.0000, -2.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]
-[name:;collection:Mech;type:head_marine;position:(7.4954, 0.0000, -2.9553);rotation:(0.0000, 180.0000, 0.0000);scale:(3.3000, 2.0000, 3.0000);group:;locked:False;hidden:False;materials:metalOrange+_defaultMat+dark;]
-[name:;collection:Mech;type:socket_small;position:(7.0000, 0.0000, -2.6900);rotation:(0.0000, 270.0000, 0.0000);scale:(2.5600, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat;]
-[name:;collection:Mech;type:socket_small;position:(8.0000, 0.0000, -2.6900);rotation:(0.0000, 270.0000, 0.0000);scale:(2.5600, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat;]
-[name:;collection:Blasters;type:attachment_barrelEnd;position:(7.0000, 0.0000, -2.7910);rotation:(0.0000, 0.0000, 0.0000);scale:(0.7000, 0.7000, 1.0780);group:;locked:False;hidden:False;materials:dark;]
-[name:;collection:Blasters;type:attachment_barrelEnd;position:(8.0000, 0.0000, -2.7910);rotation:(0.0000, 0.0000, 0.0000);scale:(0.7000, 0.7000, 1.0780);group:;locked:False;hidden:False;materials:dark;]
+[name:;collection:Mech;type:tank_doubleDetailed;position:(-0.7000, 0.4000, 0.4000);rotation:(0.0000, 270.0000, 270.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalOrange+_defaultMat;]
+[name:;collection:Mech;type:socket_small;position:(0.6000, 0.0000, 0.0100);rotation:(0.0000, 270.0000, 0.0000);scale:(2.5600, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat;]
+[name:;collection:Blasters;type:attachment_barrelEnd;position:(0.6000, 0.0000, -0.0910);rotation:(0.0000, 0.0000, 0.0000);scale:(0.7000, 0.7000, 1.0780);group:;locked:False;hidden:False;materials:dark;]
+[name:;collection:Mech;type:tank_doubleDetailed;position:(0.9000, 0.4000, 0.4000);rotation:(0.0000, 270.0000, 270.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+metalOrange+_defaultMat;]
+[name:;collection:Blasters;type:attachment_barrelEnd;position:(-0.4000, 0.0000, -0.0910);rotation:(0.0000, 0.0000, 0.0000);scale:(0.7000, 0.7000, 1.0780);group:;locked:False;hidden:False;materials:dark;]
+[name:;collection:Mech;type:head_marine;position:(0.0954, 0.0000, -0.2553);rotation:(0.0000, 180.0000, 0.0000);scale:(3.3000, 2.0000, 3.0000);group:;locked:False;hidden:False;materials:metalOrange+_defaultMat+dark;]
+[name:;collection:Mech;type:socket_small;position:(-0.4000, 0.0000, 0.0100);rotation:(0.0000, 270.0000, 0.0000);scale:(2.5600, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat;]
+[name:;collection:Mech;type:weapon_turretLarge;position:(-0.4000, -0.0500, 0.7000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]
+[name:;collection:Mech;type:weapon_turretLarge;position:(0.6000, -0.0500, 0.7000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]

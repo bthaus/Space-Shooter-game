@@ -1,0 +1,90 @@
+[gd_scene load_steps=15 format=3 uid="uid://cl0e0qexuj16p"]
+
+[ext_resource type="Script" path="res://spaceship.gd" id="1_5mnrl"]
+[ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
+[ext_resource type="ArrayMesh" uid="uid://cunhb7mxvw27o" path="res://Assets/spaceship.obj" id="1_vyo23"]
+[ext_resource type="Shader" path="res://pixel.gdshader" id="2_dqqr8"]
+[ext_resource type="PackedScene" uid="uid://cnioxoyww8nj4" path="res://Assets/p_articles.tscn" id="2_g6rih"]
+[ext_resource type="Shader" path="res://all_in_one.gdshader" id="2_rvrdr"]
+[ext_resource type="Script" path="res://multiviewport.gd" id="3_65key"]
+[ext_resource type="Shader" path="res://highlight.gdshader" id="5_ld6qh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0nh8f"]
+shader = ExtResource("2_rvrdr")
+shader_parameter/color = Color(1, 1, 0, 0.6)
+shader_parameter/thickness = 6.618
+shader_parameter/tolerance = 0.382
+shader_parameter/diagonals = true
+shader_parameter/rounded = true
+shader_parameter/amount = 69.875
+shader_parameter/size_effect = 1.0
+shader_parameter/speed = 3.0
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = false
+shader_parameter/pause_duration = 0.5
+shader_parameter/texture_size = Vector2(16, 16)
+shader_parameter/highlight = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wk2jn"]
+viewport_path = NodePath("SpaceShip")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_whww0"]
+viewport_path = NodePath("SpaceShip")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vbj5"]
+shader = ExtResource("2_dqqr8")
+shader_parameter/amount = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnaxf"]
+shader = ExtResource("1_n4ook")
+shader_parameter/color = Color(1, 1, 0, 1)
+shader_parameter/thickness = 6.085
+shader_parameter/tolerance = 0.0
+shader_parameter/diagonals = true
+shader_parameter/rounded = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdtuo"]
+shader = ExtResource("5_ld6qh")
+shader_parameter/enabled = false
+shader_parameter/size_effect = 3.0
+shader_parameter/speed = 0.53
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = true
+shader_parameter/is_horizontal = false
+shader_parameter/pause_duration = 0.5
+shader_parameter/texture_size = Vector2(16, 16)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_5mnrl")
+
+[node name="SpaceShip" type="SubViewport" parent="."]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SpaceShip"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.155, 1.885, 0)
+projection = 1
+size = 2.905
+
+[node name="Spaceship" type="MeshInstance3D" parent="SpaceShip"]
+mesh = ExtResource("1_vyo23")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SpaceShip"]
+transform = Transform3D(-0.833201, 0.318016, -0.452373, 0.222928, 0.941833, 0.251505, 0.506042, 0.108708, -0.855631, -1.66485, 1.77963, -1.28616)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_0nh8f")
+texture = SubResource("ViewportTexture_wk2jn")
+
+[node name="MultiViewPort" type="Sprite2D" parent="."]
+position = Vector2(102, 16)
+texture = SubResource("ViewportTexture_whww0")
+script = ExtResource("3_65key")
+shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_8vbj5"), SubResource("ShaderMaterial_qnaxf"), SubResource("ShaderMaterial_vdtuo")])
+
+[node name="PArticles" parent="." instance=ExtResource("2_g6rih")]
+visible = false
+position = Vector2(-78, 195)
