@@ -1,11 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=5 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_wtn6w"]
+[ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="1_xru2y"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="3_bkqmu"]
+
+[sub_resource type="Environment" id="Environment_5613x"]
+glow_enabled = true
+glow_intensity = 1.14
+glow_bloom = 0.17
+glow_hdr_threshold = 3.53
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-37741, -3704)
+scale = Vector2(2000, 2000)
+texture = ExtResource("1_xru2y")
 
 [node name="Node2D" parent="." instance=ExtResource("1_wtn6w")]
 speed = 30.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.425, 0.425)
+position = Vector2(230, -1216)
+zoom = Vector2(0.19, 0.19)
+script = ExtResource("3_bkqmu")
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5613x")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]

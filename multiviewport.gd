@@ -25,7 +25,10 @@ func _ready() -> void:
 		node.sprite.texture=leaf.viewport.get_texture()
 		leaf=node
 	texture=leaf.viewport.get_texture()	
-
+	
+	#for node in nodes:
+		#node.sprite.visible=false
+	#leaf.sprite.visible=true
 	
 	
 		

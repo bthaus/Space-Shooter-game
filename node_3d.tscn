@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://87iotlcqbpoq"]
+
+[ext_resource type="ArrayMesh" uid="uid://cunhb7mxvw27o" path="res://Assets/spaceship.obj" id="1_a0u1f"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.833201, 0.318016, -0.452373, 0.222928, 0.941833, 0.251505, 0.506042, 0.108708, -0.855631, -1.60657, 1.77963, -1.32495)
+
+[node name="Spaceship" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0582726, 0, -0.0387893)
+mesh = ExtResource("1_a0u1f")

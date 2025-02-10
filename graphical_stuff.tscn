@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlp7ktdmpqn0o"]
+
+[ext_resource type="PackedScene" uid="uid://7tp73lmuclet" path="res://main.tscn" id="1_3gku7"]
+[ext_resource type="Script" path="res://multiviewport.gd" id="2_op4c0"]
+[ext_resource type="Shader" path="res://pixel.gdshader" id="3_l45c7"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xleem"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x03dr"]
+shader = ExtResource("3_l45c7")
+shader_parameter/amount = 10.0
+
+[node name="Graphical stuff" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Node2D" parent="SubViewport" instance=ExtResource("1_3gku7")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(652, -14)
+scale = Vector2(2.465, 2.465)
+texture = SubResource("ViewportTexture_xleem")
+script = ExtResource("2_op4c0")
+shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_x03dr")])
