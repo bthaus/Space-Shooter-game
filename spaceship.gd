@@ -14,6 +14,7 @@ static var offset=0
 func hit():
 	hp-=1
 	hp_bar.value=hp
+	$Shield.material.set_shader_parameter("dissolve_value", hp/hp_bar.max_value)
 	if hp==0:
 		queue_free()
 	

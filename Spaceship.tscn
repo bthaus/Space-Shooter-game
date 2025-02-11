@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cl0e0qexuj16p"]
+[gd_scene load_steps=48 format=3 uid="uid://cl0e0qexuj16p"]
 
 [ext_resource type="Script" path="res://spaceship.gd" id="1_5mnrl"]
 [ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
@@ -24,14 +24,29 @@ shader_parameter/base_color = Color(0, 0.501961, 1, 0.368627)
 shader_parameter/pulse_color = Color(0.501961, 0.701961, 1, 0.4)
 shader_parameter/speed = 0.1
 shader_parameter/scale = 0.103
-shader_parameter/distortion = 0.1
-shader_parameter/shield_power = 0.276
-shader_parameter/rim_power = 2.0
+shader_parameter/distortion = 0.503
+shader_parameter/shield_power = 0.046
+shader_parameter/rim_power = 1.095
 shader_parameter/pulse_frequency = 5.015
 
 [sub_resource type="SphereMesh" id="SphereMesh_dg0q8"]
 material = SubResource("ShaderMaterial_ggdry")
 radius = 0.56
+
+[sub_resource type="TorusMesh" id="TorusMesh_dfnow"]
+material = SubResource("ShaderMaterial_ggdry")
+inner_radius = 0.694
+outer_radius = 0.804
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7h3np"]
+emission_enabled = true
+emission = Color(0.327, 0.517, 14.054, 1)
+emission_energy_multiplier = 2.51
+
+[sub_resource type="SphereMesh" id="SphereMesh_cnml2"]
+material = SubResource("StandardMaterial3D_7h3np")
+radius = 0.7
+height = 0.209
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0nh8f"]
 shader = ExtResource("2_rvrdr")
@@ -168,6 +183,75 @@ scale_max = 0.5
 color = Color(26.627, 1, 1, 1)
 color_ramp = SubResource("GradientTexture1D_7k1ri")
 
+[sub_resource type="Shader" id="Shader_ieoni"]
+code = "shader_type canvas_item;
+uniform sampler2D text_map;
+
+uniform float scale_factor = 0.5; // Adjust how much smaller the edges should be
+
+
+
+uniform sampler2D dissolve_texture : source_color,repeat_enable;
+uniform sampler2D texture2:repeat_enable;
+uniform float dissolve_value : hint_range(0,1);
+uniform float burn_size: hint_range(0.0, 1.0, 0.01);
+uniform vec4 burn_color: source_color;
+uniform float speed = 1.0;
+uniform vec2 dissolve_movement_direction = vec2(1.0, 1.0); // Direction to move the dissolve texture
+
+uniform vec2 second_dissolve_directoin=vec2(-1.2,-1.4);
+void fragment(){
+	float t1=texture(dissolve_texture,UV+dissolve_movement_direction*TIME*speed).r;
+	float t2=texture(texture2,UV+second_dissolve_directoin*TIME*speed).r;
+	float energy=t1*t2;
+	vec4 energy_texture=vec4(energy,energy,energy,1);
+    // Create animated UVs and ensure they wrap properly
+    vec2 animated_uv = fract(UV + TIME * speed * dissolve_movement_direction);
+
+    vec4 main_texture = texture(TEXTURE, UV);
+
+    vec4 noise_texture = energy_texture;
+
+
+	// This is needed to avoid keeping a small burn_color dot with dissolve being 0 or 1
+	float burn_size_step = burn_size * step(0.001, dissolve_value) * step(dissolve_value, 0.999);
+	float threshold = smoothstep(noise_texture.x - burn_size_step, noise_texture.x, dissolve_value);
+	float border = smoothstep(noise_texture.x, noise_texture.x + burn_size_step, dissolve_value);
+
+	COLOR.a *= threshold;
+	COLOR.rgb = mix(burn_color.rgb, main_texture.rgb, border);
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_75pbw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oi2iq"]
+seamless = true
+noise = SubResource("FastNoiseLite_75pbw")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rm477"]
+frequency = 0.0044
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vyufx"]
+seamless = true
+noise = SubResource("FastNoiseLite_rm477")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_upbt5"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ieoni")
+shader_parameter/scale_factor = 0.5
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.06
+shader_parameter/burn_color = Color(0.258824, 0.564706, 0.772549, 0.52549)
+shader_parameter/speed = 0.3
+shader_parameter/dissolve_movement_direction = Vector2(-5, 8)
+shader_parameter/second_dissolve_directoin = Vector2(-1, 0.3)
+shader_parameter/text_map = SubResource("NoiseTexture2D_oi2iq")
+shader_parameter/texture2 = SubResource("NoiseTexture2D_vyufx")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7moqm"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_37msr"]
 shader = ExtResource("12_s3ktn")
 shader_parameter/beams = 1
@@ -182,7 +266,7 @@ shader_parameter/glow = 3.0
 shader_parameter/outline_glow = 0.0
 shader_parameter/color = Vector4(0.91, 1, 1, 1)
 shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
-shader_parameter/progress = 1.0
+shader_parameter/progress = 0.0
 shader_parameter/y_offset = -0.00399998
 shader_parameter/fixed_edge_size = 0.228
 shader_parameter/noise_scale = Vector2(1, 1)
@@ -200,6 +284,19 @@ projectile = ExtResource("13_mgxrc")
 position = Vector2(-9, -46)
 shape = SubResource("CircleShape2D_mphox")
 
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D2" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.155, 4.07053, -7.27446)
+projection = 1
+size = 4.426
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(3.485, 0, 0, 0, 3.485, 0, 0, 0, 3.485, -0.115655, 4.86374e-05, -7.23001)
+mesh = SubResource("SphereMesh_dg0q8")
+skeleton = NodePath("../../SpaceShip/origin")
+
 [node name="SpaceShip" type="SubViewport" parent="."]
 transparent_bg = true
 use_hdr_2d = true
@@ -212,18 +309,24 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.155
 projection = 1
 size = 4.426
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SpaceShip/origin"]
+transform = Transform3D(3.485, 0, 0, 0, 3.485, 0, 0, 0, 3.485, -0.115655, 4.86374e-05, 0.0866909)
+visible = false
+mesh = SubResource("TorusMesh_dfnow")
+
 [node name="Spaceship" type="MeshInstance3D" parent="SpaceShip/origin"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0436423, -0.190875, 0.00923586)
 mesh = ExtResource("1_vyo23")
 skeleton = NodePath("../../..")
 
+[node name="CSGMesh3D" type="CSGMesh3D" parent="SpaceShip/origin/Spaceship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.118342, 0, -0.0854227)
+visible = false
+mesh = SubResource("SphereMesh_cnml2")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SpaceShip/origin"]
 transform = Transform3D(-0.833201, 0.318016, -0.452373, 0.222928, 0.941832, 0.251505, 0.506042, 0.108708, -0.855631, -1.95037, 2.34675, -2.36527)
 light_energy = 3.614
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SpaceShip/origin"]
-transform = Transform3D(3.485, 0, 0, 0, 3.485, 0, 0, 0, 3.485, -0.115655, 4.86374e-05, 0.044449)
-mesh = SubResource("SphereMesh_dg0q8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -354,6 +457,13 @@ explosiveness = 1.0
 randomness = 1.0
 fixed_fps = 0
 draw_order = 0
+
+[node name="Shield" type="Sprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_upbt5")
+position = Vector2(-13, -46)
+scale = Vector2(1.225, 1.225)
+texture = SubResource("ViewportTexture_7moqm")
 
 [node name="laser" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_37msr")
