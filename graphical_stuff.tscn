@@ -9,7 +9,7 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x03dr"]
 shader = ExtResource("3_l45c7")
-shader_parameter/amount = 8.675
+shader_parameter/amount = 5.42
 
 [node name="Graphical stuff" type="Node2D"]
 

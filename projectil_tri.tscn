@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhlqvjyktb5nj"]
+
+[ext_resource type="Script" path="res://projectile.gd" id="1_3dw0m"]
+[ext_resource type="Texture2D" uid="uid://33hu2grxmfb3" path="res://Assets/Effects/particles/window_04.png" id="1_4033u"]
+[ext_resource type="Texture2D" uid="uid://djeta0lv43o75" path="res://Assets/Effects/particles/symbol_02.png" id="2_lny8n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfb1a"]
+radius = 97.4911
+
+[node name="Area2D" type="Area2D"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4.56989, 180.435)
+shape = SubResource("CircleShape2D_lfb1a")
+
+[node name="Polygon2D" type="Polygon2D" parent="." node_paths=PackedStringArray("hitbox")]
+modulate = Color(99.4588, 0.458824, 0, 1)
+clip_children = 1
+position = Vector2(-4, -97)
+scale = Vector2(0.65647, 0.581926)
+polygon = PackedVector2Array(-93.4016, 172.184, -43.2837, 118.216, 1.13903, 163.189, 47.8398, 119.501, 99.0968, 172.184, 2.27809, 260.846)
+script = ExtResource("1_3dw0m")
+hitbox = NodePath("..")
+
+[node name="Window05" type="Sprite2D" parent="Polygon2D"]
+self_modulate = Color(2, 1.622, 1, 1)
+clip_children = 1
+texture = ExtResource("1_4033u")
+
+[node name="Window04" type="Sprite2D" parent="Polygon2D/Window05"]
+self_modulate = Color(100, 0.54902, 0.4, 0.270588)
+clip_children = 2
+position = Vector2(3.41713, 210.732)
+scale = Vector2(0.607341, 0.607341)
+texture = ExtResource("1_4033u")
+
+[node name="Symbol02" type="Sprite2D" parent="Polygon2D/Window05/Window04"]
+modulate = Color(1, 0, 0, 0.67451)
+position = Vector2(-9.05991e-06, 150.215)
+scale = Vector2(1.87546, 2.1157)
+texture = ExtResource("2_lny8n")

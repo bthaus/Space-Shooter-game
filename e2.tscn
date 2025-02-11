@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://7ds6ylww2hrw"]
+[gd_scene load_steps=7 format=3 uid="uid://7ds6ylww2hrw"]
 
 [ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_apsdx"]
+[ext_resource type="Script" path="res://e_2.gd" id="2_6eidn"]
 [ext_resource type="ArrayMesh" uid="uid://dfe24cojtvwri" path="res://Assets/e2.obj" id="2_pdalp"]
+[ext_resource type="PackedScene" uid="uid://tlk6wln8t41o" path="res://e1p.tscn" id="3_fdkd1"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_t4x4t"]
 viewport_path = NodePath("SpaceShip")
@@ -10,6 +12,12 @@ viewport_path = NodePath("SpaceShip")
 viewport_path = NodePath("SpaceShip")
 
 [node name="Node2D" instance=ExtResource("1_apsdx")]
+script = ExtResource("2_6eidn")
+projectile = ExtResource("3_fdkd1")
+hp = 2
+
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+position = Vector2(-8, -40)
 
 [node name="origin" parent="SpaceShip" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
@@ -18,9 +26,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0939965, -0.190923, -0.14111)
 mesh = ExtResource("2_pdalp")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="MeshInstance3D" parent="SpaceShip/origin" index="3"]
+visible = false
+
+[node name="Sprite2D" parent="." index="2"]
 texture = SubResource("ViewportTexture_t4x4t")
 
-[node name="MultiViewPort" parent="." index="2"]
-position = Vector2(-18, 10)
+[node name="MultiViewPort" parent="." index="3"]
+position = Vector2(-19, 6)
 texture = SubResource("ViewportTexture_4asqu")
+
+[node name="PArticles" parent="MultiViewPort" index="0"]
+visible = false
+
+[node name="laser" parent="." index="4"]
+visible = false
+
+[node name="Shoot_timer" type="Timer" parent="." index="5"]
+autostart = true
+
+[node name="Shootpoint" parent="." index="6"]
+position = Vector2(-12, 159)
+
+[connection signal="timeout" from="Shoot_timer" to="." method="_on_shoot_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cl0e0qexuj16p"]
+[gd_scene load_steps=38 format=3 uid="uid://cl0e0qexuj16p"]
 
 [ext_resource type="Script" path="res://spaceship.gd" id="1_5mnrl"]
 [ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
@@ -10,9 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://jobgij4i5sxe" path="res://Assets/Effects/Explosion_1/e1.png" id="8_cf1mf"]
 [ext_resource type="Script" path="res://propagation.gd" id="8_kxeok"]
 [ext_resource type="Texture2D" uid="uid://cxkgl0lpk4xdv" path="res://Assets/Effects/Explosion_1/e7.png" id="9_mw1gw"]
-[ext_resource type="PackedScene" uid="uid://dyyp4tp4ok25u" path="res://projectile_plasma.tscn" id="11_62g3x"]
 [ext_resource type="Shader" path="res://laser.gdshader" id="12_s3ktn"]
+[ext_resource type="PackedScene" uid="uid://mh4wi1705ybw" path="res://player_projectile.tscn" id="13_mgxrc"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="13_umu2r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
+radius = 120.037
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ggdry"]
 render_priority = 0
@@ -81,7 +84,7 @@ initial_velocity_min = 121.21
 initial_velocity_max = 313.13
 gravity = Vector3(0, 0, 0)
 scale_min = 0.2
-scale_max = 0.5
+scale_max = 0.4
 color = Color(26.627, 1, 1, 1)
 color_ramp = SubResource("GradientTexture1D_7k1ri")
 
@@ -98,7 +101,7 @@ initial_velocity_min = 121.21
 initial_velocity_max = 313.13
 gravity = Vector3(0, 0, 0)
 scale_min = 0.2
-scale_max = 0.5
+scale_max = 0.4
 color = Color(26.627, 1, 1, 1)
 color_ramp = SubResource("GradientTexture1D_kin72")
 
@@ -165,30 +168,37 @@ scale_max = 0.5
 color = Color(26.627, 1, 1, 1)
 color_ramp = SubResource("GradientTexture1D_7k1ri")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
-radius = 81.0987
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_37msr"]
 shader = ExtResource("12_s3ktn")
 shader_parameter/beams = 1
 shader_parameter/energy = 10.59
-shader_parameter/roughness = 3
+shader_parameter/roughness = 10
 shader_parameter/frequency = 10
-shader_parameter/speed = -1.125
-shader_parameter/thickness = 0.064
+shader_parameter/speed = -0.895
+shader_parameter/thickness = 0.032
 shader_parameter/outline_thickness = 0.038
 shader_parameter/beam_difference = 1.0
 shader_parameter/glow = 3.0
 shader_parameter/outline_glow = 0.0
 shader_parameter/color = Vector4(0.91, 1, 1, 1)
 shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
-shader_parameter/progress = 0.0
-shader_parameter/y_offset = -0.012
-shader_parameter/fixed_edge_size = 0.268
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = -0.00399998
+shader_parameter/fixed_edge_size = 0.228
 shader_parameter/noise_scale = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
+size = Vector2(136, 2655.09)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_5mnrl")
+projectile = ExtResource("13_mgxrc")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(-9, -46)
+shape = SubResource("CircleShape2D_mphox")
 
 [node name="SpaceShip" type="SubViewport" parent="."]
 transparent_bg = true
@@ -258,7 +268,7 @@ draw_order = 0
 [node name="smoke2" type="GPUParticles2D" parent="MultiViewPort/PArticles"]
 process_mode = 3
 z_index = 2
-position = Vector2(205, 9)
+position = Vector2(135, 7)
 amount = 22
 process_material = SubResource("ParticleProcessMaterial_118f6")
 texture = ExtResource("9_mw1gw")
@@ -345,31 +355,31 @@ randomness = 1.0
 fixed_fps = 0
 draw_order = 0
 
-[node name="hitbox" type="Area2D" parent="."]
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(-9, -46)
-shape = SubResource("CircleShape2D_mphox")
-
-[node name="projectile_plasma" parent="." instance=ExtResource("11_62g3x")]
-visible = false
-modulate = Color(2, 2, 2, 1)
-position = Vector2(1, -237)
-scale = Vector2(0.51, 0.51)
-
 [node name="laser" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_37msr")
-position = Vector2(9, -1347)
+position = Vector2(2.63403, -274.61)
 rotation = 1.57079
-scale = Vector2(16.7452, 6.80244)
+scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("13_umu2r")
+offset = Vector2(-64.0416, 1.94536)
 
-[node name="RayCast2D" type="RayCast2D" parent="laser"]
-position = Vector2(70.4679, -0.734646)
-rotation = -0.785397
-target_position = Vector2(-76.964, -74.8857)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
+[node name="Shootpoint" type="Node2D" parent="."]
+position = Vector2(4, -271)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -136.0
+offset_top = -313.0
+offset_right = 115.0
+offset_bottom = -286.0
+max_value = 3.0
+step = 1.0
+value = 2.0
+show_percentage = false
+
+[node name="Raycast" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Raycast"]
+position = Vector2(3, -1579)
+shape = SubResource("RectangleShape2D_qlbdp")

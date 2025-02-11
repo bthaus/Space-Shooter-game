@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi5jdf35usuia"]
+
+[ext_resource type="Script" path="res://projectile_plasma.gd" id="1_ee4gh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfadb"]
+radius = 75.0067
+
+[node name="Projectile" type="Node2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_ee4gh")
+hitbox = NodePath("hitbox")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_sfadb")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

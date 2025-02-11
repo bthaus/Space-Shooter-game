@@ -1,23 +1,29 @@
-extends AnimatedSprite2D
+extends GameObject
 class_name Projectile
-
+@export var hitbox:Area2D
 var direction
 @export var speed=1000
+var active=true
 func shoot(direction):
-	$projectile_hitbox.monitorable=true
-	$projectile_hitbox.monitoring=true
+	hitbox.monitorable=true
+	hitbox.monitoring=true
 	self.direction=direction
+	
 func _process(delta: float) -> void:
+	if not active: return
 	if direction:
 		translate(direction*speed*delta)	
+func hit():
+	remove_on_hit()
 
-
-func _on_projectile_hitbox_area_entered(area: Area2D) -> void:
-	play(&'splash')
-	$projectile_hitbox.queue_free()
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	var parent=area.get_parent()
+	
+	if parent is GameObject:
+		active=false
+		parent.hit()
+		hitbox.queue_free()
+		remove_on_hit()
 	pass # Replace with function body.
-
-
-func _on_animation_finished() -> void:
+func remove_on_hit():
 	queue_free()
-	pass # Replace with function body.
