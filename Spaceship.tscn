@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cl0e0qexuj16p"]
+[gd_scene load_steps=55 format=3 uid="uid://cl0e0qexuj16p"]
 
 [ext_resource type="Script" path="res://spaceship.gd" id="1_5mnrl"]
 [ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
@@ -13,6 +13,7 @@
 [ext_resource type="Shader" path="res://laser.gdshader" id="12_s3ktn"]
 [ext_resource type="PackedScene" uid="uid://mh4wi1705ybw" path="res://player_projectile.tscn" id="13_mgxrc"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="13_umu2r"]
+[ext_resource type="PackedScene" uid="uid://mxjp7vl1d0t5" path="res://progress.tscn" id="14_uu2fx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
 radius = 120.037
@@ -74,14 +75,14 @@ viewport_path = NodePath("SpaceShip")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qnaxf"]
 shader = ExtResource("1_n4ook")
 shader_parameter/color = Color(3, 3, 3, 1)
-shader_parameter/thickness = 10.0
+shader_parameter/thickness = 15.0
 shader_parameter/tolerance = 0.0
 shader_parameter/diagonals = true
 shader_parameter/rounded = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vbj5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bchws"]
 shader = ExtResource("2_dqqr8")
-shader_parameter/amount = 30.0
+shader_parameter/amount = 0.0
 
 [sub_resource type="Gradient" id="Gradient_ppx3s"]
 colors = PackedColorArray(6, 1, 1, 1, 1, 1, 1, 0)
@@ -274,6 +275,154 @@ shader_parameter/noise_scale = Vector2(1, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
 size = Vector2(136, 2655.09)
 
+[sub_resource type="Shader" id="Shader_dlfin"]
+code = "shader_type canvas_item;
+
+
+uniform bool stepify = true;
+uniform float value : hint_range(0.0, 1.0) = 1.0;
+uniform int count = 1;
+uniform vec2 margin;
+uniform float shear_angle : hint_range(-1.0, 1.0) = 0.0; // -90 to 90 degrees
+uniform sampler2D gradient_x : source_color;
+uniform sampler2D gradient_y : source_color;
+uniform bool use_value_gradient = false;
+uniform bool invert = false;
+
+
+vec4 get_gradient_color(sampler2D src, float position) {
+	position = clamp(position, 0.01, 0.99); // Color at 0.0 and 1.0 get interpolated by both end
+    return texture(src, vec2(position, 0.5));
+}
+
+float square_shape(vec2 uv, vec2 size) {
+	vec2 bl = step((1.0-size)/2.0, uv); // bottom-left
+	vec2 tr = step((1.0-size)/2.0, 1.0-uv); // top-right
+	return bl.x * bl.y * tr.x * tr.y;
+}
+
+vec2 segmented_bar(vec2 uv) {
+	float shape = 0.0;
+	float bar_count = float(count);
+	float bar_size = 1.0/bar_count;
+	float separation = margin.x;
+	float separation_width = separation * bar_size;
+	float bar_value = 0.0;
+	for (int i=0;i<count;i++) {
+		float index_value = float(i+1) / float(count);
+		
+		if (index_value > value) {
+			// Ceil
+			if (value < float(i) * bar_size || value <= 0.0) {
+				continue;
+			}
+		}
+		
+		vec2 uv4 = uv;
+		vec2 size4 = vec2(bar_size, 1.0-margin.y);
+		//size4.x = bar_size;
+		uv4.x = uv4.x - (bar_size/2.0) + 0.5;
+		uv4.x -= bar_size * float(i); // Offset
+		size4.x -= separation_width;
+		shape += square_shape(uv4, size4);
+		bar_value = index_value;
+	}
+	return vec2(shape, bar_value);
+}
+
+float snap(float original, float numerator, float denominator)
+{
+    return round(original * denominator / numerator) * numerator / denominator;
+}
+
+vec3 hsv_to_rgb(vec3 color) {
+	vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+	vec3 p = abs(fract(color.xxx + K.xyz) * 6.0 - K.www);
+	return color.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), color.y);
+}
+
+float round_place(float num,float places) {
+	return (round(num*pow(10,places))/pow(10,places));
+}
+
+float map_range(float min1, float max1, float min2, float max2, float v) {
+	float p = (v - min1) / (max1 - min1);
+	return p * (max2 - min2) + min2;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	
+	float angle = 1.571 + (shear_angle * PI/4.0);
+	float shear_value = (cos(angle)/sin(angle));
+	float shear = shear_value * uv.y;
+	uv.x = uv.x + shear;
+	uv.x -= shear_value/2.0;
+	
+	uv.x *= 1.0+abs(shear_value);
+	uv.x -= abs(shear_value)/2.0;
+	
+	float bar_count = float(count);
+	float bar_size = 1.0/bar_count;
+	float separation_width = margin.x * bar_size;
+	
+	vec2 shape = segmented_bar(uv);
+	vec4 gradient_color = vec4(0.0);
+	float gradient_x_pos = uv.x;
+	if (use_value_gradient) {
+		gradient_x_pos = value;
+	}
+	vec4 gradient_color_x = get_gradient_color(gradient_x, gradient_x_pos);
+	if (stepify) {
+		float step_size = float(count)/2.0;
+		gradient_color_x = get_gradient_color(gradient_x, snap(gradient_x_pos, 1.0, step_size));
+	}
+	else {
+		shape.x *= step(uv.x, value);
+	}
+	
+	float y = map_range(0.5-(1.0-margin.y)/2.0, 0.5+(1.0-margin.y)/2.0, 0.0, 1.0, uv.y);
+	if (invert) {
+		y = uv.y;
+		shape.x = 1.0 - shape.x;
+		shape.x *= step(0.0, y);
+		shape.x *= step(y, 1.0);
+	}
+	vec4 gradient_color_y = get_gradient_color(gradient_y, y);
+	gradient_color += gradient_color_x;
+	gradient_color = mix(gradient_color_x, gradient_color_y, gradient_color_y.a);
+	
+	
+	
+	COLOR = vec4(gradient_color.rgb, shape.x);
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_b4mty"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_du16p"]
+gradient = SubResource("Gradient_b4mty")
+
+[sub_resource type="Gradient" id="Gradient_ey25t"]
+offsets = PackedFloat32Array(0, 0.474178, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.592157, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qsi8q"]
+gradient = SubResource("Gradient_ey25t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xac6l"]
+resource_local_to_scene = true
+shader = SubResource("Shader_dlfin")
+shader_parameter/stepify = true
+shader_parameter/value = 0.436
+shader_parameter/count = 4
+shader_parameter/margin = Vector2(0.26, 0.41)
+shader_parameter/shear_angle = -0.274
+shader_parameter/use_value_gradient = true
+shader_parameter/invert = false
+shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
+shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_5mnrl")
 projectile = ExtResource("13_mgxrc")
@@ -338,7 +487,7 @@ texture = SubResource("ViewportTexture_wk2jn")
 position = Vector2(-12, -56)
 texture = SubResource("ViewportTexture_whww0")
 script = ExtResource("3_65key")
-shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_qnaxf"), SubResource("ShaderMaterial_8vbj5")])
+shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_qnaxf"), SubResource("ShaderMaterial_bchws")])
 
 [node name="PArticles" type="Node2D" parent="MultiViewPort"]
 position = Vector2(-56, 141)
@@ -476,16 +625,6 @@ offset = Vector2(-64.0416, 1.94536)
 [node name="Shootpoint" type="Node2D" parent="."]
 position = Vector2(4, -271)
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -136.0
-offset_top = -313.0
-offset_right = 115.0
-offset_bottom = -286.0
-max_value = 3.0
-step = 1.0
-value = 2.0
-show_percentage = false
-
 [node name="Raycast" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 3
@@ -493,3 +632,7 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Raycast"]
 position = Vector2(3, -1579)
 shape = SubResource("RectangleShape2D_qlbdp")
+
+[node name="Progress" parent="." instance=ExtResource("14_uu2fx")]
+material = SubResource("ShaderMaterial_xac6l")
+position = Vector2(-4, -383)

@@ -4,6 +4,7 @@ class_name Projectile
 var direction
 @export var speed=1000
 var active=true
+var shooter
 func shoot(direction):
 	hitbox.monitorable=true
 	hitbox.monitoring=true
@@ -18,7 +19,8 @@ func hit():
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	var parent=area.get_parent()
-	
+	if parent is Projectile and parent.shooter==shooter or parent == shooter:
+		return
 	if parent is GameObject:
 		active=false
 		parent.hit()

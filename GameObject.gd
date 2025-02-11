@@ -7,3 +7,5 @@ func _ready() -> void:
 	
 func hit():
 	pass	
+func _process(delta: float) -> void:
+	translate(Vector2.DOWN*delta*100)

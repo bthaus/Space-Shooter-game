@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://dag74chbayvi0"]
+
+[ext_resource type="PackedScene" uid="uid://b6pfmxl0rlfu1" path="res://collectable.tscn" id="1_6vutw"]
+[ext_resource type="Script" path="res://fly_while_laser.gd" id="2_af6g1"]
+[ext_resource type="ArrayMesh" uid="uid://bunvow8slt83r" path="res://Assets/collectable_base.obj" id="2_gujr4"]
+[ext_resource type="ArrayMesh" uid="uid://bu5yehebg6ibd" path="res://Assets/flying_coll.obj" id="3_tpla4"]
+[ext_resource type="Script" path="res://propellor.gd" id="4_7ti31"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_t6sc3"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Collectable" instance=ExtResource("1_6vutw")]
+script = ExtResource("2_af6g1")
+
+[node name="Camera3D" parent="SubViewport/origin" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.90119, 0)
+
+[node name="MeshInstance3D" parent="SubViewport/origin" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = ExtResource("2_gujr4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/origin/MeshInstance3D" index="0"]
+transform = Transform3D(1.585, 0, 0, 0, 1.585, 0, 0, 0, 1.585, 0, 0.110749, 0)
+mesh = ExtResource("3_tpla4")
+script = ExtResource("4_7ti31")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("ViewportTexture_t6sc3")

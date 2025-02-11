@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=11 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8pwlk"]
 [ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_wtn6w"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://background.gd" id="3_k4dhj"]
 [ext_resource type="Shader" path="res://stars.gdshader" id="4_81tw8"]
 [ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="6_bf56f"]
+[ext_resource type="PackedScene" uid="uid://bcbsh10pv2tdf" path="res://shield_coll.tscn" id="8_hphke"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3tq3d"]
 shader = ExtResource("4_81tw8")
@@ -54,5 +55,8 @@ environment = SubResource("Environment_5613x")
 position = Vector2(-115, -12)
 
 [node name="Node2D2" parent="." instance=ExtResource("6_bf56f")]
-position = Vector2(-366, -2259)
-projectile = null
+position = Vector2(-318.06, -1815.04)
+hp = 2.0
+
+[node name="Collectable" parent="." instance=ExtResource("8_hphke")]
+position = Vector2(210.579, -402.694)

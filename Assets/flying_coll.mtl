@@ -1,0 +1,10 @@
+# Created by Kenney (www.kenney.nl)
+
+newmtl metalPurple(Clone)
+Kd 1 1 1
+map_Kd Textures/metalPurple(Clone).png
+
+newmtl dark(Clone)
+Kd 0.359 0.359 0.359
+map_Kd Textures/dark(Clone).png
+
