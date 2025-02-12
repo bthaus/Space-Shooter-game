@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cl0e0qexuj16p"]
+[gd_scene load_steps=53 format=3 uid="uid://cl0e0qexuj16p"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_4eftf"]
 [ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
@@ -24,30 +24,20 @@ shader = ExtResource("3_7540q")
 shader_parameter/base_color = Color(0, 0.501961, 1, 0.368627)
 shader_parameter/pulse_color = Color(0.501961, 0.701961, 1, 0.4)
 shader_parameter/speed = 0.1
-shader_parameter/scale = 0.103
-shader_parameter/distortion = 0.503
-shader_parameter/shield_power = 0.046
-shader_parameter/rim_power = 1.095
-shader_parameter/pulse_frequency = 5.015
-
-[sub_resource type="SphereMesh" id="SphereMesh_dg0q8"]
-material = SubResource("ShaderMaterial_ggdry")
-radius = 0.56
+shader_parameter/scale = 1.203
+shader_parameter/distortion = 0.1
+shader_parameter/shield_power = 0.0
+shader_parameter/rim_power = 5.0
+shader_parameter/pulse_frequency = 1.226
 
 [sub_resource type="TorusMesh" id="TorusMesh_dfnow"]
 material = SubResource("ShaderMaterial_ggdry")
 inner_radius = 0.694
 outer_radius = 0.804
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7h3np"]
-emission_enabled = true
-emission = Color(0.327, 0.517, 14.054, 1)
-emission_energy_multiplier = 2.51
-
-[sub_resource type="SphereMesh" id="SphereMesh_cnml2"]
-material = SubResource("StandardMaterial3D_7h3np")
-radius = 0.7
-height = 0.209
+[sub_resource type="SphereMesh" id="SphereMesh_dg0q8"]
+material = SubResource("ShaderMaterial_ggdry")
+radius = 0.56
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0nh8f"]
 shader = ExtResource("2_rvrdr")
@@ -83,6 +73,9 @@ shader_parameter/rounded = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bchws"]
 shader = ExtResource("2_dqqr8")
 shader_parameter/amount = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
+size = Vector2(144, 5857.54)
 
 [sub_resource type="Gradient" id="Gradient_ppx3s"]
 colors = PackedColorArray(6, 1, 1, 1, 1, 1, 1, 0)
@@ -184,6 +177,25 @@ scale_max = 0.5
 color = Color(26.627, 1, 1, 1)
 color_ramp = SubResource("GradientTexture1D_7k1ri")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37msr"]
+shader = ExtResource("12_s3ktn")
+shader_parameter/beams = 1
+shader_parameter/energy = 10.59
+shader_parameter/roughness = 10
+shader_parameter/frequency = 10
+shader_parameter/speed = -0.895
+shader_parameter/thickness = 0.032
+shader_parameter/outline_thickness = 0.038
+shader_parameter/beam_difference = 1.0
+shader_parameter/glow = 3.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Vector4(0.91, 1, 1, 1)
+shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
+shader_parameter/progress = 0.0
+shader_parameter/y_offset = -0.00399998
+shader_parameter/fixed_edge_size = 0.228
+shader_parameter/noise_scale = Vector2(1, 1)
+
 [sub_resource type="Shader" id="Shader_ieoni"]
 code = "shader_type canvas_item;
 uniform sampler2D text_map;
@@ -252,28 +264,6 @@ shader_parameter/texture2 = SubResource("NoiseTexture2D_vyufx")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7moqm"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_37msr"]
-shader = ExtResource("12_s3ktn")
-shader_parameter/beams = 1
-shader_parameter/energy = 10.59
-shader_parameter/roughness = 10
-shader_parameter/frequency = 10
-shader_parameter/speed = -0.895
-shader_parameter/thickness = 0.032
-shader_parameter/outline_thickness = 0.038
-shader_parameter/beam_difference = 1.0
-shader_parameter/glow = 3.0
-shader_parameter/outline_glow = 0.0
-shader_parameter/color = Vector4(0.91, 1, 1, 1)
-shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
-shader_parameter/progress = 0.0
-shader_parameter/y_offset = -0.00399998
-shader_parameter/fixed_edge_size = 0.228
-shader_parameter/noise_scale = Vector2(1, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
-size = Vector2(136, 2655.09)
 
 [sub_resource type="Shader" id="Shader_dlfin"]
 code = "shader_type canvas_item;
@@ -433,19 +423,6 @@ projectile = ExtResource("13_mgxrc")
 position = Vector2(-9, -46)
 shape = SubResource("CircleShape2D_mphox")
 
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-
-[node name="Camera3D2" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.155, 4.07053, -7.27446)
-projection = 1
-size = 4.426
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
-transform = Transform3D(3.485, 0, 0, 0, 3.485, 0, 0, 0, 3.485, -0.115655, 4.86374e-05, -7.23001)
-mesh = SubResource("SphereMesh_dg0q8")
-skeleton = NodePath("../../SpaceShip/origin")
-
 [node name="SpaceShip" type="SubViewport" parent="."]
 transparent_bg = true
 use_hdr_2d = true
@@ -468,14 +445,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0436423, -0.190875, 0.0092
 mesh = ExtResource("1_vyo23")
 skeleton = NodePath("../../..")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="SpaceShip/origin/Spaceship"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.118342, 0, -0.0854227)
-visible = false
-mesh = SubResource("SphereMesh_cnml2")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SpaceShip/origin"]
 transform = Transform3D(-0.833201, 0.318016, -0.452373, 0.222928, 0.941832, 0.251505, 0.506042, 0.108708, -0.855631, -1.95037, 2.34675, -2.36527)
-light_energy = 3.614
+light_energy = 1.702
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Camera3D2" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.155, 4.07053, -7.27446)
+projection = 1
+size = 4.426
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
+transform = Transform3D(3.485, 0, 0, 0, 3.485, 0, 0, 0, 3.485, -0.115655, 4.86374e-05, -7.23001)
+mesh = SubResource("SphereMesh_dg0q8")
+skeleton = NodePath("../../SpaceShip/origin")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -489,11 +474,22 @@ texture = SubResource("ViewportTexture_whww0")
 script = ExtResource("3_65key")
 shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_qnaxf"), SubResource("ShaderMaterial_bchws")])
 
-[node name="PArticles" type="Node2D" parent="MultiViewPort"]
+[node name="rot" type="Node2D" parent="MultiViewPort"]
+
+[node name="Raycast" type="Area2D" parent="MultiViewPort/rot"]
+position = Vector2(12, 56)
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/rot/Raycast"]
+position = Vector2(-5, -3171.23)
+shape = SubResource("RectangleShape2D_qlbdp")
+
+[node name="PArticles" type="Node2D" parent="MultiViewPort/rot"]
 position = Vector2(-56, 141)
 script = ExtResource("8_kxeok")
 
-[node name="shiny" type="GPUParticles2D" parent="MultiViewPort/PArticles"]
+[node name="shiny" type="GPUParticles2D" parent="MultiViewPort/rot/PArticles"]
 process_mode = 3
 z_index = 3
 position = Vector2(-22, 6)
@@ -507,7 +503,7 @@ fixed_fps = 0
 visibility_rect = Rect2(-101.315, -100, 800, 800)
 draw_order = 0
 
-[node name="shiny2" type="GPUParticles2D" parent="MultiViewPort/PArticles"]
+[node name="shiny2" type="GPUParticles2D" parent="MultiViewPort/rot/PArticles"]
 process_mode = 3
 z_index = 3
 position = Vector2(136, 2)
@@ -519,7 +515,7 @@ fixed_fps = 0
 visibility_rect = Rect2(-100, -100, 800, 800)
 draw_order = 0
 
-[node name="smoke2" type="GPUParticles2D" parent="MultiViewPort/PArticles"]
+[node name="smoke2" type="GPUParticles2D" parent="MultiViewPort/rot/PArticles"]
 process_mode = 3
 z_index = 2
 position = Vector2(135, 7)
@@ -533,7 +529,7 @@ fixed_fps = 0
 visibility_rect = Rect2(-100, -100, 800, 800)
 draw_order = 0
 
-[node name="smoke3" type="GPUParticles2D" parent="MultiViewPort/PArticles"]
+[node name="smoke3" type="GPUParticles2D" parent="MultiViewPort/rot/PArticles"]
 process_mode = 3
 z_index = 2
 position = Vector2(-11, 13)
@@ -546,11 +542,11 @@ fixed_fps = 0
 visibility_rect = Rect2(-100, -100, 800, 800)
 draw_order = 0
 
-[node name="particles_boost" type="Node2D" parent="MultiViewPort"]
+[node name="particles_boost" type="Node2D" parent="MultiViewPort/rot"]
 position = Vector2(-76, 190)
 script = ExtResource("8_kxeok")
 
-[node name="shiny" type="GPUParticles2D" parent="MultiViewPort/particles_boost"]
+[node name="shiny" type="GPUParticles2D" parent="MultiViewPort/rot/particles_boost"]
 process_mode = 3
 z_index = 3
 position = Vector2(-22, 6)
@@ -566,7 +562,7 @@ randomness = 1.0
 fixed_fps = 0
 draw_order = 0
 
-[node name="shiny2" type="GPUParticles2D" parent="MultiViewPort/particles_boost"]
+[node name="shiny2" type="GPUParticles2D" parent="MultiViewPort/rot/particles_boost"]
 process_mode = 3
 z_index = 3
 position = Vector2(184, 16)
@@ -580,7 +576,7 @@ randomness = 1.0
 fixed_fps = 0
 draw_order = 0
 
-[node name="smoke2" type="GPUParticles2D" parent="MultiViewPort/particles_boost"]
+[node name="smoke2" type="GPUParticles2D" parent="MultiViewPort/rot/particles_boost"]
 process_mode = 3
 z_index = 2
 position = Vector2(205, 9)
@@ -596,7 +592,7 @@ randomness = 1.0
 fixed_fps = 0
 draw_order = 0
 
-[node name="smoke3" type="GPUParticles2D" parent="MultiViewPort/particles_boost"]
+[node name="smoke3" type="GPUParticles2D" parent="MultiViewPort/rot/particles_boost"]
 process_mode = 3
 z_index = 2
 position = Vector2(-11, 13)
@@ -611,31 +607,23 @@ randomness = 1.0
 fixed_fps = 0
 draw_order = 0
 
-[node name="Shield" type="Sprite2D" parent="."]
-z_index = 2
-material = SubResource("ShaderMaterial_upbt5")
-position = Vector2(-13, -46)
-scale = Vector2(1.225, 1.225)
-texture = SubResource("ViewportTexture_7moqm")
-
-[node name="laser" type="Sprite2D" parent="."]
+[node name="laser" type="Sprite2D" parent="MultiViewPort/rot"]
 material = SubResource("ShaderMaterial_37msr")
-position = Vector2(2.63403, -274.61)
+position = Vector2(14.634, -218.61)
 rotation = 1.57079
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("13_umu2r")
 offset = Vector2(-64.0416, 1.94536)
 
-[node name="Shootpoint" type="Node2D" parent="."]
-position = Vector2(4, -271)
+[node name="Shootpoint" type="Node2D" parent="MultiViewPort/rot"]
+position = Vector2(16, -215)
 
-[node name="Raycast" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Raycast"]
-position = Vector2(-1, -1570)
-shape = SubResource("RectangleShape2D_qlbdp")
+[node name="Shield" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_upbt5")
+position = Vector2(-13, -46)
+rotation = 0.701622
+scale = Vector2(1.225, 1.225)
+texture = SubResource("ViewportTexture_7moqm")
 
 [node name="Progress" parent="." instance=ExtResource("14_uu2fx")]
 material = SubResource("ShaderMaterial_xac6l")

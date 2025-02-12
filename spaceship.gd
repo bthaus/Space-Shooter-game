@@ -66,49 +66,28 @@ func handle_shoot():
 	pass;
 var directions=[Vector2.UP]	
 func shoot():
+	
 	for d in directions:
 		var p=get_projectile()
 		p.visible=true
 		add_sibling(p)
 		p.shooter=self
-		p.global_position=$Shootpoint.global_position
+		p.global_position=$MultiViewPort/rot/Shootpoint.global_position
 		p.shoot(d)
 		
 	pass;
-func handle_laser(delta):
-	if Input.is_action_pressed(&'laser'):
-		if not fly_buff:
-			direction=Vector2.ZERO
-			twirling=direction
-		laser_power+=delta/1.5
-		accum=clamp(accum+delta,0,0.4)
-		
-		laser_power=clamp(laser_power,0,1)
-		var targets=$Raycast.get_overlapping_areas()
-		if accum >0.3 and laser_power==1:
-			accum=0
-			for target in targets:
-				
-				if target.get_parent() == self:continue
-				if target  and target.get_parent() is GameObject:
-					target.get_parent().hit()
-				
-		$laser.show()
-		$laser.material.set_shader_parameter("progress",laser_power)
-		$laser.scale.x=lerp(0,24,laser_power*2)
-	else:
-		lower_laser(delta)	
-var direction
+	
+var direction=Vector2.ZERO
 func both_triggers_pressed():
 	return Input.is_action_pressed(&"laser") and Input.is_action_pressed(&"shoot")
 	
 func lower_laser(delta):
 	laser_power-=delta
 	accum-=delta
-	var cp=$laser.material.get_shader_parameter("progress")
+	var cp=$MultiViewPort/rot/laser.material.get_shader_parameter("progress")
 	if cp<0.1:
-		$laser.hide()
-	$laser.material.set_shader_parameter("progress",laser_power)	
+		$MultiViewPort/rot/laser.hide()
+	$MultiViewPort/rot/laser.material.set_shader_parameter("progress",laser_power)	
 func _process(delta: float) -> void:
 	
 	super(delta)

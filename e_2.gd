@@ -1,6 +1,10 @@
 extends Spaceship
 class_name Enemy
 @export var difficulty=1
+@export var shoot_frequency:float
+func _ready() -> void:
+	$Shoot_timer.wait_time=shoot_frequency
+	super()
 func _process(delta: float) -> void:
 	move(Vector2.DOWN/3,delta)
 func get_projectile():
@@ -10,7 +14,7 @@ func get_projectile():
 func _on_shoot_timer_timeout() -> void:
 	var b=get_projectile()
 	b.show()
-	b.global_position=$Shootpoint.global_position
+	b.global_position=$MultiViewPort/rot/Shootpoint.global_position
 	add_sibling(b)
 	b.shoot(Vector2.DOWN)
 	pass # Replace with function body.

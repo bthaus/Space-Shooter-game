@@ -67,28 +67,31 @@ void fragment(){
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_75pbw"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eaf4d"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oi2iq"]
+seamless = true
 noise = SubResource("FastNoiseLite_75pbw")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_830xt"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rm477"]
+frequency = 0.0044
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ehd33"]
-noise = SubResource("FastNoiseLite_830xt")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vyufx"]
+seamless = true
+noise = SubResource("FastNoiseLite_rm477")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2u5gc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfyuj"]
 resource_local_to_scene = true
 shader = SubResource("Shader_ieoni")
 shader_parameter/scale_factor = 0.5
 shader_parameter/dissolve_value = 1.0
 shader_parameter/burn_size = 0.06
 shader_parameter/burn_color = Color(0.258824, 0.564706, 0.772549, 0.52549)
-shader_parameter/speed = 0.03
-shader_parameter/dissolve_movement_direction = Vector2(-1.37, 1.83)
-shader_parameter/second_dissolve_directoin = Vector2(-0.45, 0.3)
-shader_parameter/text_map = SubResource("NoiseTexture2D_eaf4d")
-shader_parameter/texture2 = SubResource("NoiseTexture2D_ehd33")
+shader_parameter/speed = 0.3
+shader_parameter/dissolve_movement_direction = Vector2(-5, 8)
+shader_parameter/second_dissolve_directoin = Vector2(-1, 0.3)
+shader_parameter/text_map = SubResource("NoiseTexture2D_oi2iq")
+shader_parameter/texture2 = SubResource("NoiseTexture2D_vyufx")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_a6xj0"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xama8"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Shader" id="Shader_dlfin"]
@@ -242,7 +245,9 @@ shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 [node name="Node2D" instance=ExtResource("1_apsdx")]
 script = ExtResource("2_6eidn")
 difficulty = 1
+shoot_frequency = 2.0
 projectile = ExtResource("3_fdkd1")
+hp = 2.0
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
 position = Vector2(-8, -40)
@@ -262,24 +267,30 @@ position = Vector2(-19, 6)
 texture = SubResource("ViewportTexture_4asqu")
 shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_maggp"), SubResource("ShaderMaterial_8vbj5")])
 
-[node name="PArticles" parent="MultiViewPort" index="0"]
+[node name="Raycast" parent="MultiViewPort/rot" index="0"]
 visible = false
+
+[node name="PArticles" parent="MultiViewPort/rot" index="1"]
+visible = false
+
+[node name="particles_boost" parent="MultiViewPort/rot" index="2"]
+visible = false
+
+[node name="laser" parent="MultiViewPort/rot" index="3"]
+visible = false
+
+[node name="Shootpoint" parent="MultiViewPort/rot" index="4"]
+position = Vector2(11, 265)
 
 [node name="Shoot_timer" type="Timer" parent="." index="5"]
 autostart = true
 
 [node name="Shield" parent="." index="6"]
 visible = false
-material = SubResource("ShaderMaterial_2u5gc")
-texture = SubResource("ViewportTexture_a6xj0")
+material = SubResource("ShaderMaterial_tfyuj")
+texture = SubResource("ViewportTexture_xama8")
 
-[node name="laser" parent="." index="7"]
-visible = false
-
-[node name="Shootpoint" parent="." index="8"]
-position = Vector2(-12, 159)
-
-[node name="Progress" parent="." index="10"]
+[node name="Progress" parent="." index="7"]
 material = SubResource("ShaderMaterial_xac6l")
 
 [connection signal="timeout" from="Shoot_timer" to="." method="_on_shoot_timer_timeout"]
