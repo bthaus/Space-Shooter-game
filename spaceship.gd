@@ -11,13 +11,14 @@ static var offset=0
 
 @export var hp:float=3
 var max_hp:float
+
 # Called when the node enters the scene tree for the first time.
 func hit():
 	change_health(-1)
 func change_health(val):
 	hp+=val
 	$Progress.set_value(hp)
-	var shield_Val=hp/max_hp
+	var shield_Val=remap(hp,1,max_hp,0,1)
 	$Shield.material.set_shader_parameter("dissolve_value", shield_Val)
 	if hp==0:
 		queue_free()	
@@ -48,7 +49,7 @@ func remove_fly():
 func _ready() -> void:
 	$SpaceShip/origin.translate(Vector3(offset,0,0))
 	offset+=500
-	Engine.max_fps=18
+	#Engine.max_fps=18
 	max_hp=hp
 	$Progress.set_max_value(hp)
 	$Progress.set_value(hp)
@@ -87,7 +88,6 @@ func handle_laser(delta):
 			for target in targets:
 				
 				if target.get_parent() == self:continue
-				print("hitting target with laser")
 				if target  and target.get_parent() is GameObject:
 					target.get_parent().hit()
 				
@@ -96,7 +96,10 @@ func handle_laser(delta):
 		$laser.scale.x=lerp(0,24,laser_power*2)
 	else:
 		lower_laser(delta)	
-var direction	
+var direction
+func both_triggers_pressed():
+	return Input.is_action_pressed(&"laser") and Input.is_action_pressed(&"shoot")
+	
 func lower_laser(delta):
 	laser_power-=delta
 	var cp=$laser.material.get_shader_parameter("progress")
@@ -112,6 +115,7 @@ func end_twirl():
 	twirling=Vector2.ZERO
 	pass;	
 func move(direction,delta):
+	
 	rotate_mesh(direction,delta)
 	
 	translate(direction*speed*50*delta)
@@ -119,10 +123,10 @@ func move(direction,delta):
 func rotate_mesh(move:Vector2,delta):
 	
 	var speed=move.length_squared()
-	
+	speed=clamp(speed,0,1.7)
 	move=move.normalized()
 	if move:
-		
+		print(speed)
 		var rot=Vector3(move.y,0,-move.x)
 		if twirling!= Vector2.ZERO:
 			mesh.rotate(rot,delta*24*speed)

@@ -2,8 +2,6 @@ extends Spaceship
 class_name PlayerShip
 
 @export var movement_rect:Polygon2D
-func both_triggers_pressed():
-	return Input.is_action_pressed(&"laser") and Input.is_action_pressed(&"shoot")
 func _process(delta: float) -> void:
 	super(delta)
 	if not active:return
@@ -28,7 +26,7 @@ func _process(delta: float) -> void:
 		handle_laser(delta)
 	if both_triggers_pressed():
 		lower_laser(delta)
-		direction*=3	
+		direction*=2.3
 	move(twirling,delta)
 	move(direction,delta)	
 	clamp_position()

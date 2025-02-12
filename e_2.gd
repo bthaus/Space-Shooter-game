@@ -2,7 +2,7 @@ extends Spaceship
 class_name Enemy
 
 func _process(delta: float) -> void:
-	translate(Vector2.DOWN*speed)
+	move(Vector2.DOWN/3,delta)
 func get_projectile():
 	if not projectile:
 		projectile=load('res://e1p.tscn')
