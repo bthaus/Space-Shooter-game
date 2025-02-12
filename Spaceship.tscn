@@ -423,7 +423,7 @@ shader_parameter/invert = false
 shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
 shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 script = ExtResource("1_4eftf")
 projectile = ExtResource("13_mgxrc")
 
@@ -634,7 +634,7 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Raycast"]
-position = Vector2(3, -1579)
+position = Vector2(-1, -1570)
 shape = SubResource("RectangleShape2D_qlbdp")
 
 [node name="Progress" parent="." instance=ExtResource("14_uu2fx")]

@@ -11,7 +11,7 @@ func set_value(v:float):
 	vall=v
 	var val=remap(v,0.0,max,0.0,0.95)
 	material.set_shader_parameter("value",val)
-	print(material.get_shader_parameter("value"))
+	
 	pass;
 func set_max_value(v):
 	max=v
@@ -19,8 +19,3 @@ func set_max_value(v):
 	material.set_shader_parameter("count",v)
 	$underlay.material.set_shader_parameter("count",v)
 	pass;	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed(&'laser'):
-		set_value(vall-1)
-	pass

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=16 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8pwlk"]
+[ext_resource type="Shader" path="res://pixel.gdshader" id="1_gyqkj"]
 [ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_wtn6w"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="1_xru2y"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="3_bkqmu"]
@@ -8,6 +9,15 @@
 [ext_resource type="Shader" path="res://stars.gdshader" id="4_81tw8"]
 [ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="6_bf56f"]
 [ext_resource type="PackedScene" uid="uid://bcbsh10pv2tdf" path="res://shield_coll.tscn" id="8_hphke"]
+[ext_resource type="Shader" path="res://screenpixel.gdshader" id="10_6k0lo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxdeh"]
+shader = ExtResource("1_gyqkj")
+shader_parameter/amount = 5.42
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eh2h2"]
+shader = ExtResource("1_gyqkj")
+shader_parameter/amount = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3tq3d"]
 shader = ExtResource("4_81tw8")
@@ -26,44 +36,64 @@ glow_intensity = 1.87
 glow_bloom = 0.48
 glow_hdr_threshold = 3.53
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_88b02"]
+shader = ExtResource("10_6k0lo")
+shader_parameter/pixelation = 0.004
+shader_parameter/opacity = 1.0
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Polygon2D"]
+material = SubResource("ShaderMaterial_yxdeh")
+polygon = PackedVector2Array(-4533, -3800, -4513, 1472, 4861, 1441, 4830, -3921)
 script = ExtResource("1_8pwlk")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+material = SubResource("ShaderMaterial_eh2h2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-37741, -3704)
 scale = Vector2(2000, 2000)
 texture = ExtResource("1_xru2y")
 
-[node name="Background" type="Sprite2D" parent="Node2D"]
+[node name="Background" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3tq3d")
 position = Vector2(184.5, -1221)
 scale = Vector2(74.1641, 43.2656)
 texture = ExtResource("1_xru2y")
 script = ExtResource("3_k4dhj")
 
-[node name="Camera2D" type="Camera2D" parent="Node2D"]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(173, -1193)
 zoom = Vector2(0.125, 0.125)
 script = ExtResource("3_bkqmu")
 
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="Node2D"]
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5613x")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="Node2D"]
-
-[node name="Player" parent="Node2D" node_paths=PackedStringArray("movement_rect") instance=ExtResource("1_wtn6w")]
+[node name="Player" parent="." node_paths=PackedStringArray("movement_rect") instance=ExtResource("1_wtn6w")]
 position = Vector2(-115, -12)
 movement_rect = NodePath("../Polygon2D")
 
-[node name="Node2D2" parent="Node2D" instance=ExtResource("6_bf56f")]
+[node name="Node2D2" parent="." instance=ExtResource("6_bf56f")]
 position = Vector2(-318.06, -1815.04)
 hp = 2.0
 
-[node name="Collectable" parent="Node2D" instance=ExtResource("8_hphke")]
+[node name="Collectable" parent="." instance=ExtResource("8_hphke")]
 position = Vector2(210.579, -402.694)
 
-[node name="Polygon2D" type="Polygon2D" parent="Node2D"]
+[node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-4477, -3775, -4454, 1429, 4778, 1395, 4789, -3798)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_88b02")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4483.0
+offset_top = -3861.0
+offset_right = 3835.0
+offset_bottom = 965.0
+grow_horizontal = 2
+grow_vertical = 2

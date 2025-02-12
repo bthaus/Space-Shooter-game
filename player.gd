@@ -2,15 +2,39 @@ extends Spaceship
 class_name PlayerShip
 
 @export var movement_rect:Polygon2D
-
+func both_triggers_pressed():
+	return Input.is_action_pressed(&"laser") and Input.is_action_pressed(&"shoot")
 func _process(delta: float) -> void:
 	super(delta)
+	if not active:return
+	direction=Vector2.ZERO
+	direction.x=Input.get_axis(&"ui_left",&"ui_right")
+	direction.y=Input.get_axis(&"ui_up",&"ui_down")
+	var move=direction
+	var length=direction.length()
+	if length<0.3:
+		move=Vector2.ZERO
+	$MultiViewPort/PArticles.toggle(move!=Vector2.ZERO or twirling!=Vector2.ZERO)
+	$MultiViewPort/PArticles.set_ratio(length)
+	if twirling:
+		$MultiViewPort/PArticles.set_ratio(1)
+	var d=Input.get_axis(&"left_button",&"right_button")
+	if d!=0 and twirling==Vector2.ZERO:
+		get_tree().create_timer(0.2).timeout.connect(end_twirl)
+		twirling+=Vector2(d*4,0)
+		$MultiViewPort/particles_boost.toggle(true)
+	if not both_triggers_pressed():
+		handle_shoot()
+		handle_laser(delta)
+	if both_triggers_pressed():
+		lower_laser(delta)
+		direction*=3	
+	move(twirling,delta)
+	move(direction,delta)	
 	clamp_position()
 	
 func clamp_position():
 	var pos=clamp_point_in_rect(movement_rect.polygon,global_position)
-	print( pos)
-	print(global_position)
 	global_position=pos
 	pass;	
 	
