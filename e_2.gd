@@ -1,6 +1,6 @@
 extends Spaceship
 class_name Enemy
-
+@export var difficulty=1
 func _process(delta: float) -> void:
 	move(Vector2.DOWN/3,delta)
 func get_projectile():

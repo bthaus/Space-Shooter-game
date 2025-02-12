@@ -81,10 +81,12 @@ func handle_laser(delta):
 			direction=Vector2.ZERO
 			twirling=direction
 		laser_power+=delta/1.5
-		accum+=delta
+		accum=clamp(accum+delta,0,0.4)
+		
 		laser_power=clamp(laser_power,0,1)
 		var targets=$Raycast.get_overlapping_areas()
 		if accum >0.3 and laser_power==1:
+			accum=0
 			for target in targets:
 				
 				if target.get_parent() == self:continue
@@ -102,6 +104,7 @@ func both_triggers_pressed():
 	
 func lower_laser(delta):
 	laser_power-=delta
+	accum-=delta
 	var cp=$laser.material.get_shader_parameter("progress")
 	if cp<0.1:
 		$laser.hide()
@@ -126,7 +129,7 @@ func rotate_mesh(move:Vector2,delta):
 	speed=clamp(speed,0,1.7)
 	move=move.normalized()
 	if move:
-		print(speed)
+		
 		var rot=Vector3(move.y,0,-move.x)
 		if twirling!= Vector2.ZERO:
 			mesh.rotate(rot,delta*24*speed)

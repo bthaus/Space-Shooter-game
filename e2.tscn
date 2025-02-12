@@ -241,6 +241,7 @@ shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
 [node name="Node2D" instance=ExtResource("1_apsdx")]
 script = ExtResource("2_6eidn")
+difficulty = 1
 projectile = ExtResource("3_fdkd1")
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]

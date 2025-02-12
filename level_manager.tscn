@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://clvcwnas3hd2m"]
+
+[ext_resource type="Script" path="res://level_manager.gd" id="1_2ercf"]
+[ext_resource type="Script" path="res://Event.gd" id="2_sqxlx"]
+[ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="3_dchyc"]
+[ext_resource type="Resource" uid="uid://70i0xpaxvuum" path="res://Events/1.tres" id="3_inlbk"]
+
+[sub_resource type="Resource" id="Resource_ylcqo"]
+script = ExtResource("2_sqxlx")
+duplications = 4
+difficulty_rating = 1.0
+likelyhood = 1.0
+objects = Array[PackedScene]([ExtResource("3_dchyc")])
+name = ""
+
+[node name="LevelManager" type="Node2D"]
+script = ExtResource("1_2ercf")
+events = Array[ExtResource("2_sqxlx")]([ExtResource("3_inlbk"), SubResource("Resource_ylcqo")])
+entities = Array[PackedScene]([ExtResource("3_dchyc")])
