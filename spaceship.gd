@@ -13,7 +13,6 @@ static var offset=0
 var max_hp:float
 func handle_laser(active,delta):
 	if active:
-		print(laser_power)
 		laser_power+=delta/1.5
 		accum=clamp(accum+delta,0,0.4)
 		laser_power=clamp(laser_power,0,1)

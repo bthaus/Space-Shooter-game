@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_u3uqx")
 duplications = 1
-difficulty_rating = 0.89
+difficulty_rating = 0.854
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_tn3g2")])
 name = ""

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=25 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8pwlk"]
 [ext_resource type="Shader" path="res://pixel.gdshader" id="1_gyqkj"]
@@ -18,6 +18,7 @@
 [ext_resource type="Resource" uid="uid://d2au4ccfix076" path="res://flylaser.tres" id="16_ckysx"]
 [ext_resource type="Resource" uid="uid://jhc2ywrij2qk" path="res://lasernemy.tres" id="17_ksgqy"]
 [ext_resource type="Resource" uid="uid://c4u7eqb2qfy7n" path="res://multishot.tres" id="18_jc5ai"]
+[ext_resource type="Resource" uid="uid://0icgrl5u66r8" path="res://rotarydisk.tres" id="19_gr36n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yxdeh"]
 shader = ExtResource("1_gyqkj")
@@ -101,7 +102,7 @@ grow_vertical = 2
 [node name="LevelManager" parent="." node_paths=PackedStringArray("spawn_polygon", "player") instance=ExtResource("11_e2v6v")]
 position = Vector2(1108, -2513)
 scale = Vector2(0.49, 0.49)
-events = Array[ExtResource("11_qp3xo")]([ExtResource("11_214od"), ExtResource("12_hwvx5"), ExtResource("13_tlxap"), ExtResource("14_1t1j6"), ExtResource("15_i6u31"), ExtResource("16_ckysx"), ExtResource("17_ksgqy"), ExtResource("18_jc5ai")])
+events = Array[ExtResource("11_qp3xo")]([ExtResource("11_214od"), ExtResource("12_hwvx5"), ExtResource("13_tlxap"), ExtResource("14_1t1j6"), ExtResource("15_i6u31"), ExtResource("16_ckysx"), ExtResource("17_ksgqy"), ExtResource("18_jc5ai"), ExtResource("19_gr36n")])
 spawn_polygon = NodePath("Spawnpoints")
 player = NodePath("../Player")
 
