@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccmgwjh1ujm0f"
-path.s3tc="res://.godot/imported/foliageDark(Clone).png-540153f5a39a8017f91c521f80f05938.s3tc.ctex"
+uid="uid://bu1sfkcwle6lh"
+path="res://.godot/imported/ez-stats.jpg-c25191082d48cb8134d29238dfb5b02c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/foliageDark(Clone).png"
-dest_files=["res://.godot/imported/foliageDark(Clone).png-540153f5a39a8017f91c521f80f05938.s3tc.ctex"]
+source_file="res://add/EZ-Stats-95022ecabd283a9ef0e33c43ad392b2fddbf7809/ez-stats.jpg"
+dest_files=["res://.godot/imported/ez-stats.jpg-c25191082d48cb8134d29238dfb5b02c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

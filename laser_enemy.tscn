@@ -1,22 +1,43 @@
-[gd_scene load_steps=21 format=3 uid="uid://dw521h3yfqgkl"]
+[gd_scene load_steps=25 format=3 uid="uid://bf8dn2qifx734"]
 
-[ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="1_3nj5l"]
-[ext_resource type="Script" path="res://following_enemy.gd" id="2_f4ihy"]
-[ext_resource type="ArrayMesh" uid="uid://ceyqcugm2qdf2" path="res://Assets/following_pew.obj" id="2_hssfg"]
+[ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="1_win2h"]
+[ext_resource type="Script" path="res://laser_enemy.gd" id="2_b856g"]
+[ext_resource type="ArrayMesh" uid="uid://ivo812f1sdqb" path="res://Assets/laser_ship.obj" id="2_hm1vl"]
+[ext_resource type="Texture2D" uid="uid://b8hwqggah6lmc" path="res://Assets/Effects/Cryo_Explosion/c1.png" id="4_62fwp"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_f0mv8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ulsxq"]
 viewport_path = NodePath("SpaceShip")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uamap"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xhj20"]
 viewport_path = NodePath("SpaceShip")
 
-[sub_resource type="Shader" id="Shader_xhqb6"]
+[sub_resource type="Gradient" id="Gradient_d3sbl"]
+colors = PackedColorArray(6, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gdino"]
+gradient = SubResource("Gradient_d3sbl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_70yxt"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1.175, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(100.165, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 12.273
+initial_velocity_min = 121.21
+initial_velocity_max = 313.13
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.6
+color_ramp = SubResource("GradientTexture1D_gdino")
+
+[sub_resource type="Shader" id="Shader_dp6dy"]
 code = "/*
 Shader from Godot Shaders - the free shader library.
 godotshaders.com/shader/energy-beams
 
-This shader is under CC0 license. Feel free to use, improve and 
-change this shader according to your needs and consider sharing 
+This shader is under CC0 license. Feel free to use, improve and
+change this shader according to your needs and consider sharing
 the modified result to godotshaders.com.
 */
 
@@ -74,7 +95,7 @@ float fbm(vec2 uv, float time) {
     float amp = 0.01 * energy * progress;
     float freq = float(frequency);
 	float value = 0.0;
-	
+
     for(int i = 0; i < octaves; i++) {
         value += amp * noise(freq * vec2(uv.x, uv.y + time));
         amp *= 0.5;
@@ -91,57 +112,58 @@ vec4 bolt(vec2 uv, float time, float i)
 {
 	// Setup the beam locking to the edges.
 	float falloff = smoothstep(0.0, fixed_edge_size, uv.x) * smoothstep(0.0, fixed_edge_size, 1.0 - uv.x);
-	
+
 	// Use Fractal Brownian Motion to create a \"cloud texture\" and use Difference blend mode to make the beam
 	vec4 clouds = vec4(fbm((uv + vec2(i) ) * noise_scale, time * speed)) * falloff;
 	vec4 diff_clouds = difference(clouds, vec4(uv.y - 0.5 + y_offset + (uv.y * falloff * 0.02 * energy * progress)));
-	
+
 	// Create a new noise to mask the beams on low \"progress\" values. To make a \"turn-off\" effect more visually interesting.
 	vec4 clouds2 = vec4(fbm((uv * 2.0) * noise_scale, time * 1.)) * 5.0;
 	diff_clouds += smoothstep(0.0, 0.8, clouds2) * 0.1 * (1.-progress);
-	
+
 	// Set thickness of the beams. First beam is the Thickness size and all following beams are sized with beam_difference
 	float thickness2 =  1. - ( thickness / (min(i + beam_difference, 1.0) + (1.0-beam_difference))) * progress ;
 	vec4 beam = clamp(smoothstep(thickness2, thickness2 + 0.005 * progress, 1.0 - diff_clouds), vec4(0.0), vec4(1.0));
-	
+
 	//Set the beam outlines
 	vec4 beam_outline;
 	float outline = thickness2 - (outline_thickness * progress);
 	beam_outline = clamp(smoothstep(outline, outline + 0.04, 1.0 - diff_clouds), 0.0, 1.0);
 	beam_outline = clamp(beam_outline - beam, 0.0, 1.0);
-	
+
 	// Merge the beam and the outline and return to the fragment function
 	return (beam * (color + vec4(glow, glow, glow, 0.))) + (beam_outline * (outline_color + vec4(outline_glow, outline_glow, outline_glow, 0.)));
 }
 
 void fragment()
-{	
+{
 	vec4 beam = vec4(0.0);
-	
+
 	for (int i = 0; i < beams; i++){
 		beam = max(beam, bolt(UV, TIME, float(i)));
 	}
-	
+
 	COLOR = beam;
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_22ue6"]
-shader = SubResource("Shader_xhqb6")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ctey1"]
+resource_local_to_scene = true
+shader = SubResource("Shader_dp6dy")
 shader_parameter/beams = 1
-shader_parameter/energy = 10.59
+shader_parameter/energy = 9.75
 shader_parameter/roughness = 10
 shader_parameter/frequency = 10
 shader_parameter/speed = -0.895
-shader_parameter/thickness = 0.032
-shader_parameter/outline_thickness = 0.038
+shader_parameter/thickness = 0.026
+shader_parameter/outline_thickness = 0.035
 shader_parameter/beam_difference = 1.0
 shader_parameter/glow = 3.0
 shader_parameter/outline_glow = 0.0
 shader_parameter/color = Vector4(0.91, 1, 1, 1)
 shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
 shader_parameter/progress = 0.0
-shader_parameter/y_offset = -0.00399998
-shader_parameter/fixed_edge_size = 0.228
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.05
 shader_parameter/noise_scale = Vector2(1, 1)
 
 [sub_resource type="Shader" id="Shader_ieoni"]
@@ -197,7 +219,7 @@ frequency = 0.0044
 seamless = true
 noise = SubResource("FastNoiseLite_rm477")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_msfhv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yg1fn"]
 resource_local_to_scene = true
 shader = SubResource("Shader_ieoni")
 shader_parameter/scale_factor = 0.5
@@ -210,7 +232,7 @@ shader_parameter/second_dissolve_directoin = Vector2(-1, 0.3)
 shader_parameter/text_map = SubResource("NoiseTexture2D_oi2iq")
 shader_parameter/texture2 = SubResource("NoiseTexture2D_vyufx")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mhetk"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xg11y"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Shader" id="Shader_dlfin"]
@@ -348,7 +370,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.592157, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_qsi8q"]
 gradient = SubResource("Gradient_ey25t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_atcbq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qhua"]
 resource_local_to_scene = true
 shader = SubResource("Shader_dlfin")
 shader_parameter/stepify = true
@@ -361,37 +383,56 @@ shader_parameter/invert = false
 shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
 shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
-[node name="Node2D" instance=ExtResource("1_3nj5l")]
-script = ExtResource("2_f4ihy")
-difficulty = 3
-speed = 20.0
+[node name="Node2D" instance=ExtResource("1_win2h")]
+script = ExtResource("2_b856g")
+shoot_frequency = 0.0
 projectile = null
-hp = 1.0
+hp = 3.0
 
 [node name="Spaceship" parent="SpaceShip/origin" index="2"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0939965, -0.190923, -0.14111)
-mesh = ExtResource("2_hssfg")
+mesh = ExtResource("2_hm1vl")
 
 [node name="Sprite2D" parent="." index="3"]
-texture = SubResource("ViewportTexture_f0mv8")
+texture = SubResource("ViewportTexture_ulsxq")
 
 [node name="MultiViewPort" parent="." index="4"]
-texture = SubResource("ViewportTexture_uamap")
+texture = SubResource("ViewportTexture_xhj20")
+
+[node name="rot" parent="MultiViewPort" index="0"]
+rotation = 3.14159
+
+[node name="Raycast" parent="MultiViewPort/rot" index="0"]
+visible = true
+position = Vector2(-13, -5)
 
 [node name="PArticles" parent="MultiViewPort/rot" index="1"]
 visible = true
 
-[node name="laser" parent="MultiViewPort/rot" index="3"]
-material = SubResource("ShaderMaterial_22ue6")
+[node name="shiny" parent="MultiViewPort/rot/PArticles" index="0"]
+position = Vector2(43.9997, -36)
+amount = 330
+process_material = SubResource("ParticleProcessMaterial_70yxt")
+texture = ExtResource("4_62fwp")
+trail_lifetime = 1.12
+trail_sections = 2
 
-[node name="Shootpoint" parent="MultiViewPort/rot" index="4"]
-position = Vector2(17.8459, -237.02)
+[node name="shiny2" parent="MultiViewPort/rot/PArticles" index="1"]
+visible = false
+
+[node name="smoke2" parent="MultiViewPort/rot/PArticles" index="2"]
+visible = false
+
+[node name="smoke3" parent="MultiViewPort/rot/PArticles" index="3"]
+visible = false
+
+[node name="laser" parent="MultiViewPort/rot" index="3"]
+material = SubResource("ShaderMaterial_ctey1")
+position = Vector2(1.99998, -258)
 
 [node name="Shield" parent="." index="6"]
-material = SubResource("ShaderMaterial_msfhv")
-texture = SubResource("ViewportTexture_mhetk")
+material = SubResource("ShaderMaterial_yg1fn")
+texture = SubResource("ViewportTexture_xg11y")
 
 [node name="Progress" parent="." index="7"]
-material = SubResource("ShaderMaterial_atcbq")
-
-[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+material = SubResource("ShaderMaterial_8qhua")

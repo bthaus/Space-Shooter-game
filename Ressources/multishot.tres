@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://dltgu8g7xm0p"]
+
+[ext_resource type="PackedScene" uid="uid://b6pfmxl0rlfu1" path="res://collectable.tscn" id="1_axw7p"]
+[ext_resource type="Script" path="res://Event.gd" id="2_xkcu8"]
+
+[resource]
+script = ExtResource("2_xkcu8")
+duplications = 1
+difficulty_rating = 0.0
+likelyhood = 1.0
+objects = Array[PackedScene]([ExtResource("1_axw7p")])
+name = ""
+dirty = false
+is_buff = true

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://d2au4ccfix076"]
+
+[ext_resource type="PackedScene" uid="uid://dag74chbayvi0" path="res://fly_while_laser.tscn" id="1_6p1ba"]
+[ext_resource type="Script" path="res://Event.gd" id="2_aqqy5"]
+
+[resource]
+script = ExtResource("2_aqqy5")
+duplications = 1
+difficulty_rating = 0.0
+likelyhood = 1.0
+objects = Array[PackedScene]([ExtResource("1_6p1ba")])
+name = ""
+dirty = false
+is_buff = true

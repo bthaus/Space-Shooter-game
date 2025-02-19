@@ -6,6 +6,7 @@ class_name Event
 @export var objects:Array[PackedScene]=[]
 @export var name:String
 @export var dirty=false
+@export var is_buff=false
 
 
 # Called when the node enters the scene tree for the first time.

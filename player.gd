@@ -17,39 +17,35 @@ func die():
 	pass;	
 func _ready() -> void:
 	super()
-
+func shoot():
+	if multishot:
+		var d=directions.front()
+		directions.append(d.rotated(deg_to_rad(45)).normalized())
+		directions.append(d.rotated(deg_to_rad(25)).normalized())
+		directions.append(d.rotated(deg_to_rad(-45)).normalized())
+		directions.append(d.rotated(deg_to_rad(-25)).normalized())
+	super()
+	pass;
 var angle=0.0	
 var new_direction=Vector2.ZERO
 
-func handle_laser(delta):
+func handle_laser(active,delta):
 	if Input.is_action_pressed(&'laser'):
 		if not fly_buff:
 			new_direction=Vector2.ZERO
 			twirling=Vector2.ZERO
-		laser_power+=delta/1.5
-		accum=clamp(accum+delta,0,0.4)
+	super(active,delta)		
 		
-		laser_power=clamp(laser_power,0,1)
-		var targets=$MultiViewPort/rot/Raycast.get_overlapping_areas()
-		if accum >0.3 and laser_power==1:
-			accum=0
-			for target in targets:
-				
-				if target.get_parent() == self:continue
-				if target  and target.get_parent() is GameObject:
-					target.get_parent().hit()
-				
-		$MultiViewPort/rot/laser.show()
-		$MultiViewPort/rot/laser.material.set_shader_parameter("progress",laser_power)
-		$MultiViewPort/rot/laser.scale.x=lerp(0,24,laser_power*2)
-	else:
-		lower_laser(delta)
 func _process(delta: float) -> void:
 	super(delta)
 	if not active:return
 	
-	
-	
+	#if Input.is_action_just_pressed(&"repel"):
+		#var projectiles=$repelbox.get_overlapping_areas().filter(func (item):return item.get_parent() is Projectile and item.get_parent().shooter!=self)
+		#for p in projectiles:
+			#var projectile=p.get_parent() as Projectile
+			#projectile.direction*=-1
+			
 	if not Input.is_action_pressed(&'laser') or fly_buff:
 		new_direction.x=Input.get_axis(&"ui_left",&"ui_right")
 		new_direction.y=Input.get_axis(&"ui_up",&"ui_down")
@@ -83,7 +79,7 @@ func _process(delta: float) -> void:
 		$MultiViewPort/rot/particles_boost.toggle(true)
 	if not both_triggers_pressed():
 		handle_shoot()
-		handle_laser(delta)
+		handle_laser(Input.is_action_pressed(&'laser'),delta)
 	
 	move(twirling,delta)
 	move(direction,delta)	

@@ -11,7 +11,30 @@ static var offset=0
 
 @export var hp:float=3
 var max_hp:float
-
+func handle_laser(active,delta):
+	if active:
+		print(laser_power)
+		laser_power+=delta/1.5
+		accum=clamp(accum+delta,0,0.4)
+		laser_power=clamp(laser_power,0,1)
+		trigger_laser()
+		show_laser()
+	else:
+		lower_laser(delta)
+func trigger_laser():
+	var targets=$MultiViewPort/rot/Raycast.get_overlapping_areas()
+	if accum >0.3 and laser_power==1:
+		accum=0
+		for target in targets:
+			
+			if target.get_parent() == self:continue
+			if target  and target.get_parent() is GameObject:
+				target.get_parent().hit()
+				
+func show_laser():
+	$MultiViewPort/rot/laser.show()
+	$MultiViewPort/rot/laser.material.set_shader_parameter("progress",laser_power)
+	$MultiViewPort/rot/laser.scale.x=lerp(0,24,laser_power*2)
 # Called when the node enters the scene tree for the first time.
 func hit():
 	change_health(-1)
@@ -32,12 +55,7 @@ func die():
 var multishot=false	
 func apply_multishot():
 	multishot=true
-	directions=[Vector2.UP,
-	Vector2(-2,-1).normalized(),
-	Vector2(-1,-1).normalized(),
-	Vector2(2,-1).normalized(),
-	Vector2(1,-1).normalized(),
-	Vector2.UP]
+	
 	get_tree().create_timer(20).timeout.connect(remove_multishot)
 	
 	pass;
