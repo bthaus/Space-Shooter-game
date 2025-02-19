@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="Event" load_steps=4 format=3 uid="uid://70i0xpaxvuum"]
+[gd_resource type="Resource" script_class="Event" load_steps=4 format=3]
 
-[ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="1_gc3kg"]
-[ext_resource type="PackedScene" uid="uid://dag74chbayvi0" path="res://fly_while_laser.tscn" id="2_i6ld7"]
+[ext_resource type="PackedScene" path="res://e2.tscn" id="1_gc3kg"]
+[ext_resource type="PackedScene" path="res://fly_while_laser.tscn" id="2_i6ld7"]
 [ext_resource type="Script" path="res://Event.gd" id="2_yo60h"]
 
 [resource]
 script = ExtResource("2_yo60h")
 duplications = 1
-difficulty_rating = 1.0
-likelyhood = 0.1
+difficulty_rating = 5.6
+likelyhood = 0.5
 objects = Array[PackedScene]([ExtResource("1_gc3kg"), ExtResource("2_i6ld7")])
 name = ""
+dirty = false

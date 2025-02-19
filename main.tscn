@@ -89,10 +89,15 @@ offset_bottom = 580.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LevelManager" parent="." node_paths=PackedStringArray("spawn_polygon") instance=ExtResource("11_e2v6v")]
+[node name="LevelManager" parent="." node_paths=PackedStringArray("spawn_polygon", "player") instance=ExtResource("11_e2v6v")]
+position = Vector2(-316, -2599)
 spawn_polygon = NodePath("Spawnpoints")
+player = NodePath("../Player")
 
 [node name="Spawnpoints" type="Polygon2D" parent="LevelManager"]
-position = Vector2(54, 549)
-scale = Vector2(0.61137, 0.854545)
-polygon = PackedVector2Array(-4337, -4110, -3681, -4270, -3873, -3870, -3009, -4142, -1873, -4686, -2097, -3934, -2769, -4574, -817, -4190, -1505, -3998, -1137, -4398, -129, -3918, 463, -4526, 735, -3966, -129, -4270, 1423, -4270, 1887, -4734, 1391, -3918, 911, -3998, 2751, -4254, 3023, -4702, 1871, -4494, 2383, -3902, 4159, -4014, 3999, -4606, 3023, -4238, 3455, -3918, 3551, -4206, 4399, -4174, 4687, -4494, 4687, -3950, -305, -4654, -1345, -4750)
+position = Vector2(358, 5117)
+scale = Vector2(0.564438, 1.06601)
+polygon = PackedVector2Array(-4337, -4110, -3681, -4270, -3873, -3870, -3009, -4142, -1873, -4686, -2097, -3934, -2769, -4574, -817, -4190, -1505, -3998, -1137, -4398, -129, -3918, 463, -4526, 735, -3966, -129, -4270, 1423, -4270, 1887, -4734, 1391, -3918, 911, -3998, 2751, -4254, 3023, -4702, 1871, -4494, 2383, -3902, 4159, -4014, 3999, -4606, 3023, -4238, 3455, -3918, 3551, -4206, 4399, -4174, 4687, -4494, 4684.36, -3706.77, -305, -4654, -1345, -4750)
+
+[connection signal="player_died" from="Player" to="LevelManager" method="_on_player_player_died"]
+[connection signal="player_hit" from="Player" to="LevelManager" method="_on_player_player_hit"]

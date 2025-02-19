@@ -1,19 +1,56 @@
-[gd_scene load_steps=6 format=3 uid="uid://clvcwnas3hd2m"]
+[gd_scene load_steps=9 format=3 uid="uid://clvcwnas3hd2m"]
 
 [ext_resource type="Script" path="res://level_manager.gd" id="1_2ercf"]
 [ext_resource type="Script" path="res://Event.gd" id="2_sqxlx"]
 [ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="3_dchyc"]
-[ext_resource type="Resource" uid="uid://70i0xpaxvuum" path="res://Events/1.tres" id="3_inlbk"]
+[ext_resource type="Resource" path="res://Events/1.tres" id="3_inlbk"]
+[ext_resource type="PackedScene" uid="uid://dw521h3yfqgkl" path="res://following_enemy.tscn" id="5_fu3fi"]
+[ext_resource type="LabelSettings" uid="uid://wta5dxoej2tf" path="res://labels.tres" id="5_q3asu"]
 
 [sub_resource type="Resource" id="Resource_ylcqo"]
 script = ExtResource("2_sqxlx")
-duplications = 4
+duplications = 1
 difficulty_rating = 1.0
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("3_dchyc")])
 name = ""
+dirty = false
+
+[sub_resource type="Resource" id="Resource_s6l2c"]
+script = ExtResource("2_sqxlx")
+duplications = 1
+difficulty_rating = 2.0
+likelyhood = 1.0
+objects = Array[PackedScene]([ExtResource("5_fu3fi")])
+name = ""
+dirty = false
 
 [node name="LevelManager" type="Node2D"]
 script = ExtResource("1_2ercf")
-events = Array[ExtResource("2_sqxlx")]([ExtResource("3_inlbk"), SubResource("Resource_ylcqo")])
+events = Array[ExtResource("2_sqxlx")]([ExtResource("3_inlbk"), SubResource("Resource_ylcqo"), SubResource("Resource_s6l2c")])
 entities = Array[PackedScene]([ExtResource("3_dchyc")])
+
+[node name="PowerLevel" type="Label" parent="."]
+offset_left = 875.0
+offset_top = 27.0
+offset_right = 1037.0
+offset_bottom = 50.0
+text = "Current Power Level:"
+label_settings = ExtResource("5_q3asu")
+
+[node name="Label" type="Label" parent="PowerLevel"]
+layout_mode = 0
+offset_left = 2020.0
+offset_top = -47.0
+offset_right = 2126.0
+offset_bottom = 207.0
+text = "1"
+label_settings = ExtResource("5_q3asu")
+
+[node name="events" type="Label" parent="."]
+offset_left = 864.0
+offset_top = 204.0
+offset_right = 2791.0
+offset_bottom = 2354.0
+text = "Current Power Level:"
+label_settings = ExtResource("5_q3asu")

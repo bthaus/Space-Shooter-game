@@ -1,11 +1,23 @@
 extends Spaceship
 class_name PlayerShip
 var ship_rotation=Vector2.ZERO
-var no_rotation_basis:Basis
+
 @export var movement_rect:Polygon2D
+signal player_died
+signal player_hit
+func hit():
+	player_hit.emit()
+	super()
+	pass;
+func die():
+	if not active:return
+	active=false
+	player_died.emit()
+	super()
+	pass;	
 func _ready() -> void:
 	super()
-	no_rotation_basis=reference_quat
+
 var angle=0.0	
 var new_direction=Vector2.ZERO
 
@@ -38,7 +50,7 @@ func _process(delta: float) -> void:
 	
 	
 	
-	if not Input.is_action_pressed(&'laser') and not fly_buff:
+	if not Input.is_action_pressed(&'laser') or fly_buff:
 		new_direction.x=Input.get_axis(&"ui_left",&"ui_right")
 		new_direction.y=Input.get_axis(&"ui_up",&"ui_down")
 		ship_rotation.x=Input.get_joy_axis(0,JOY_AXIS_RIGHT_X)
@@ -49,7 +61,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(&"reset_rot"):
 		angle=0	
 	directions.clear()
-	
+	if both_triggers_pressed():
+		lower_laser(delta)
+		new_direction*=1.1
 	direction=lerp(direction,new_direction.rotated(angle),delta*2)
 	directions.append(Vector2(0,-1).rotated(angle))	
 	$MultiViewPort/rot.rotation=lerp_angle($MultiViewPort/rot.rotation,angle,delta*4)
@@ -70,9 +84,7 @@ func _process(delta: float) -> void:
 	if not both_triggers_pressed():
 		handle_shoot()
 		handle_laser(delta)
-	if both_triggers_pressed():
-		lower_laser(delta)
-		direction*=2.3
+	
 	move(twirling,delta)
 	move(direction,delta)	
 	reference_quat=no_rotation_basis.rotated(Vector3(0,1,0).normalized(),-angle)
@@ -93,3 +105,9 @@ func clamp_point_in_rect(rect, point: Vector2) -> Vector2:
 	
 	return Vector2(clamp(point.x, min_x, max_x), clamp(point.y, min_y, max_y))
 	
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	print("exiting screen")
+	queue_free()
+	pass # Replace with function body.

@@ -1,0 +1,31 @@
+# Created by Kenney (www.kenney.nl)
+
+newmtl metalOrange(Clone)
+Kd 1 0 0
+map_Kd Textures/metalOrange(Clone).png
+
+newmtl _defaultMat(Clone)
+Kd 0 0.185 0.807
+map_Kd Textures/_defaultMat(Clone).png
+
+newmtl dark(Clone)
+Kd 0 0 0
+
+newmtl foliage(Clone)
+Kd 1 0.786 0
+map_Kd Textures/foliage(Clone).png
+
+newmtl foliageDark(Clone)
+Kd 0.528 0 0
+map_Kd Textures/foliageDark(Clone).png
+
+newmtl stoneLight(Clone)
+Kd 0 0 0
+
+newmtl stone(Clone)
+Kd 0 0 0
+
+newmtl metalDark(Clone)
+Kd 1 1 1
+map_Kd Textures/metalDark(Clone).png
+

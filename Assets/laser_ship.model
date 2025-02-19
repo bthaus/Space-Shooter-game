@@ -1,0 +1,26 @@
+# Made using Asset Forge (2.4.1)
+
+:materials
+
+[name:metalOrange;color:RGBA(1.000, 0.000, 0.000, 1.000);scale:(1.0, 1.0);texture:Patterns/zigzag.png;shader:Default;mapping:0;valueA:0.5;valueB:0;]
+[name:_defaultMat;color:RGBA(0.000, 0.185, 0.807, 1.000);scale:(1.0, 1.0);texture:Metal/metalPlate.png;shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
+[name:foliage;color:RGBA(1.000, 0.786, 0.000, 1.000);scale:(1.0, 1.0);texture:Metal/shack.png;shader:Default;mapping:0;valueA:0.35;valueB:0;]
+[name:foliageDark;color:RGBA(0.528, 0.000, 0.000, 1.000);scale:(1.0, 1.0);texture:Wood/planksHorizontal.png;shader:Default;mapping:0;valueA:0.35;valueB:0;]
+[name:stoneLight;color:RGBA(0.000, 0.000, 0.000, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.5;valueB:0;]
+[name:stone;color:RGBA(0.000, 0.000, 0.000, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.5;valueB:0;]
+[name:dark;color:RGBA(0.000, 0.000, 0.000, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.35;valueB:0;]
+[name:metalDark;color:RGBA(1.000, 1.000, 1.000, 1.000);scale:(1.0, 1.0);texture:Metal/stripes.png;shader:Default;mapping:0;valueA:0.35;valueB:0.5;]
+
+:models
+
+[name:;collection:Mech;type:shoulder_default;position:(-1.2000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.4000, 1.4000, 1.4000);group:;locked:False;hidden:False;materials:metalOrange+_defaultMat;]
+[name:;collection:Mech;type:weapon_turretLarge;position:(-0.8000, 0.0000, 0.3000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]
+[name:;collection:Fences;type:hedge_round;position:(-0.6500, 0.0000, -1.0500);rotation:(0.0000, 90.0000, 0.0000);scale:(1.3000, 1.0000, 0.7000);group:;locked:False;hidden:False;materials:foliage+foliageDark+stoneLight+stone;]
+[name:;collection:Mech;type:weapon_turretLarge;position:(-0.2750, 0.0000, 0.3000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.1000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]
+[name:;collection:Mech;type:foot_double;position:(0.0000, 0.0000, -1.0760);rotation:(0.0000, 180.0000, 0.0000);scale:(1.7000, 2.1463, 2.4438);group:;locked:False;hidden:False;materials:metalOrange+_defaultMat+dark;]
+[name:;collection:Mech;type:body_platform;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalOrange;]
+[name:;collection:Blasters;type:attachment_barrel;position:(0.0000, 0.0000, -1.4500);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 2.3000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark+dark;]
+[name:;collection:Mech;type:weapon_turretLarge;position:(0.2750, 0.0000, 0.3000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.1000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]
+[name:;collection:Fences;type:hedge_round;position:(0.6500, 0.0000, -1.0500);rotation:(0.0000, 270.0000, 0.0000);scale:(-1.3000, 1.0000, 0.7000);group:;locked:False;hidden:False;materials:foliage+foliageDark+stoneLight+stone;]
+[name:;collection:Mech;type:shoulder_default;position:(1.2000, 0.0000, 0.0000);rotation:(0.0000, 180.0000, 0.0000);scale:(1.4000, 1.4000, 1.4000);group:;locked:False;hidden:False;materials:metalOrange+_defaultMat;]
+[name:;collection:Mech;type:weapon_turretLarge;position:(0.8000, 0.0000, 0.3000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+_defaultMat+metalOrange;]

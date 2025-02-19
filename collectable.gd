@@ -11,11 +11,10 @@ func _ready() -> void:
 
 
 func hit():
-	queue_free()
 	pass;
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	var p=area.get_parent()
-	if p is Spaceship:
+	if p is PlayerShip:
 		apply_effect(p)
 		collected=true
 		$Area2D.queue_free()

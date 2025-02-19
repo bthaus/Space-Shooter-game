@@ -1,29 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://7ds6ylww2hrw"]
+[gd_scene load_steps=19 format=3 uid="uid://dw521h3yfqgkl"]
 
-[ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_apsdx"]
-[ext_resource type="Script" path="res://e_2.gd" id="2_6eidn"]
-[ext_resource type="ArrayMesh" uid="uid://dfe24cojtvwri" path="res://Assets/e2.obj" id="2_pdalp"]
-[ext_resource type="PackedScene" uid="uid://tlk6wln8t41o" path="res://e1p.tscn" id="3_fdkd1"]
-[ext_resource type="Shader" path="res://2.gdshader" id="5_eyoap"]
-[ext_resource type="Shader" path="res://pixel.gdshader" id="6_jnehh"]
+[ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="1_3nj5l"]
+[ext_resource type="Script" path="res://following_enemy.gd" id="2_f4ihy"]
+[ext_resource type="ArrayMesh" uid="uid://ceyqcugm2qdf2" path="res://Assets/following_pew.obj" id="2_hssfg"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_t4x4t"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_f0mv8"]
 viewport_path = NodePath("SpaceShip")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4asqu"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_uamap"]
 viewport_path = NodePath("SpaceShip")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_maggp"]
-shader = ExtResource("5_eyoap")
-shader_parameter/color = Color(0.700896, 0.0316395, 0.0175448, 1)
-shader_parameter/thickness = 10.0
-shader_parameter/tolerance = 0.0
-shader_parameter/diagonals = true
-shader_parameter/rounded = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vbj5"]
-shader = ExtResource("6_jnehh")
-shader_parameter/amount = 30.0
 
 [sub_resource type="Shader" id="Shader_ieoni"]
 code = "shader_type canvas_item;
@@ -78,7 +63,7 @@ frequency = 0.0044
 seamless = true
 noise = SubResource("FastNoiseLite_rm477")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfyuj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_msfhv"]
 resource_local_to_scene = true
 shader = SubResource("Shader_ieoni")
 shader_parameter/scale_factor = 0.5
@@ -91,7 +76,7 @@ shader_parameter/second_dissolve_directoin = Vector2(-1, 0.3)
 shader_parameter/text_map = SubResource("NoiseTexture2D_oi2iq")
 shader_parameter/texture2 = SubResource("NoiseTexture2D_vyufx")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xama8"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_mhetk"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Shader" id="Shader_dlfin"]
@@ -229,7 +214,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.592157, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_qsi8q"]
 gradient = SubResource("Gradient_ey25t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xac6l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atcbq"]
 resource_local_to_scene = true
 shader = SubResource("Shader_dlfin")
 shader_parameter/stepify = true
@@ -242,59 +227,34 @@ shader_parameter/invert = false
 shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
 shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
-[node name="Node2D" instance=ExtResource("1_apsdx")]
-script = ExtResource("2_6eidn")
-difficulty = 1
-shoot_frequency = 2.0
-projectile = ExtResource("3_fdkd1")
-hp = 2.0
-
-[node name="CollisionShape2D" parent="hitbox" index="0"]
-position = Vector2(-8, -40)
-
-[node name="origin" parent="SpaceShip" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+[node name="Node2D" instance=ExtResource("1_3nj5l")]
+script = ExtResource("2_f4ihy")
+difficulty = 3
+speed = 20.0
+projectile = null
+hp = 1.0
 
 [node name="Spaceship" parent="SpaceShip/origin" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0939965, -0.190923, -0.14111)
-mesh = ExtResource("2_pdalp")
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0939965, -0.190923, -0.14111)
+mesh = ExtResource("2_hssfg")
 
 [node name="Sprite2D" parent="." index="3"]
-texture = SubResource("ViewportTexture_t4x4t")
+texture = SubResource("ViewportTexture_f0mv8")
 
 [node name="MultiViewPort" parent="." index="4"]
-position = Vector2(-19, 6)
-texture = SubResource("ViewportTexture_4asqu")
-shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_maggp"), SubResource("ShaderMaterial_8vbj5")])
-
-[node name="Raycast" parent="MultiViewPort/rot" index="0"]
-visible = false
+texture = SubResource("ViewportTexture_uamap")
 
 [node name="PArticles" parent="MultiViewPort/rot" index="1"]
-visible = false
-
-[node name="particles_boost" parent="MultiViewPort/rot" index="2"]
-visible = false
-
-[node name="laser" parent="MultiViewPort/rot" index="3"]
-visible = false
+visible = true
 
 [node name="Shootpoint" parent="MultiViewPort/rot" index="4"]
-position = Vector2(11, 265)
-
-[node name="Shoot_timer" type="Timer" parent="." index="5"]
-autostart = true
+position = Vector2(17.8459, -237.02)
 
 [node name="Shield" parent="." index="6"]
-visible = false
-material = SubResource("ShaderMaterial_tfyuj")
-texture = SubResource("ViewportTexture_xama8")
+material = SubResource("ShaderMaterial_msfhv")
+texture = SubResource("ViewportTexture_mhetk")
 
 [node name="Progress" parent="." index="7"]
-material = SubResource("ShaderMaterial_xac6l")
+material = SubResource("ShaderMaterial_atcbq")
 
-[node name="VisibleOnScreenNotifier2D" parent="." index="8"]
-position = Vector2(22, -17)
-scale = Vector2(19.2, 12.8)
-
-[connection signal="timeout" from="Shoot_timer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

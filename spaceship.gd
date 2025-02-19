@@ -1,8 +1,8 @@
 extends GameObject
 class_name Spaceship
-
+var no_rotation_basis:Basis
 @export var speed:float=30
-@onready var mesh=$SpaceShip/origin/Spaceship
+@onready var mesh:MeshInstance3D=$SpaceShip/origin/Spaceship
 var reference_quat:Basis
 static var offset=0
 @export var active=true
@@ -16,12 +16,19 @@ var max_hp:float
 func hit():
 	change_health(-1)
 func change_health(val):
+	
 	hp+=val
 	$Progress.set_value(hp)
 	var shield_Val=remap(hp,1,max_hp,0,1)
 	$Shield.material.set_shader_parameter("dissolve_value", shield_Val)
-	if hp==0:
-		queue_free()	
+	if hp<=0:
+		die()
+func die():
+	active=false
+	$death_anim.show()
+	$death_anim.play()
+	$MultiViewPort.hide()
+	pass;			
 var multishot=false	
 func apply_multishot():
 	multishot=true
@@ -53,7 +60,9 @@ func _ready() -> void:
 	max_hp=hp
 	$Progress.set_max_value(hp)
 	$Progress.set_value(hp)
+
 	reference_quat=Quaternion(mesh.transform.basis)
+	no_rotation_basis=reference_quat
 	pass # Replace with function body.
 func get_projectile():
 	return projectile.instantiate()
@@ -96,20 +105,20 @@ var laser_power=0.0
 func end_twirl():
 	twirling=Vector2.ZERO
 	pass;	
-func move(direction,delta):
+func move(direction,delta,y=0):
 	
-	rotate_mesh(direction,delta)
+	rotate_mesh(direction,delta,y)
 	
 	translate(direction*speed*50*delta)
 	pass	
-func rotate_mesh(move:Vector2,delta):
+func rotate_mesh(move:Vector2,delta,y=0):
 	
 	var speed=move.length_squared()
 	speed=clamp(speed,0,1.7)
 	move=move.normalized()
 	if move:
 		
-		var rot=Vector3(move.y,0,-move.x)
+		var rot=Vector3(move.y,y,-move.x).normalized()
 		if twirling!= Vector2.ZERO:
 			mesh.rotate(rot,delta*24*speed)
 		else:	
@@ -118,3 +127,7 @@ func rotate_mesh(move:Vector2,delta):
 	var b=a.slerp(reference_quat,delta*4)
 	mesh.transform.basis=Basis(b)
 	pass
+
+func _on_death_anim_animation_finished() -> void:
+	queue_free()
+	pass # Replace with function body.

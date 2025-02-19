@@ -1,0 +1,19 @@
+# Made using Asset Forge (2.4.1)
+
+:materials
+
+[name:metalPurple;color:RGBA(0.876, 0.000, 0.000, 1.000);scale:(1.0, 1.0);texture:Patterns/zigzag.png;shader:Default;mapping:0;valueA:0.35;valueB:0;]
+[name:_defaultMat;color:RGBA(0.036, 0.258, 1.000, 1.000);scale:(1.0, 1.0);texture:Metal/metalPlate.png;shader:Default;mapping:0;valueA:0.35;valueB:0.25;]
+[name:dark;color:RGBA(0.000, 0.000, 0.000, 1.000);scale:(1.0, 1.0);shader:Default;mapping:0;valueA:0.35;valueB:0;]
+[name:metalOrange;color:RGBA(1.000, 0.845, 0.277, 1.000);scale:(1.0, 1.0);texture:Metal/scratched.png;shader:Default;mapping:0;valueA:0.5;valueB:0.2;]
+
+:models
+
+[name:;collection:Aircraft;type:rudder_sides;position:(0.0000, 0.5000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metalPurple+_defaultMat;]
+[name:;collection:Aircraft;type:hull_tailTop;position:(0.0000, 0.0000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 0.5000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalPurple;]
+[name:;collection:Aircraft;type:wing_point;position:(-1.0000, 0.0000, -0.4000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalPurple;]
+[name:;collection:Aircraft;type:wing_point;position:(1.0000, 0.0000, -0.4000);rotation:(0.0000, 180.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalPurple;]
+[name:;collection:Aircraft;type:hull_topIntake;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metalPurple+_defaultMat+dark;]
+[name:;collection:Mech;type:weapon_turretSmall;position:(-0.7000, 0.2000, -0.6000);rotation:(0.0000, 180.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+dark+metalOrange;]
+[name:;collection:Mech;type:head_knight;position:(0.0000, 0.0000, 0.2560);rotation:(0.0000, 0.0000, 0.0000);scale:(1.6000, 1.6000, 2.8800);group:;locked:False;hidden:False;materials:metalOrange+dark;]
+[name:;collection:Mech;type:weapon_turretSmall;position:(0.7000, 0.2000, -0.6000);rotation:(0.0000, 180.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+dark+metalOrange;]

@@ -1,7 +1,7 @@
 extends Node2D
 class_name GameObject
-
-
+var event:Event
+var player:PlayerShip
 func _ready() -> void:
 	print(name+ " ready.")
 	

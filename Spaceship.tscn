@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cl0e0qexuj16p"]
+[gd_scene load_steps=59 format=3 uid="uid://cl0e0qexuj16p"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_4eftf"]
 [ext_resource type="Shader" path="res://2.gdshader" id="1_n4ook"]
@@ -14,6 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://mh4wi1705ybw" path="res://player_projectile.tscn" id="13_mgxrc"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="13_umu2r"]
 [ext_resource type="PackedScene" uid="uid://mxjp7vl1d0t5" path="res://progress.tscn" id="14_uu2fx"]
+[ext_resource type="Texture2D" uid="uid://d4ma6iw4cd1mw" path="res://Assets/Effects/Explosion_1/e2.png" id="15_jy7vk"]
+[ext_resource type="Texture2D" uid="uid://cn4e158dig1ir" path="res://Assets/Effects/Explosion_1/e3.png" id="16_8bs00"]
+[ext_resource type="Texture2D" uid="uid://mjaeoy3qx0qu" path="res://Assets/Effects/Explosion_1/e4.png" id="17_vb8r8"]
+[ext_resource type="Texture2D" uid="uid://coqicc4occ8c8" path="res://Assets/Effects/Explosion_1/e5.png" id="18_5dqrv"]
+[ext_resource type="Texture2D" uid="uid://d4b7mcrugy4vy" path="res://Assets/Effects/Explosion_1/e6.png" id="19_qjw23"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
 radius = 120.037
@@ -413,6 +418,35 @@ shader_parameter/invert = false
 shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
 shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_yao65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_cf1mf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jy7vk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_8bs00")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vb8r8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5dqrv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_qjw23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mw1gw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Node2D2" type="Node2D"]
 script = ExtResource("1_4eftf")
 projectile = ExtResource("13_mgxrc")
@@ -628,3 +662,16 @@ texture = SubResource("ViewportTexture_7moqm")
 [node name="Progress" parent="." instance=ExtResource("14_uu2fx")]
 material = SubResource("ShaderMaterial_xac6l")
 position = Vector2(-4, -383)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(19, -51)
+scale = Vector2(36.9, 26.4)
+
+[node name="death_anim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(20, -53)
+scale = Vector2(1.32364, 1.32364)
+sprite_frames = SubResource("SpriteFrames_yao65")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="animation_finished" from="death_anim" to="." method="_on_death_anim_animation_finished"]

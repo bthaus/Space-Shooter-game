@@ -29,3 +29,8 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	pass # Replace with function body.
 func remove_on_hit():
 	queue_free()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	remove_on_hit()
+	pass # Replace with function body.
