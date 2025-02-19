@@ -116,7 +116,7 @@ func change_event_difficulty(val,es,dirty):
 		#if the diff has been raised however, the diff wont be lowered, indicated by dirty. if the wave is over, dirty is consumed
 		if e.dirty and dirty: e.dirty=false; continue;
 		changed_events.push_back(e)
-		e.difficulty_rating=clamp(e.difficulty_rating+val*0.1,0.3,200)
+		e.difficulty_rating=clamp(e.difficulty_rating+val*0.01,0.3,200)
 		e.dirty=dirty
 		ResourceSaver.save(e)
 	update_event_tags()		
