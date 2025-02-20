@@ -1,16 +1,19 @@
 extends Resource
 class_name PlayerData
 @export var player_name:String
-var highest_score=0
-var highscore=0
-var ships_killed=0
-var deaths=0
+@export var highest_score=0
+@export var highscore=0
+@export var ships_killed=0
+@export var deaths=0
 @export var difficulty_rating_adjustment={}
 
 func get_dr(wave):
 	if not difficulty_rating_adjustment.has(wave) : return wave
 	return difficulty_rating_adjustment[wave].front()
 	pass;
+func reset():
+	difficulty_rating_adjustment={}	
+	ResourceSaver.save(self)
 func adjust_dr(wave,val):
 	var current=difficulty_rating_adjustment.get_or_add(wave,[0])
 	current=clamp(current.front()+val,-200,200);
@@ -39,14 +42,14 @@ func calculate_next_dr(wave,lost_health):
 		var last=relevant_waves
 		last=[last.pop_back(),last.pop_back(),last.pop_back()]
 		var weighed:float=last.reduce(accumulate,0)/3
-		average=lerp(average,weighed,0.3)
+		average=lerp(average as float,weighed as float,0.3)
 	
 	#adjust the average to the dra of the last times this wave has been reached
 	if difficulty_rating_adjustment.has(wave):
 		var history=difficulty_rating_adjustment.get(wave)
 		var laver=history.reduce(accumarray,0)
-		var last=laver/difficulty_rating_adjustment.get(wave).size()
-		average=lerp(average,last,0.5)
+		var last:float=laver/difficulty_rating_adjustment.get(wave).size()
+		average=lerp(average as float,last as float,0.5)
 	print("weighed average: "+str(average))	
 	#factor remaining health -> a lot of health, harder wave.
 	average-=lost_health	

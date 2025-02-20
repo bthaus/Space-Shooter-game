@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://7vpevx27xmsm"]
+[gd_scene load_steps=7 format=3 uid="uid://7vpevx27xmsm"]
 
-[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="1_6mkxi"]
 [ext_resource type="Script" path="res://graphs.gd" id="1_x0swm"]
 [ext_resource type="Shader" path="res://stars.gdshader" id="2_qe8ka"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="3_rfytj"]
@@ -20,9 +19,8 @@ shader_parameter/bigStarAmount = 0.02
 [sub_resource type="LabelSettings" id="LabelSettings_6r2a1"]
 font_size = 21
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("graph")]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_x0swm")
-graph = NodePath("ScrollContainer/VBoxContainer/main_graph")
 
 [node name="Background2" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_h231p")
@@ -47,16 +45,3 @@ text = "This is a summary of your performances. The first graph shows how the ga
 label_settings = SubResource("LabelSettings_6r2a1")
 autowrap_mode = 2
 clip_text = true
-
-[node name="main_graph" type="Control" parent="ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 500)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("1_6mkxi")
-x_max = 30.0
-x_label = "Waves"
-y_min = -11.0
-y_max = 10.0
-background_color = Color(0, 0, 0, 0)
-grid_horizontal_visible = true

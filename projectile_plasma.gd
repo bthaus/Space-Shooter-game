@@ -25,7 +25,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		active=false
 		var dead=parent.hit()
 		hitbox.queue_free()
-		if dead and shooter is PlayerShip:
+		if self is PlayerProjectile:
 			shooter.add_hit()
 		remove_on_hit()
 	pass # Replace with function body.

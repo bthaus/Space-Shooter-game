@@ -16,6 +16,7 @@ func die():
 	active=false
 	player_died.emit()
 	super()
+	get_tree().change_scene_to_file("res://main_menu.tscn")
 	pass;	
 func _ready() -> void:
 	super()

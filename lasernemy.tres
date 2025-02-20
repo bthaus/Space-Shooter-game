@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://jhc2ywrij2qk"]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3]
 
-[ext_resource type="PackedScene" uid="uid://bf8dn2qifx734" path="res://laser_enemy.tscn" id="1_2fyu0"]
+[ext_resource type="PackedScene" path="res://laser_enemy.tscn" id="1_2fyu0"]
 [ext_resource type="Script" path="res://Event.gd" id="2_svtnk"]
 
 [resource]
 script = ExtResource("2_svtnk")
 duplications = 1
-difficulty_rating = 1.51
+difficulty_rating = 2.775
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_2fyu0")])
 name = "Laser"
