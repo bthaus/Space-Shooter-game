@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_ib66i")
 duplications = 1
-difficulty_rating = 3.973
+difficulty_rating = 4.048
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_mkmhw")])
 name = "Multishot"

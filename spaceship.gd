@@ -12,6 +12,7 @@ static var offset=0
 
 @export var hp:float=3
 var max_hp:float
+signal ship_hit
 func handle_laser(active,delta):
 	if active:
 		laser_power+=delta/1.5
@@ -35,8 +36,11 @@ func show_laser(l=laser):
 	l.show()
 	l.material.set_shader_parameter("progress",laser_power)
 	l.scale.x=lerp(0,24,laser_power*2)
+	$MultiViewPort/rot/Raycast/CollisionShape2D.scale.y=l.scale.x
+	
 # Called when the node enters the scene tree for the first time.
 func hit():
+	ship_hit.emit()
 	return change_health(-1)
 func change_health(val):
 	
@@ -114,9 +118,10 @@ var direction=Vector2.ZERO
 func both_triggers_pressed():
 	return Input.is_action_pressed(&"laser") and Input.is_action_pressed(&"shoot")
 	
-func lower_laser(delta):
+func lower_laser(delta,mat=true):
 	laser_power-=delta
 	accum-=delta
+	if not mat:return
 	var cp=$MultiViewPort/rot/laser.material.get_shader_parameter("progress")
 	if cp<0.1:
 		$MultiViewPort/rot/laser.hide()

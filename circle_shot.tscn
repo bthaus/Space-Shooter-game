@@ -384,6 +384,12 @@ texture = SubResource("ViewportTexture_y7i5b")
 [node name="rot" parent="MultiViewPort" index="0"]
 position = Vector2(4, -14)
 
+[node name="Raycast" parent="MultiViewPort/rot" index="0"]
+position = Vector2(12, 56)
+
+[node name="CollisionShape2D" parent="MultiViewPort/rot/Raycast" index="0"]
+position = Vector2(-5, -3171.23)
+
 [node name="laser" parent="MultiViewPort/rot" index="3"]
 material = SubResource("ShaderMaterial_4j5b2")
 

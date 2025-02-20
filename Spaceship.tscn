@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://d4b7mcrugy4vy" path="res://Assets/Effects/Explosion_1/e6.png" id="19_qjw23"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mphox"]
-radius = 151.796
+radius = 167.887
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ggdry"]
 render_priority = 0
@@ -79,7 +79,7 @@ shader = ExtResource("2_dqqr8")
 shader_parameter/amount = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
-size = Vector2(131.16, 1604.69)
+size = Vector2(194.58, 4535.17)
 
 [sub_resource type="Gradient" id="Gradient_ppx3s"]
 colors = PackedColorArray(6, 1, 1, 1, 1, 1, 1, 0)
@@ -632,7 +632,7 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/rot/Raycast"]
-position = Vector2(11, -1091)
+position = Vector2(7.29, -2570.41)
 shape = SubResource("RectangleShape2D_qlbdp")
 
 [node name="PArticles" type="Node2D" parent="MultiViewPort/rot"]

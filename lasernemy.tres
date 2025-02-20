@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_svtnk")
 duplications = 1
-difficulty_rating = 2.785
+difficulty_rating = 2.89
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_2fyu0")])
 name = "Laser"

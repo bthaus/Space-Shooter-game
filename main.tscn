@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=32 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8pwlk"]
 [ext_resource type="Shader" path="res://pixel.gdshader" id="1_gyqkj"]
 [ext_resource type="PackedScene" uid="uid://cl0e0qexuj16p" path="res://Spaceship.tscn" id="1_wtn6w"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="1_xru2y"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_bkqmu"]
 [ext_resource type="Script" path="res://background.gd" id="3_k4dhj"]
 [ext_resource type="Shader" path="res://stars.gdshader" id="4_81tw8"]
 [ext_resource type="Shader" path="res://screenpixel.gdshader" id="10_6k0lo"]
@@ -17,8 +16,9 @@
 [ext_resource type="Resource" uid="uid://d2au4ccfix076" path="res://flylaser.tres" id="16_ckysx"]
 [ext_resource type="Resource" uid="uid://32c2bg8ulw7l" path="res://lasernemy.tres" id="17_ksgqy"]
 [ext_resource type="Resource" uid="uid://cqvibgwfqn2gs" path="res://multi_enemy.tres" id="18_srnl2"]
+[ext_resource type="PackedScene" uid="uid://mxjp7vl1d0t5" path="res://progress.tscn" id="19_3tt1t"]
+[ext_resource type="Resource" uid="uid://ch1fdia4l3v7" path="res://Events/mothership.tres" id="19_apij1"]
 [ext_resource type="Resource" uid="uid://b0xaicqneo3qn" path="res://rotarydisk.tres" id="19_gr36n"]
-[ext_resource type="PackedScene" uid="uid://c2a4d5fjdqmd2" path="res://mothership.tscn" id="19_xemg0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yxdeh"]
 shader = ExtResource("1_gyqkj")
@@ -49,18 +49,156 @@ shader = ExtResource("10_6k0lo")
 shader_parameter/pixelation = 0.004
 shader_parameter/opacity = 1.0
 
-[sub_resource type="Resource" id="Resource_ayck3"]
-script = ExtResource("11_qp3xo")
-duplications = 1
-difficulty_rating = 1.0
-likelyhood = 1.0
-objects = Array[PackedScene]([ExtResource("19_xemg0")])
-name = ""
-dirty = false
-is_buff = false
-
 [sub_resource type="LabelSettings" id="LabelSettings_rb6ma"]
 font_size = 111
+
+[sub_resource type="Shader" id="Shader_2ih58"]
+code = "shader_type canvas_item;
+
+
+uniform bool stepify = true;
+uniform float value : hint_range(0.0, 1.0) = 1.0;
+uniform int count = 1;
+uniform vec2 margin;
+uniform float shear_angle : hint_range(-1.0, 1.0) = 0.0; // -90 to 90 degrees
+uniform sampler2D gradient_x : source_color;
+uniform sampler2D gradient_y : source_color;
+uniform bool use_value_gradient = false;
+uniform bool invert = false;
+
+
+vec4 get_gradient_color(sampler2D src, float position) {
+	position = clamp(position, 0.01, 0.99); // Color at 0.0 and 1.0 get interpolated by both end
+    return texture(src, vec2(position, 0.5));
+}
+
+float square_shape(vec2 uv, vec2 size) {
+	vec2 bl = step((1.0-size)/2.0, uv); // bottom-left
+	vec2 tr = step((1.0-size)/2.0, 1.0-uv); // top-right
+	return bl.x * bl.y * tr.x * tr.y;
+}
+
+vec2 segmented_bar(vec2 uv) {
+	float shape = 0.0;
+	float bar_count = float(count);
+	float bar_size = 1.0/bar_count;
+	float separation = margin.x;
+	float separation_width = separation * bar_size;
+	float bar_value = 0.0;
+	for (int i=0;i<count;i++) {
+		float index_value = float(i+1) / float(count);
+		
+		if (index_value > value) {
+			// Ceil
+			if (value < float(i) * bar_size || value <= 0.0) {
+				continue;
+			}
+		}
+		
+		vec2 uv4 = uv;
+		vec2 size4 = vec2(bar_size, 1.0-margin.y);
+		//size4.x = bar_size;
+		uv4.x = uv4.x - (bar_size/2.0) + 0.5;
+		uv4.x -= bar_size * float(i); // Offset
+		size4.x -= separation_width;
+		shape += square_shape(uv4, size4);
+		bar_value = index_value;
+	}
+	return vec2(shape, bar_value);
+}
+
+float snap(float original, float numerator, float denominator)
+{
+    return round(original * denominator / numerator) * numerator / denominator;
+}
+
+vec3 hsv_to_rgb(vec3 color) {
+	vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+	vec3 p = abs(fract(color.xxx + K.xyz) * 6.0 - K.www);
+	return color.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), color.y);
+}
+
+float round_place(float num,float places) {
+	return (round(num*pow(10,places))/pow(10,places));
+}
+
+float map_range(float min1, float max1, float min2, float max2, float v) {
+	float p = (v - min1) / (max1 - min1);
+	return p * (max2 - min2) + min2;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	
+	float angle = 1.571 + (shear_angle * PI/4.0);
+	float shear_value = (cos(angle)/sin(angle));
+	float shear = shear_value * uv.y;
+	uv.x = uv.x + shear;
+	uv.x -= shear_value/2.0;
+	
+	uv.x *= 1.0+abs(shear_value);
+	uv.x -= abs(shear_value)/2.0;
+	
+	float bar_count = float(count);
+	float bar_size = 1.0/bar_count;
+	float separation_width = margin.x * bar_size;
+	
+	vec2 shape = segmented_bar(uv);
+	vec4 gradient_color = vec4(0.0);
+	float gradient_x_pos = uv.x;
+	if (use_value_gradient) {
+		gradient_x_pos = value;
+	}
+	vec4 gradient_color_x = get_gradient_color(gradient_x, gradient_x_pos);
+	if (stepify) {
+		float step_size = float(count)/2.0;
+		gradient_color_x = get_gradient_color(gradient_x, snap(gradient_x_pos, 1.0, step_size));
+	}
+	else {
+		shape.x *= step(uv.x, value);
+	}
+	
+	float y = map_range(0.5-(1.0-margin.y)/2.0, 0.5+(1.0-margin.y)/2.0, 0.0, 1.0, uv.y);
+	if (invert) {
+		y = uv.y;
+		shape.x = 1.0 - shape.x;
+		shape.x *= step(0.0, y);
+		shape.x *= step(y, 1.0);
+	}
+	vec4 gradient_color_y = get_gradient_color(gradient_y, y);
+	gradient_color += gradient_color_x;
+	gradient_color = mix(gradient_color_x, gradient_color_y, gradient_color_y.a);
+	
+	
+	
+	COLOR = vec4(gradient_color.rgb, shape.x);
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_b4mty"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_du16p"]
+gradient = SubResource("Gradient_b4mty")
+
+[sub_resource type="Gradient" id="Gradient_ey25t"]
+offsets = PackedFloat32Array(0, 0.474178, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.592157, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qsi8q"]
+gradient = SubResource("Gradient_ey25t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_420bg"]
+resource_local_to_scene = true
+shader = SubResource("Shader_2ih58")
+shader_parameter/stepify = true
+shader_parameter/value = 0.74
+shader_parameter/count = 4
+shader_parameter/margin = Vector2(0.26, 0.41)
+shader_parameter/shear_angle = -0.274
+shader_parameter/use_value_gradient = true
+shader_parameter/invert = false
+shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
+shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
 [node name="Node2D" type="Polygon2D"]
 material = SubResource("ShaderMaterial_yxdeh")
@@ -84,8 +222,7 @@ script = ExtResource("3_k4dhj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(173, -1193)
-zoom = Vector2(0.22, 0.22)
-script = ExtResource("3_bkqmu")
+zoom = Vector2(0.13, 0.13)
 
 [node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5613x")
@@ -97,6 +234,10 @@ movement_rect = NodePath("../Polygon2D")
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-2377, -2687, -2377, 349, 2783, 306, 2712, -2630)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-4231, -3665, -4267, 1273, 4639, 1321, 4639, -3641)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -115,10 +256,9 @@ grow_vertical = 2
 [node name="LevelManager" parent="." node_paths=PackedStringArray("spawn_polygon", "player") instance=ExtResource("11_e2v6v")]
 position = Vector2(1108, -2513)
 scale = Vector2(0.49, 0.49)
-events = Array[ExtResource("11_qp3xo")]([ExtResource("11_214od"), ExtResource("13_6xl2e"), ExtResource("14_1t1j6"), ExtResource("15_i6u31"), ExtResource("16_ckysx"), ExtResource("17_ksgqy"), ExtResource("18_srnl2"), ExtResource("19_gr36n"), ExtResource("13_6xl2e")])
+events = Array[ExtResource("11_qp3xo")]([ExtResource("11_214od"), ExtResource("13_6xl2e"), ExtResource("14_1t1j6"), ExtResource("15_i6u31"), ExtResource("16_ckysx"), ExtResource("17_ksgqy"), ExtResource("18_srnl2"), ExtResource("19_gr36n"), ExtResource("13_6xl2e"), ExtResource("19_apij1")])
 spawn_polygon = NodePath("Spawnpoints")
 player = NodePath("../Player")
-debug_event = SubResource("Resource_ayck3")
 
 [node name="Spawnpoints" type="Polygon2D" parent="LevelManager"]
 position = Vector2(-2118.37, 8408.16)
@@ -132,6 +272,15 @@ offset_right = -1725.0
 offset_bottom = -2385.0
 text = "Highscore: "
 label_settings = SubResource("LabelSettings_rb6ma")
+
+[node name="Progress" parent="." instance=ExtResource("19_3tt1t")]
+visible = false
+material = SubResource("ShaderMaterial_420bg")
+position = Vector2(20, 1026)
+scale = Vector2(30.16, 3.60938)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
 
 [connection signal="player_died" from="Player" to="LevelManager" method="_on_player_player_died"]
 [connection signal="player_hit" from="Player" to="LevelManager" method="_on_player_player_hit"]

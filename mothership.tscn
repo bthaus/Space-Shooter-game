@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://c2a4d5fjdqmd2"]
+[gd_scene load_steps=37 format=3 uid="uid://c2a4d5fjdqmd2"]
 
 [ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="1_xv8ue"]
 [ext_resource type="Script" path="res://mothership.gd" id="2_kj5xv"]
@@ -110,6 +110,9 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ghta"]
 shader = SubResource("Shader_2mnuu")
 shader_parameter/amount = 35.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ausot"]
+size = Vector2(126.551, 20)
 
 [sub_resource type="Shader" id="Shader_m6l8x"]
 code = "/*
@@ -470,13 +473,19 @@ shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
 shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
 [node name="Node2D" node_paths=PackedStringArray("lasers") instance=ExtResource("1_xv8ue")]
-position = Vector2(-628, -317)
+position = Vector2(38.715, 0)
 scale = Vector2(1.8, 1.8)
 script = ExtResource("2_kj5xv")
 lasers = [NodePath("MultiViewPort/offset/laser2"), NodePath("MultiViewPort/offset/laser3"), NodePath("MultiViewPort/offset/laser4"), NodePath("MultiViewPort/offset/laser5"), NodePath("MultiViewPort/offset/laser6"), NodePath("MultiViewPort/offset/laser7")]
-shoot_frequency = 0.0
+shoot_frequency = 0.5
 projectile = null
 hp = 30.0
+
+[node name="hitbox" parent="." index="0"]
+visible = true
+
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+position = Vector2(-30, 244.444)
 
 [node name="SpaceShip" parent="." index="1"]
 size = Vector2i(2000, 2000)
@@ -520,30 +529,37 @@ autoplay = "rotate"
 
 [node name="arm" type="MeshInstance3D" parent="SpaceShip/origin/Spaceship" index="3"]
 transform = Transform3D(0.999999, 0, 2.98023e-07, 3.92701e-09, 0.999913, -0.0131768, -2.97997e-07, 0.0131769, 0.999912, 16.841, -3.59869, 0.132652)
+visible = false
 mesh = SubResource("SphereMesh_2r3af")
 
 [node name="arm2" type="MeshInstance3D" parent="SpaceShip/origin/Spaceship" index="4"]
 transform = Transform3D(0.999999, 0, 3.27826e-07, 0, 1, 0, -3.27826e-07, 0, 0.999999, 8.25063, -3.59869, -14.2967)
+visible = false
 mesh = SubResource("SphereMesh_2r3af")
 
 [node name="arm3" type="MeshInstance3D" parent="SpaceShip/origin/Spaceship" index="5"]
 transform = Transform3D(0.999999, 0, 3.27826e-07, 0, 1, 0, -3.27826e-07, 0, 0.999999, -8.37308, -3.59869, -14.1663)
+visible = false
 mesh = SubResource("SphereMesh_2r3af")
 
 [node name="arm4" type="MeshInstance3D" parent="SpaceShip/origin/Spaceship" index="6"]
 transform = Transform3D(0.999999, 0, 3.27826e-07, 0, 1, 0, -3.27826e-07, 0, 0.999999, -16.1441, -3.59869, 0.12582)
+visible = false
 mesh = SubResource("SphereMesh_2r3af")
 
 [node name="arm5" type="MeshInstance3D" parent="SpaceShip/origin/Spaceship" index="7"]
 transform = Transform3D(0.999999, 0, 3.27826e-07, 0, 1, 0, -3.27826e-07, 0, 0.999999, -8.212, -3.59869, 14.2875)
+visible = false
 mesh = SubResource("SphereMesh_2r3af")
 
 [node name="arm6" type="MeshInstance3D" parent="SpaceShip/origin/Spaceship" index="8"]
 transform = Transform3D(0.999999, 0, 3.27826e-07, 0, 1, 0, -3.27826e-07, 0, 0.999999, 7.91246, -3.59869, 14.2974)
+visible = false
 mesh = SubResource("SphereMesh_2r3af")
 
 [node name="center" type="Node3D" parent="SpaceShip/origin/Spaceship" index="9"]
 transform = Transform3D(0.999999, 0, 1.78814e-07, 0, 1, 0, -1.78814e-07, 0, 0.999999, -0.163528, 0, -0.0939603)
+visible = false
 
 [node name="DirectionalLight3D" parent="SpaceShip/origin" index="3"]
 transform = Transform3D(-0.833201, 0.318016, -0.452373, 0.222928, 0.941832, 0.251505, 0.506042, 0.108708, -0.855631, -6.11831, 2.34675, 27.6725)
@@ -601,51 +617,81 @@ position = Vector2(-1003.22, -1001.56)
 
 [node name="laser2" type="Sprite2D" parent="MultiViewPort/offset" index="0"]
 material = ExtResource("9_w72gu")
-position = Vector2(1262.22, 1080.56)
-rotation = -2.83262
+position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("9_d2ppv")
 offset = Vector2(-64.0416, 1.94536)
+
+[node name="Area2D" type="Area2D" parent="MultiViewPort/offset/laser2" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/offset/laser2/Area2D" index="0"]
+position = Vector2(-64.7879, 0.68322)
+shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser3" type="Sprite2D" parent="MultiViewPort/offset" index="1"]
 material = ExtResource("9_w72gu")
-position = Vector2(1019.14, 1122.31)
-rotation = -2.83262
+position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("9_d2ppv")
 offset = Vector2(-64.0416, 1.94536)
+
+[node name="Area2D" type="Area2D" parent="MultiViewPort/offset/laser3" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/offset/laser3/Area2D" index="0"]
+position = Vector2(-64.7879, 0.68322)
+shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser4" type="Sprite2D" parent="MultiViewPort/offset" index="2"]
 material = ExtResource("9_w72gu")
-position = Vector2(1019.14, 1122.31)
-rotation = -2.83262
+position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("9_d2ppv")
 offset = Vector2(-64.0416, 1.94536)
+
+[node name="Area2D" type="Area2D" parent="MultiViewPort/offset/laser4" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/offset/laser4/Area2D" index="0"]
+position = Vector2(-64.7879, 0.68322)
+shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser5" type="Sprite2D" parent="MultiViewPort/offset" index="3"]
 material = ExtResource("9_w72gu")
-position = Vector2(1019.14, 1122.31)
-rotation = -2.83262
+position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("9_d2ppv")
 offset = Vector2(-64.0416, 1.94536)
+
+[node name="Area2D" type="Area2D" parent="MultiViewPort/offset/laser5" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/offset/laser5/Area2D" index="0"]
+position = Vector2(-64.7879, 0.68322)
+shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser6" type="Sprite2D" parent="MultiViewPort/offset" index="4"]
 material = ExtResource("9_w72gu")
-position = Vector2(1019.14, 1122.31)
-rotation = -2.83262
+position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("9_d2ppv")
 offset = Vector2(-64.0416, 1.94536)
 
+[node name="Area2D" type="Area2D" parent="MultiViewPort/offset/laser6" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/offset/laser6/Area2D" index="0"]
+position = Vector2(-64.7879, 0.68322)
+shape = SubResource("RectangleShape2D_ausot")
+
 [node name="laser7" type="Sprite2D" parent="MultiViewPort/offset" index="5"]
 material = ExtResource("9_w72gu")
-position = Vector2(1019.14, 1122.31)
-rotation = -2.83262
+position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
 texture = ExtResource("9_d2ppv")
 offset = Vector2(-64.0416, 1.94536)
+
+[node name="Area2D" type="Area2D" parent="MultiViewPort/offset/laser7" index="0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/offset/laser7/Area2D" index="0"]
+position = Vector2(-64.7879, 0.68322)
+shape = SubResource("RectangleShape2D_ausot")
 
 [node name="rot" parent="MultiViewPort" index="1"]
 visible = false
@@ -671,8 +717,7 @@ visible = false
 curve = SubResource("Curve2D_8jwy2")
 
 [node name="Shoot_timer" parent="." index="5"]
-wait_time = 7.0
-autostart = false
+wait_time = 0.5
 
 [node name="Shield" parent="." index="6"]
 material = SubResource("ShaderMaterial_cmmtj")

@@ -1,5 +1,6 @@
 extends Node2D
-
+class_name MainMenu
+static var boss_please=false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +13,7 @@ func _process(delta: float) -> void:
 
 
 func _on_start_pressed() -> void:
+	boss_please=false
 	get_tree().change_scene_to_file('res://main.tscn')
 	pass # Replace with function body.
 
@@ -23,4 +25,10 @@ func _on_graphs_pressed() -> void:
 
 func _on_enemies_pressed() -> void:
 	get_tree().change_scene_to_file('res://enemy_stats.tscn')
+	pass # Replace with function body.
+
+
+func _on_start_2_pressed() -> void:
+	boss_please=true
+	get_tree().change_scene_to_file('res://main.tscn')
 	pass # Replace with function body.

@@ -34,6 +34,13 @@ offset_bottom = 263.0
 text = "Start Game
 "
 
+[node name="start2" type="Button" parent="."]
+offset_left = 697.0
+offset_top = 160.0
+offset_right = 967.0
+offset_bottom = 260.0
+text = "Just the boss please"
+
 [node name="graphs" type="Button" parent="."]
 offset_left = 396.0
 offset_top = 293.0
@@ -51,5 +58,6 @@ text = "Ships
 "
 
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="start2" to="." method="_on_start_2_pressed"]
 [connection signal="pressed" from="graphs" to="." method="_on_graphs_pressed"]
 [connection signal="pressed" from="enemies" to="." method="_on_enemies_pressed"]

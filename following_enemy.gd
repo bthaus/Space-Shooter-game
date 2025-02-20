@@ -42,7 +42,7 @@ func attack(p:Projectile):
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	
+	if area.get_parent() is Mothership:return
 	if area.get_parent() is GameObject:
 		area.get_parent().hit()
 	if immortal:return	
