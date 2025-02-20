@@ -76,7 +76,7 @@ shader_parameter/rounded = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bchws"]
 shader = ExtResource("2_dqqr8")
-shader_parameter/amount = 0.0
+shader_parameter/amount = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
 size = Vector2(144, 5857.54)
@@ -636,6 +636,7 @@ position = Vector2(-5, -3171.23)
 shape = SubResource("RectangleShape2D_qlbdp")
 
 [node name="PArticles" type="Node2D" parent="MultiViewPort/rot"]
+visible = false
 position = Vector2(-56, 141)
 script = ExtResource("8_kxeok")
 

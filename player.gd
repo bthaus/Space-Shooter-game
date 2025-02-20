@@ -11,6 +11,8 @@ func hit():
 	pass;
 func die():
 	if not active:return
+	player_data.deaths+=1
+	ResourceSaver.save(player_data)
 	active=false
 	player_died.emit()
 	super()
@@ -28,7 +30,9 @@ func shoot():
 	pass;
 var angle=0.0	
 var new_direction=Vector2.ZERO
-
+func add_hit():
+	player_data.ships_killed+=1
+	pass;
 func handle_laser(active,delta):
 	if Input.is_action_pressed(&'laser'):
 		if not fly_buff:
@@ -68,6 +72,7 @@ func _process(delta: float) -> void:
 	var length=direction.length()
 	if length<0.3:
 		move=Vector2.ZERO
+	$MultiViewPort/rot/PArticles.show()
 	$MultiViewPort/rot/PArticles.toggle(move!=Vector2.ZERO or twirling!=Vector2.ZERO)
 	$MultiViewPort/rot/PArticles.set_ratio(length)
 	if twirling:
@@ -104,6 +109,5 @@ func clamp_point_in_rect(rect, point: Vector2) -> Vector2:
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	print("exiting screen")
-	queue_free()
+	
 	pass # Replace with function body.

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://cx6ocf31wse1s"]
 
-[ext_resource type="PackedScene" path="res://following_enemy.tscn" id="1_tn3g2"]
+[ext_resource type="PackedScene" uid="uid://dw521h3yfqgkl" path="res://following_enemy.tscn" id="1_tn3g2"]
 [ext_resource type="Script" path="res://Event.gd" id="2_u3uqx"]
 
 [resource]

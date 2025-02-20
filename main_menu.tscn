@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8wp0nfj2j5hb"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_0x3v3"]
+[ext_resource type="Shader" path="res://stars.gdshader" id="1_i0603"]
+[ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="2_pswtn"]
+[ext_resource type="Script" path="res://background.gd" id="3_akbxp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jo1l8"]
+shader = ExtResource("1_i0603")
+shader_parameter/bg_color = null
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
+
+[node name="Main_menu" type="Node2D"]
+script = ExtResource("1_0x3v3")
+
+[node name="Background" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jo1l8")
+position = Vector2(184.5, -1221)
+scale = Vector2(74.1641, 43.2656)
+texture = ExtResource("2_pswtn")
+script = ExtResource("3_akbxp")
+
+[node name="start" type="Button" parent="."]
+offset_left = 393.0
+offset_top = 163.0
+offset_right = 663.0
+offset_bottom = 263.0
+text = "Start Game
+"
+
+[node name="graphs" type="Button" parent="."]
+offset_left = 396.0
+offset_top = 293.0
+offset_right = 666.0
+offset_bottom = 393.0
+text = "Graphs
+"
+
+[node name="enemies" type="Button" parent="."]
+offset_left = 399.0
+offset_top = 430.0
+offset_right = 669.0
+offset_bottom = 530.0
+text = "Ships
+"
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="graphs" to="." method="_on_graphs_pressed"]
+[connection signal="pressed" from="enemies" to="." method="_on_enemies_pressed"]

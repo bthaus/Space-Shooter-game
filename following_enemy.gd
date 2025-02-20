@@ -4,6 +4,7 @@ class_name FollowEnemy
 var current_direction=Vector2.DOWN
 var angle
 func _process(delta: float) -> void:
+	
 	if not player or not active: return
 	
 	var direction=(player.global_position-global_position).normalized()

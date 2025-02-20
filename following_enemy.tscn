@@ -364,6 +364,7 @@ shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 [node name="Node2D" instance=ExtResource("1_3nj5l")]
 script = ExtResource("2_f4ihy")
 difficulty = 3
+show_particles = true
 speed = 20.0
 projectile = null
 hp = 1.0
@@ -377,9 +378,6 @@ texture = SubResource("ViewportTexture_f0mv8")
 
 [node name="MultiViewPort" parent="." index="4"]
 texture = SubResource("ViewportTexture_uamap")
-
-[node name="PArticles" parent="MultiViewPort/rot" index="1"]
-visible = true
 
 [node name="laser" parent="MultiViewPort/rot" index="3"]
 material = SubResource("ShaderMaterial_22ue6")

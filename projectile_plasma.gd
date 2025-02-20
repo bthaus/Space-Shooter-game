@@ -3,7 +3,7 @@ class_name Projectile
 @export var hitbox:Area2D
 var direction
 @export var speed=1000
-var active=true
+
 var shooter
 func shoot(direction):
 	hitbox.monitorable=true
@@ -23,8 +23,10 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		return
 	if parent is GameObject:
 		active=false
-		parent.hit()
+		var dead=parent.hit()
 		hitbox.queue_free()
+		if dead and shooter is PlayerShip:
+			shooter.add_hit()
 		remove_on_hit()
 	pass # Replace with function body.
 func remove_on_hit():

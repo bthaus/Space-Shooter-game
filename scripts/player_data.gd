@@ -1,7 +1,10 @@
 extends Resource
 class_name PlayerData
 @export var player_name:String
-var highest_score
+var highest_score=0
+var highscore=0
+var ships_killed=0
+var deaths=0
 @export var difficulty_rating_adjustment={}
 
 func get_dr(wave):

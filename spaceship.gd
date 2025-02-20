@@ -5,7 +5,7 @@ var no_rotation_basis:Basis
 @onready var mesh:MeshInstance3D=$SpaceShip/origin/Spaceship
 var reference_quat:Basis
 static var offset=0
-@export var active=true
+
 @export var rotation_factor=10
 @export var projectile:PackedScene
 
@@ -36,7 +36,7 @@ func show_laser():
 	$MultiViewPort/rot/laser.scale.x=lerp(0,24,laser_power*2)
 # Called when the node enters the scene tree for the first time.
 func hit():
-	change_health(-1)
+	return change_health(-1)
 func change_health(val):
 	
 	hp+=val
@@ -45,11 +45,17 @@ func change_health(val):
 	$Shield.material.set_shader_parameter("dissolve_value", shield_Val)
 	if hp<=0:
 		die()
+		return true
+	return false	
 func die():
 	active=false
 	$death_anim.show()
 	$death_anim.play()
 	$MultiViewPort.hide()
+	if self is not PlayerShip:
+		player_data.highscore+=max_hp
+		if player_data.highscore>player_data.highest_score:
+			player_data.highest_score=player_data.highscore
 	pass;			
 var multishot=false	
 func apply_multishot():

@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://7vpevx27xmsm"]
+
+[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="1_6mkxi"]
+[ext_resource type="Script" path="res://graphs.gd" id="1_x0swm"]
+[ext_resource type="Shader" path="res://stars.gdshader" id="2_qe8ka"]
+[ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="3_rfytj"]
+[ext_resource type="Script" path="res://background.gd" id="4_ya0l7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h231p"]
+shader = ExtResource("2_qe8ka")
+shader_parameter/bg_color = null
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
+
+[sub_resource type="LabelSettings" id="LabelSettings_6r2a1"]
+font_size = 21
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("graph")]
+script = ExtResource("1_x0swm")
+graph = NodePath("ScrollContainer/VBoxContainer/main_graph")
+
+[node name="Background2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_h231p")
+position = Vector2(184.5, -1221)
+scale = Vector2(74.1641, 43.2656)
+texture = ExtResource("3_rfytj")
+script = ExtResource("4_ya0l7")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 1148.0
+offset_bottom = 643.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "This is a summary of your performances. The first graph shows how the game adjusts the difficulty of each wave for you. Dont worry, it is intended that the line goes down -> As the game becomes more difficult with each wave, it needs to trim itself down to your individual skill-level. If it goes up that means you never got hit in those waves, and the game scales itself up for you. "
+label_settings = SubResource("LabelSettings_6r2a1")
+autowrap_mode = 2
+clip_text = true
+
+[node name="main_graph" type="Control" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_6mkxi")
+x_max = 30.0
+x_label = "Waves"
+y_min = -11.0
+y_max = 10.0
+background_color = Color(0, 0, 0, 0)
+grid_horizontal_visible = true

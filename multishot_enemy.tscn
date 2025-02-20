@@ -365,6 +365,7 @@ shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 [node name="Node2D" instance=ExtResource("1_fb0wn")]
 script = ExtResource("2_5f3jr")
 shoot_frequency = 0.0
+show_particles = false
 projectile = null
 hp = 3.0
 

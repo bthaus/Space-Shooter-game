@@ -1,7 +1,8 @@
 extends Enemy
 
 func _process(delta: float) -> void:
-	translate(Vector2.DOWN/9*speed*50*delta)
+	if  active:
+		translate(Vector2.DOWN/9*speed*50*delta)
 	$SpaceShip/origin/Spaceship.rotate(Vector3(0,1,0).normalized(),delta*0.7)
 	$MultiViewPort/rot.rotate(delta)
 func attack(p:Projectile):

@@ -2,12 +2,14 @@ extends Spaceship
 class_name Enemy
 @export var difficulty=1
 @export var shoot_frequency:float
+@export var show_particles=false;
 
 func _ready() -> void:
 	$Shoot_timer.wait_time=shoot_frequency
 	super()
 func _process(delta: float) -> void:
-
+	$MultiViewPort/rot/PArticles.visible=show_particles and active
+	if not active:return
 	move(Vector2.DOWN/3,delta)
 		
 func get_projectile():
@@ -28,6 +30,6 @@ func attack(projectile:Projectile):
 	pass;
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	
+	if not active:return
 	queue_free()
 	pass # Replace with function body.

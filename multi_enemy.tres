@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://dqxo2y4vkxjjj"]
+
+[ext_resource type="PackedScene" uid="uid://day22r8f2votc" path="res://multishot_enemy.tscn" id="1_mkmhw"]
+[ext_resource type="Script" path="res://Event.gd" id="2_ib66i"]
+
+[resource]
+script = ExtResource("2_ib66i")
+duplications = 1
+difficulty_rating = 3.128
+likelyhood = 1.0
+objects = Array[PackedScene]([ExtResource("1_mkmhw")])
+name = "Multishot"
+dirty = true
+is_buff = false

@@ -9,6 +9,6 @@ duplications = 1
 difficulty_rating = 6.944
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_4gdm4")])
-name = ""
+name = "Disk"
 dirty = false
 is_buff = false

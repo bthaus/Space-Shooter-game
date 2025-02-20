@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("2_isb54")
 duplications = 7
-difficulty_rating = 3.997
+difficulty_rating = 4.077
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_3pl3w")])
-name = ""
+name = "Swarm"
 dirty = false
 is_buff = false
