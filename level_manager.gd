@@ -6,7 +6,7 @@ class_name LevelManager
 @export var playerData:PlayerData=preload('res://Ressources/player_data.tres')
 @export var player:PlayerShip
 @export var debug_event:Event
-@export var wave_easing=-0.2
+@export var wave_easing=1
 @export var hit_easing=0.5
 @export var death_easing=2
 var spawn_points:Array
@@ -68,8 +68,9 @@ func spawn_entity(e,event):
 
 	
 func increase_power_level():
+	if not player:return
 	wave+=1
-	current_power_level=wave+playerData.calculate_next_dr(wave)
+	current_power_level=wave+playerData.calculate_next_dr(wave,player.max_hp-player.hp)
 	
 	update_event_tags()
 	pass;	

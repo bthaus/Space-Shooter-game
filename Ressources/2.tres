@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("2_vokha")
 duplications = 1
-difficulty_rating = 0.3
+difficulty_rating = 0.618
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_qmbme")])
 name = ""
-dirty = false
+dirty = true
 is_buff = false
