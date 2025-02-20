@@ -3,6 +3,7 @@ class_name Spaceship
 var no_rotation_basis:Basis
 @export var speed:float=30
 @onready var mesh:MeshInstance3D=$SpaceShip/origin/Spaceship
+
 var reference_quat:Basis
 static var offset=0
 
@@ -29,11 +30,11 @@ func trigger_laser():
 			if target.get_parent() == self:continue
 			if target  and target.get_parent() is GameObject:
 				target.get_parent().hit()
-				
-func show_laser():
-	$MultiViewPort/rot/laser.show()
-	$MultiViewPort/rot/laser.material.set_shader_parameter("progress",laser_power)
-	$MultiViewPort/rot/laser.scale.x=lerp(0,24,laser_power*2)
+@onready var laser=$MultiViewPort/rot/laser				
+func show_laser(l=laser):
+	l.show()
+	l.material.set_shader_parameter("progress",laser_power)
+	l.scale.x=lerp(0,24,laser_power*2)
 # Called when the node enters the scene tree for the first time.
 func hit():
 	return change_health(-1)

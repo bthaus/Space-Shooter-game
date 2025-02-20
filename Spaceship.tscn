@@ -79,7 +79,7 @@ shader = ExtResource("2_dqqr8")
 shader_parameter/amount = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbdp"]
-size = Vector2(144, 5857.54)
+size = Vector2(131.16, 1604.69)
 
 [sub_resource type="Gradient" id="Gradient_ppx3s"]
 colors = PackedColorArray(6, 1, 1, 1, 1, 1, 1, 0)
@@ -627,12 +627,12 @@ shader_array = Array[ShaderMaterial]([SubResource("ShaderMaterial_qnaxf"), SubRe
 [node name="rot" type="Node2D" parent="MultiViewPort"]
 
 [node name="Raycast" type="Area2D" parent="MultiViewPort/rot"]
-position = Vector2(12, 56)
+position = Vector2(-4, 40)
 collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MultiViewPort/rot/Raycast"]
-position = Vector2(-5, -3171.23)
+position = Vector2(11, -1091)
 shape = SubResource("RectangleShape2D_qlbdp")
 
 [node name="PArticles" type="Node2D" parent="MultiViewPort/rot"]

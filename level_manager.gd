@@ -60,7 +60,7 @@ func spawn_entity(e,event):
 	var q=e.instantiate()
 	q.player=player
 	q.global_position=spawn_points.pick_random()
-	if debug_event: q.global_position=player.global_position+Vector2.UP*4000
+	if debug_event: q.global_position=player.global_position+Vector2.UP*3000
 	add_sibling(q)
 	pass;
 

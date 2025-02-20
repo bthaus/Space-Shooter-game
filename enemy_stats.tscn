@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://enemy_stats.gd" id="1_kt5yv"]
 [ext_resource type="PackedScene" uid="uid://bsgc0be10l8ry" path="res://enemy_representation.tscn" id="1_n5wkw"]
-[ext_resource type="Resource" uid="uid://bhxwbinttgv7b" path="res://Events/1.tres" id="2_xrb3f"]
+[ext_resource type="Resource" uid="uid://bcmpoxexednu0" path="res://Events/1.tres" id="2_xrb3f"]
 [ext_resource type="Resource" uid="uid://cx6ocf31wse1s" path="res://Ressources/3.tres" id="4_da854"]
-[ext_resource type="Resource" uid="uid://jhc2ywrij2qk" path="res://lasernemy.tres" id="6_df1vj"]
+[ext_resource type="Resource" uid="uid://32c2bg8ulw7l" path="res://lasernemy.tres" id="6_df1vj"]
 [ext_resource type="Shader" path="res://stars.gdshader" id="7_ncbds"]
-[ext_resource type="Resource" uid="uid://dqxo2y4vkxjjj" path="res://multi_enemy.tres" id="7_ugffo"]
+[ext_resource type="Resource" uid="uid://cqvibgwfqn2gs" path="res://multi_enemy.tres" id="7_ugffo"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="8_5j4a2"]
-[ext_resource type="Resource" uid="uid://0icgrl5u66r8" path="res://rotarydisk.tres" id="8_tg7mr"]
+[ext_resource type="Resource" uid="uid://b0xaicqneo3qn" path="res://rotarydisk.tres" id="8_tg7mr"]
 [ext_resource type="Script" path="res://background.gd" id="9_p3hg3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o4ipk"]

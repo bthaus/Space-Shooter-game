@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=27 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8pwlk"]
 [ext_resource type="Shader" path="res://pixel.gdshader" id="1_gyqkj"]
@@ -8,16 +8,17 @@
 [ext_resource type="Script" path="res://background.gd" id="3_k4dhj"]
 [ext_resource type="Shader" path="res://stars.gdshader" id="4_81tw8"]
 [ext_resource type="Shader" path="res://screenpixel.gdshader" id="10_6k0lo"]
-[ext_resource type="Resource" uid="uid://bhxwbinttgv7b" path="res://Events/1.tres" id="11_214od"]
+[ext_resource type="Resource" uid="uid://bcmpoxexednu0" path="res://Events/1.tres" id="11_214od"]
 [ext_resource type="PackedScene" uid="uid://clvcwnas3hd2m" path="res://level_manager.tscn" id="11_e2v6v"]
 [ext_resource type="Script" path="res://Event.gd" id="11_qp3xo"]
-[ext_resource type="Resource" uid="uid://jh0sfk67g1w0" path="res://Ressources/swarm.tres" id="13_6xl2e"]
+[ext_resource type="Resource" uid="uid://4bxo816u5gh1" path="res://Ressources/swarm.tres" id="13_6xl2e"]
 [ext_resource type="Resource" uid="uid://dltgu8g7xm0p" path="res://Ressources/multishot.tres" id="14_1t1j6"]
 [ext_resource type="Resource" uid="uid://1ypoaylj1b1d" path="res://Ressources/heal.tres" id="15_i6u31"]
 [ext_resource type="Resource" uid="uid://d2au4ccfix076" path="res://flylaser.tres" id="16_ckysx"]
-[ext_resource type="Resource" uid="uid://jhc2ywrij2qk" path="res://lasernemy.tres" id="17_ksgqy"]
-[ext_resource type="Resource" uid="uid://dqxo2y4vkxjjj" path="res://multi_enemy.tres" id="18_srnl2"]
-[ext_resource type="Resource" uid="uid://0icgrl5u66r8" path="res://rotarydisk.tres" id="19_gr36n"]
+[ext_resource type="Resource" uid="uid://32c2bg8ulw7l" path="res://lasernemy.tres" id="17_ksgqy"]
+[ext_resource type="Resource" uid="uid://cqvibgwfqn2gs" path="res://multi_enemy.tres" id="18_srnl2"]
+[ext_resource type="Resource" uid="uid://b0xaicqneo3qn" path="res://rotarydisk.tres" id="19_gr36n"]
+[ext_resource type="PackedScene" uid="uid://c2a4d5fjdqmd2" path="res://mothership.tscn" id="19_xemg0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yxdeh"]
 shader = ExtResource("1_gyqkj")
@@ -47,6 +48,16 @@ glow_bloom = 0.14
 shader = ExtResource("10_6k0lo")
 shader_parameter/pixelation = 0.004
 shader_parameter/opacity = 1.0
+
+[sub_resource type="Resource" id="Resource_ayck3"]
+script = ExtResource("11_qp3xo")
+duplications = 1
+difficulty_rating = 1.0
+likelyhood = 1.0
+objects = Array[PackedScene]([ExtResource("19_xemg0")])
+name = ""
+dirty = false
+is_buff = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_rb6ma"]
 font_size = 111
@@ -107,11 +118,12 @@ scale = Vector2(0.49, 0.49)
 events = Array[ExtResource("11_qp3xo")]([ExtResource("11_214od"), ExtResource("13_6xl2e"), ExtResource("14_1t1j6"), ExtResource("15_i6u31"), ExtResource("16_ckysx"), ExtResource("17_ksgqy"), ExtResource("18_srnl2"), ExtResource("19_gr36n"), ExtResource("13_6xl2e")])
 spawn_polygon = NodePath("Spawnpoints")
 player = NodePath("../Player")
+debug_event = SubResource("Resource_ayck3")
 
 [node name="Spawnpoints" type="Polygon2D" parent="LevelManager"]
-position = Vector2(-2212.25, 8900)
-scale = Vector2(1.11262, 2.49249)
-polygon = PackedVector2Array(-4337, -4110, -3681, -4270, -3873, -3870, -3009, -4142, -1873, -4686, -2097, -3934, -2769, -4574, -817, -4190, -1505, -3998, -1137, -4398, -129, -3918, 463, -4526, 735, -3966, -129, -4270, 1423, -4270, 1887, -4734, 1391, -3918, 911, -3998, 2751, -4254, 3023, -4702, 1871, -4494, 2383, -3902, 4159, -4014, 3999, -4606, 3023, -4238, 3455, -3918, 3551, -4206, 4399, -4174, 4687, -4494, 4684.36, -3706.77, -305, -4654, -1345, -4750)
+position = Vector2(-2118.37, 8408.16)
+scale = Vector2(0.968727, 2.36027)
+polygon = PackedVector2Array(-4337, -4110, -3681, -4270, -3873, -3870, -3009, -4142, -1873, -4686, -2097, -3934, -2769, -4574, -817, -4190, -1505, -3998, -1137, -4398, -129, -3918, 463, -4526, 735, -3966, -129, -4270, 1423, -4270, 1887, -4734, 1391, -3918, 911, -3998, 2751, -4254, 3023, -4702, 1871, -4494, 2383, -3902, 4159, -4014, 3999, -4606, 3023, -4238, 3455, -3918, 3551, -4206, 4399, -4174, 4687, -4494, 4697.5, -3727.11, -305, -4654, -1345, -4750)
 
 [node name="Highscore" type="Label" parent="."]
 offset_left = -2319.0

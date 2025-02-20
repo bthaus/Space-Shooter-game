@@ -1,7 +1,7 @@
 extends Sprite2D
 class_name MultiViewPort
 @export var shader_array:Array[ShaderMaterial]=[]
-
+@export var size=512
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,6 +37,7 @@ func create_port_node(shader)->PortNode:
 	var sprite=Sprite2D.new()
 	sprite.material=shader
 	var viewport=SubViewport.new()
+	viewport.size=Vector2(size,size)
 	viewport.transparent_bg=true
 	var camera=Camera2D.new()
 	

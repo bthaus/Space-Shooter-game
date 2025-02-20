@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://bcmpoxexednu0"]
 
-[ext_resource type="PackedScene" path="res://e2.tscn" id="1_gc3kg"]
+[ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="1_gc3kg"]
 [ext_resource type="Script" path="res://Event.gd" id="2_yo60h"]
 
 [resource]

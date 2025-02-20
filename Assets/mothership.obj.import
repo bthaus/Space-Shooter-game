@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://virikmyxch2o"
+path="res://.godot/imported/mothership.obj-74817cf670d749c10cd121b62889f031.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mothership.obj-74817cf670d749c10cd121b62889f031.mesh"]
+
+source_file="res://Assets/mothership.obj"
+dest_files=["res://.godot/imported/mothership.obj-74817cf670d749c10cd121b62889f031.mesh", "res://.godot/imported/mothership.obj-74817cf670d749c10cd121b62889f031.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
