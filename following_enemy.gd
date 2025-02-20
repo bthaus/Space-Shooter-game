@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	current_direction=movement_direction
 	move(movement_direction,delta)
 	move(Vector2.ZERO,delta)
-	
+	move(Vector2.ZERO,delta)
 	
 	pass
 	

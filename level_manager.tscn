@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://7ds6ylww2hrw" path="res://e2.tscn" id="3_dchyc"]
 [ext_resource type="Resource" uid="uid://bhxwbinttgv7b" path="res://Events/1.tres" id="3_inlbk"]
 [ext_resource type="Resource" uid="uid://daaffqeytduw" path="res://Ressources/2.tres" id="4_jg8lh"]
-[ext_resource type="Resource" uid="uid://ccy4jx8dswogg" path="res://Ressources/3.tres" id="5_bwdnd"]
+[ext_resource type="Resource" uid="uid://jh0sfk67g1w0" path="res://Ressources/swarm.tres" id="5_dyoan"]
 [ext_resource type="LabelSettings" uid="uid://wta5dxoej2tf" path="res://labels.tres" id="5_q3asu"]
 [ext_resource type="Resource" uid="uid://dltgu8g7xm0p" path="res://Ressources/multishot.tres" id="6_nv0ko"]
 [ext_resource type="Resource" uid="uid://1ypoaylj1b1d" path="res://Ressources/heal.tres" id="7_8rrfu"]
@@ -23,7 +23,7 @@ is_buff = true
 
 [node name="LevelManager" type="Node2D"]
 script = ExtResource("1_2ercf")
-events = Array[ExtResource("2_sqxlx")]([ExtResource("3_inlbk"), ExtResource("4_jg8lh"), ExtResource("5_bwdnd"), ExtResource("6_nv0ko"), ExtResource("7_8rrfu"), SubResource("Resource_v6lqr")])
+events = Array[ExtResource("2_sqxlx")]([ExtResource("3_inlbk"), ExtResource("4_jg8lh"), ExtResource("5_dyoan"), ExtResource("6_nv0ko"), ExtResource("7_8rrfu"), SubResource("Resource_v6lqr")])
 entities = Array[PackedScene]([ExtResource("3_dchyc")])
 
 [node name="PowerLevel" type="Label" parent="."]
