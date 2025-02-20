@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8wp0nfj2j5hb"]
+[gd_scene load_steps=8 format=3 uid="uid://b8wp0nfj2j5hb"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_0x3v3"]
 [ext_resource type="Shader" path="res://stars.gdshader" id="1_i0603"]
 [ext_resource type="Texture2D" uid="uid://cjdpudkr5wsof" path="res://icon.svg" id="2_pswtn"]
 [ext_resource type="Script" path="res://background.gd" id="3_akbxp"]
+[ext_resource type="LabelSettings" uid="uid://c6gqrpguwyab0" path="res://new_label_settings.tres" id="5_0vydm"]
+[ext_resource type="Texture2D" uid="uid://cj1fywx72qb74" path="res://Assets/cake.png" id="6_6878v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jo1l8"]
 shader = ExtResource("1_i0603")
@@ -56,6 +58,20 @@ offset_right = 669.0
 offset_bottom = 530.0
 text = "Ships
 "
+
+[node name="Highscore" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 550.0
+offset_right = 281.0
+offset_bottom = 620.0
+text = "Highscore"
+label_settings = ExtResource("5_0vydm")
+
+[node name="mothership_destroyed" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(110, 489)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("6_6878v")
 
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="start2" to="." method="_on_start_2_pressed"]

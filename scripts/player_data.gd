@@ -6,7 +6,7 @@ class_name PlayerData
 @export var ships_killed=0
 @export var deaths=0
 @export var difficulty_rating_adjustment={}
-
+@export var mothership_destroyed=false
 func get_dr(wave):
 	if not difficulty_rating_adjustment.has(wave) : return wave
 	return difficulty_rating_adjustment[wave].front()
@@ -18,6 +18,8 @@ func adjust_dr(wave,val):
 	var current=difficulty_rating_adjustment.get_or_add(wave,[0])
 	current=clamp(current.front()+val,-200,200);
 	difficulty_rating_adjustment[wave].push_front(current)
+	var arr:Array=difficulty_rating_adjustment[wave]
+	arr.resize(25)
 	ResourceSaver.save(self)
 	pass;
 

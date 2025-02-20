@@ -5,6 +5,10 @@ var actions:Array[Callable]=[swarm,cascade,circle_attack]
 var ship_buffer=[]
 var count=0
 # Called when the node enters the scene tree for the first time.
+
+func die():
+	player_data.mothership_destroyed=true
+	super()
 func _ready() -> void:
 	MainScene.instance.prepare_boss_fight(self)
 	if not active:return

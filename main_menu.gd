@@ -4,6 +4,10 @@ static var boss_please=false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var data=load("res://Ressources/player_data.tres")
+	$Highscore.text="Highscore: "+str(data.highest_score)
+	if data.mothership_destroyed:
+		$mothership_destroyed.show()
 	pass # Replace with function body.
 
 
