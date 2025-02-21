@@ -36,7 +36,7 @@ func show_laser(l=laser):
 	l.show()
 	l.material.set_shader_parameter("progress",laser_power)
 	l.scale.x=lerp(0,24,laser_power*2)
-	$MultiViewPort/rot/Raycast/CollisionShape2D.scale.y=l.scale.x
+#	$MultiViewPort/rot/Raycast/CollisionShape2D.scale.y=l.scale.x
 	
 # Called when the node enters the scene tree for the first time.
 func hit():
@@ -133,7 +133,8 @@ func _process(delta: float) -> void:
 var laser_power=0.0	
 func end_twirl():
 	twirling=Vector2.ZERO
-	pass;	
+	pass;
+		
 func move(direction,delta,y=0):
 	
 	rotate_mesh(direction,delta,y)

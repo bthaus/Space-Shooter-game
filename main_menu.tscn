@@ -73,6 +73,41 @@ position = Vector2(110, 489)
 scale = Vector2(0.085, 0.085)
 texture = ExtResource("6_6878v")
 
+[node name="Label" type="Label" parent="."]
+offset_left = 743.0
+offset_top = 332.0
+offset_right = 1312.0
+offset_bottom = 511.0
+text = "Use Controller to play
+left joystick: movement
+right joystick: rotation
+right button: shoot
+left button: laser
+right/left trigger: quick movement left/right. alternatively X and B buttons
+start: restart game"
+
+[node name="Container" type="HBoxContainer" parent="."]
+offset_left = 23.0
+offset_top = 138.0
+offset_right = 524.0
+offset_bottom = 161.0
+
+[node name="Label2" type="Label" parent="Container"]
+layout_mode = 2
+text = "This game uses dynamic difficulty adjustment
+Each playthrough, your performance is
+stored and evaluated, and the strenght of
+the enemies is adapted accordingly
+This is represented by the 
+difficulty_adjustment_rating, which can
+be adjusted in the graphs section. 
+There you see your overall adjustment 
+(first graph)
+and your history of each \"wave\", which you
+can change as you like (make first wave 
+more difficult/easier etc)
+"
+
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="start2" to="." method="_on_start_2_pressed"]
 [connection signal="pressed" from="graphs" to="." method="_on_graphs_pressed"]

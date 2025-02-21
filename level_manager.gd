@@ -75,10 +75,7 @@ func increase_power_level():
 	update_event_tags()
 	pass;	
 func update_event_tags():
-	$events.text=""
-	for event in events:
-		$events.text=$events.text+event.name+" with "+str(event.get_objects().size())+" es and rating" +str(event.difficulty_rating)+ "\n"
-		
+
 	pass;	
 var dirty=false	
 func start_event():

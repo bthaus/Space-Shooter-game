@@ -408,7 +408,7 @@ visible = true
 position = Vector2(-13, -5)
 
 [node name="CollisionShape2D" parent="MultiViewPort/rot/Raycast" index="0"]
-position = Vector2(-5, -3171.23)
+position = Vector2(-1.99357, -2530)
 
 [node name="PArticles" parent="MultiViewPort/rot" index="1"]
 visible = true

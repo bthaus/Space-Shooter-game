@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://4bxo816u5gh1"]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3]
 
-[ext_resource type="PackedScene" uid="uid://dw521h3yfqgkl" path="res://following_enemy.tscn" id="1_3pl3w"]
+[ext_resource type="PackedScene" path="res://following_enemy.tscn" id="1_3pl3w"]
 [ext_resource type="Script" path="res://Event.gd" id="2_isb54"]
 
 [resource]
 script = ExtResource("2_isb54")
 duplications = 7
-difficulty_rating = 4.752
+difficulty_rating = 4.987
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_3pl3w")])
 name = "Swarm"
-dirty = true
+dirty = false
 is_buff = false

@@ -616,6 +616,7 @@ size = 2000
 position = Vector2(-1003.22, -1001.56)
 
 [node name="laser2" type="Sprite2D" parent="MultiViewPort/offset" index="0"]
+visible = false
 material = ExtResource("9_w72gu")
 position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
@@ -629,6 +630,7 @@ position = Vector2(-64.7879, 0.68322)
 shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser3" type="Sprite2D" parent="MultiViewPort/offset" index="1"]
+visible = false
 material = ExtResource("9_w72gu")
 position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
@@ -642,6 +644,7 @@ position = Vector2(-64.7879, 0.68322)
 shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser4" type="Sprite2D" parent="MultiViewPort/offset" index="2"]
+visible = false
 material = ExtResource("9_w72gu")
 position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
@@ -655,6 +658,7 @@ position = Vector2(-64.7879, 0.68322)
 shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser5" type="Sprite2D" parent="MultiViewPort/offset" index="3"]
+visible = false
 material = ExtResource("9_w72gu")
 position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
@@ -668,6 +672,7 @@ position = Vector2(-64.7879, 0.68322)
 shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser6" type="Sprite2D" parent="MultiViewPort/offset" index="4"]
+visible = false
 material = ExtResource("9_w72gu")
 position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)
@@ -681,6 +686,7 @@ position = Vector2(-64.7879, 0.68322)
 shape = SubResource("RectangleShape2D_ausot")
 
 [node name="laser7" type="Sprite2D" parent="MultiViewPort/offset" index="5"]
+visible = false
 material = ExtResource("9_w72gu")
 position = Vector2(5.55556, 408.889)
 scale = Vector2(16.7452, 6.50514)

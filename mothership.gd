@@ -10,8 +10,10 @@ func die():
 	player_data.mothership_destroyed=true
 	super()
 func _ready() -> void:
-	MainScene.instance.prepare_boss_fight(self)
+	
+	
 	if not active:return
+	MainScene.instance.prepare_boss_fight(self)
 	pick_attack(2)
 	pass # Replace with function body.
 func swarm():

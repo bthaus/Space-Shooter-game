@@ -222,7 +222,7 @@ script = ExtResource("3_k4dhj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(173, -1193)
-zoom = Vector2(0.13, 0.13)
+zoom = Vector2(0.22, 0.22)
 
 [node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5613x")
