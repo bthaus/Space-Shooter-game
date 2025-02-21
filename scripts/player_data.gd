@@ -15,11 +15,14 @@ func reset():
 	difficulty_rating_adjustment={}	
 	ResourceSaver.save(self)
 func adjust_dr(wave,val):
+	if MainMenu.boss_please:return
 	var current=difficulty_rating_adjustment.get_or_add(wave,[0])
+	print("change wave"+str(wave)+ "from "+str(current.front()))
 	current=clamp(current.front()+val,-200,200);
+	print("to "+str(current))
 	difficulty_rating_adjustment[wave].push_front(current)
 	var arr:Array=difficulty_rating_adjustment[wave]
-	arr.resize(100)
+	if arr.size()>100:arr.resize(100)
 	ResourceSaver.save(self)
 	pass;
 
@@ -32,13 +35,14 @@ func accumarray(accum,data):
 	return accum+data
 	pass;	
 func calculate_next_dr(wave,lost_health):
+	if MainMenu.boss_please:return 1
 	if not difficulty_rating_adjustment.has(wave-1): return 0
 	var relevant_waves=difficulty_rating_adjustment.values()
 	relevant_waves.resize(wave-1)
 	
 	#take average of last waves
 	var average=relevant_waves.reduce(accumulate,0)/relevant_waves.size()+1
-	print("average of all waves: "+str(average))
+
 	#weigh last 3 waves more strongly
 	if relevant_waves.size()>3:
 		var last=relevant_waves
@@ -52,9 +56,9 @@ func calculate_next_dr(wave,lost_health):
 		var laver=history.reduce(accumarray,0)
 		var last:float=laver/difficulty_rating_adjustment.get(wave).size()
 		average=lerp(average as float,last as float,0.5)
-	print("weighed average: "+str(average))	
+
 	#factor remaining health -> a lot of health, harder wave.
 	average-=lost_health	
-	print("lost health change")
+	
 	return average	
 	pass;

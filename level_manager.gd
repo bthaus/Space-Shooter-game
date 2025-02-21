@@ -121,6 +121,8 @@ func change_event_difficulty(val,es,dirty):
 	pass;
 func change_current_difficulty(val):
 	playerData.adjust_dr(wave,-val)
+	playerData.adjust_dr(wave+1,-val)
+	playerData.adjust_dr(wave-1,-val)
 	for es in current_events:
 		change_event_difficulty(val,es,true)
 			

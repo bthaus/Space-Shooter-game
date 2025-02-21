@@ -39,6 +39,7 @@ func set_up():
 		
 	for i in range(data.size()):
 		#i=data.size()-i
+		
 		if not data.has(i):continue
 		var sub_graph=Graph2D.new()
 		sub_graph.background_color=Color.TRANSPARENT
@@ -62,18 +63,21 @@ func set_up():
 			
 			)
 		$ScrollContainer/VBoxContainer.add_child(button2)
-				
-		sub_graph.y_min=data[i].min()
-		sub_graph.y_max=data[i].max()
+		var min=data[i].min()
+		#if not min: 
+		min=-10
+		var max=data[i].max()
+		#if not max:
+		max=10
+		sub_graph.y_min=min
+		sub_graph.y_max=max
 		sub_graph.x_label="History of wave "+str(i)
 		sub_graph.x_max=data[i].size()
 		var item=sub_graph.add_plot_item("History of wave_adjustments")
 		var d=data[i].duplicate()
 		d.reverse()
 		for j in range(data[i].size()):
-			#if not data[i].has(j):continue
-			print("add ")
-			print(Vector2(j,d[j]))
+			
 			item.add_point(Vector2(j,d[j]))
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.

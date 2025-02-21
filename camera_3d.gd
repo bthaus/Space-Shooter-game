@@ -13,7 +13,5 @@ func get_center():
 	return unproject_position(center.global_transform.origin)
 	pass
 func is_point_visible(i):
-	if i==0:
-		print(arms[i].global_position.z)
 	return true
 	

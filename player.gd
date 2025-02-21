@@ -31,7 +31,7 @@ func shoot():
 		directions.append(d.rotated(deg_to_rad(-45)).normalized())
 		directions.append(d.rotated(deg_to_rad(-25)).normalized())
 	for d in directions:
-		create_tween().tween_method(recoil.bind(d*-1),0.01,0.01,0.1)	
+		create_tween().tween_method(recoil.bind(d*-1),0.005,0.005,0.15)	
 	super()
 	pass;
 var angle=0.0	

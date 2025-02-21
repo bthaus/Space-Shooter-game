@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_143df")
 duplications = 1
-difficulty_rating = 10.12
+difficulty_rating = 10.155
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_vbt6s")])
 name = "Mothership"
