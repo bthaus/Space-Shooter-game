@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://lsexi2aht2k6"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://cg0fmirjxfk1v"]
 
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="1_b2scy"]
 
@@ -10,5 +10,11 @@ highest_score = 0
 highscore = 0
 ships_killed = 0
 deaths = 0
-difficulty_rating_adjustment = {}
+difficulty_rating_adjustment = {
+1: [-3.0, -3],
+2: [-3.0],
+3: [-2],
+4: [-1],
+5: [0.0]
+}
 mothership_destroyed = false

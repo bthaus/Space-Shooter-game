@@ -5,10 +5,11 @@
 
 [resource]
 script = ExtResource("2_aqqy5")
-duplications = 1
+duplications = 1.0
 difficulty_rating = 0.0
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_6p1ba")])
-name = ""
+name = "3"
 dirty = false
 is_buff = true
+original_diff = 0.0

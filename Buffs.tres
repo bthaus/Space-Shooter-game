@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Buffs" load_steps=2 format=3 uid="uid://lqwo7dbx3ihu"]
+
+[ext_resource type="Script" path="res://new_script.gd" id="1_57l0c"]
+
+[resource]
+script = ExtResource("1_57l0c")
+multishot = false
+flying = false
+invincible = false
+hp = 5
+gamespeed = 100
+diff = 0.7

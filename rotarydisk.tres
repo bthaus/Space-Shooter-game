@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://b0xaicqneo3qn"]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://ch32ucalx17up"]
 
 [ext_resource type="PackedScene" uid="uid://banl76uxhdsj0" path="res://circle_shot.tscn" id="1_4gdm4"]
 [ext_resource type="Script" path="res://Event.gd" id="2_16i3w"]
 
 [resource]
 script = ExtResource("2_16i3w")
-duplications = 1
-difficulty_rating = 5.365
+duplications = 1.0
+difficulty_rating = 5.0
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_4gdm4")])
 name = "Disk"
 dirty = false
 is_buff = false
+original_diff = 5.4

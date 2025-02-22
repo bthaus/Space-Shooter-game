@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://laser_enemy.tscn" id="1"]
+[ext_resource type="Script" path="res://Event.gd" id="2"]
+
+[resource]
+script = ExtResource("2")
+duplications = 1.0
+difficulty_rating = 2.0
+likelyhood = 0.98
+objects = Array[PackedScene]([ExtResource("1")])
+name = "Laser"
+dirty = false
+is_buff = false
+original_diff = 3.0

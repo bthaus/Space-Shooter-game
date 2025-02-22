@@ -3,7 +3,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	var temp=load("user://player_data.tres")
+	if temp:playerdata=temp
 	set_up()
 	
 	pass # Replace with function body.

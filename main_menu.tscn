@@ -43,6 +43,13 @@ offset_right = 967.0
 offset_bottom = 260.0
 text = "Just the boss please"
 
+[node name="start3" type="Button" parent="."]
+offset_left = 697.0
+offset_top = 287.0
+offset_right = 967.0
+offset_bottom = 387.0
+text = "Buffs"
+
 [node name="graphs" type="Button" parent="."]
 offset_left = 396.0
 offset_top = 293.0
@@ -60,6 +67,7 @@ text = "Ships
 "
 
 [node name="Highscore" type="Label" parent="."]
+visible = false
 offset_left = 35.0
 offset_top = 550.0
 offset_right = 281.0
@@ -74,17 +82,19 @@ scale = Vector2(0.085, 0.085)
 texture = ExtResource("6_6878v")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 743.0
-offset_top = 332.0
-offset_right = 1312.0
-offset_bottom = 511.0
+offset_left = 694.0
+offset_top = 402.0
+offset_right = 1263.0
+offset_bottom = 642.0
 text = "Use Controller to play
 left joystick: movement
 right joystick: rotation
 right button: shoot
 left button: laser
-right/left trigger: quick movement left/right. alternatively X and B buttons
-start: restart game"
+right/left trigger: quick movement left/right. 
+alternatively X and B buttons
+start: restart game
+back: back to main menu. game is not saved!"
 
 [node name="Container" type="HBoxContainer" parent="."]
 offset_left = 23.0
@@ -110,5 +120,6 @@ more difficult/easier etc)
 
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="start2" to="." method="_on_start_2_pressed"]
+[connection signal="pressed" from="start3" to="." method="_on_start_3_pressed"]
 [connection signal="pressed" from="graphs" to="." method="_on_graphs_pressed"]
 [connection signal="pressed" from="enemies" to="." method="_on_enemies_pressed"]

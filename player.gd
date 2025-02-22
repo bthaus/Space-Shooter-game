@@ -3,25 +3,39 @@ class_name PlayerShip
 var ship_rotation=Vector2.ZERO
 
 @export var movement_rect:Polygon2D
+var buffs:Buffs=load("user://Buffs.tres")
 signal player_died
 signal player_hit
+var invincible=false
 func hit():
+	if invincible:return
 	player_hit.emit()
 	super()
 	pass;
 func die():
 	if not active:return
 	player_data.deaths+=1
-	ResourceSaver.save(player_data)
+	ResourceSaver.save(player_data,"user://player_data.tres")
 	active=false
 	player_died.emit()
 	super()
 	get_tree().change_scene_to_file("res://main_menu.tscn")
 	pass;	
 func _ready() -> void:
+	if not buffs:
+		buffs=load("res://Buffs.tres")
+	max_hp=buffs.hp
+	hp=max_hp
+	multishot=buffs.multishot
+	fly_buff=buffs.flying
+	invincible=buffs.invincible
 	super()
 func recoil(delta,direction):
-	move(direction,delta)	
+	move(direction,delta)
+func add_max_health(val):
+	super(val)
+	$Progress.set_max_value(max_hp)
+	pass;			
 func shoot():
 	
 	if multishot:
@@ -55,7 +69,8 @@ func _process(delta: float) -> void:
 		#for p in projectiles:
 			#var projectile=p.get_parent() as Projectile
 			#projectile.direction*=-1
-			
+	if Input.is_action_just_pressed(&"menu"):
+		get_tree().change_scene_to_file("res://main_menu.tscn")		
 	if not Input.is_action_pressed(&'laser') or fly_buff:
 		new_direction.x=Input.get_axis(&"ui_left",&"ui_right")
 		new_direction.y=Input.get_axis(&"ui_up",&"ui_down")

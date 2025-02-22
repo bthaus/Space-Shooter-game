@@ -61,6 +61,8 @@ func die():
 		player_data.highscore+=max_hp
 		if player_data.highscore>player_data.highest_score:
 			player_data.highest_score=player_data.highscore
+			MainScene.highscore=player_data.highscore
+			
 	pass;			
 var multishot=false	
 func apply_multishot():
@@ -80,6 +82,10 @@ func apply_fly():
 	pass;	
 func remove_fly():
 	fly_buff=false
+	pass;	
+func add_max_health(val):
+	max_hp+=val
+	
 	pass;	
 func _ready() -> void:
 	$SpaceShip/origin.translate(Vector3(offset,0,0))

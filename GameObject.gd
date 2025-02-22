@@ -5,6 +5,8 @@ var player:PlayerShip
 var player_data:PlayerData=load("res://Ressources/player_data.tres")
 @export var active=true
 func _ready() -> void:
+	var temp=load("user://player_data.tres")
+	if temp:player_data=temp
 	pass
 func hit():
 	return false

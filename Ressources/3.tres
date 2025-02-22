@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://cx6ocf31wse1s"]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://dlb18qf2sagxa"]
 
 [ext_resource type="PackedScene" uid="uid://dw521h3yfqgkl" path="res://following_enemy.tscn" id="1_tn3g2"]
 [ext_resource type="Script" path="res://Event.gd" id="2_u3uqx"]
 
 [resource]
 script = ExtResource("2_u3uqx")
-duplications = 1
-difficulty_rating = 0.818
+duplications = 1.0
+difficulty_rating = 1.0
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_tn3g2")])
 name = ""
 dirty = false
 is_buff = false
+original_diff = 1.0

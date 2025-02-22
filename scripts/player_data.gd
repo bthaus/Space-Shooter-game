@@ -7,13 +7,14 @@ class_name PlayerData
 @export var deaths=0
 @export var difficulty_rating_adjustment={}
 @export var mothership_destroyed=false
+var buffs:Buffs=load("res://Buffs.tres")
 func get_dr(wave):
 	if not difficulty_rating_adjustment.has(wave) : return wave
 	return difficulty_rating_adjustment[wave].front()
 	pass;
 func reset():
-	difficulty_rating_adjustment={}	
-	ResourceSaver.save(self)
+	difficulty_rating_adjustment=load("res://Ressources/player_data.tres").difficulty_rating_adjustment
+	ResourceSaver.save(self,"user://player_data.tres")
 func adjust_dr(wave,val):
 	if MainMenu.boss_please:return
 	var current=difficulty_rating_adjustment.get_or_add(wave,[0])
@@ -23,7 +24,7 @@ func adjust_dr(wave,val):
 	difficulty_rating_adjustment[wave].push_front(current)
 	var arr:Array=difficulty_rating_adjustment[wave]
 	if arr.size()>100:arr.resize(100)
-	ResourceSaver.save(self)
+	ResourceSaver.save(self,"user://player_data.tres")
 	pass;
 
 func accumulate(accum,data):
@@ -58,7 +59,8 @@ func calculate_next_dr(wave,lost_health):
 		average=lerp(average as float,last as float,0.5)
 
 	#factor remaining health -> a lot of health, harder wave.
-	average-=lost_health	
+	var redux=remap(lost_health,0,buffs.hp,0,5)
+	average-=redux
 	
 	return average	
 	pass;

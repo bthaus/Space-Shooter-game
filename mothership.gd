@@ -8,10 +8,11 @@ var count=0
 
 func die():
 	player_data.mothership_destroyed=true
+	MainScene.instance.start_events()
 	super()
 func _ready() -> void:
 	
-	
+	create_tween().tween_property(self,^"position",position+Vector2(0,500),2)
 	if not active:return
 	MainScene.instance.prepare_boss_fight(self)
 	pick_attack(2)

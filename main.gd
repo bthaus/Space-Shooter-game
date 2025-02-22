@@ -1,15 +1,25 @@
 extends Node2D
 class_name MainScene
-var data=load("res://Ressources/player_data.tres")
+
 static var instance:MainScene
+static var highscore
+
+var data=load("res://Ressources/player_data.tres")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var temp=load("user://player_data.tres")
+	if temp:data=temp
+	
 	instance=self
 	if MainMenu.boss_please:
 		$LevelManager.debug_event=load('res://Events/mothership.tres')
 	$LevelManager.start_event()
 	pass # Replace with function body.
-
+func start_events():
+	$Progress.hide()
+	$LevelManager.boss_done=true
+	$LevelManager.boss=false
+	$LevelManager.start_event()
 func prepare_boss_fight(ship:Mothership):
 	print("prep boss fight")
 	create_tween().tween_property($Camera2D,"zoom",Vector2(0.13,0.13),3)
@@ -25,5 +35,5 @@ func prepare_boss_fight(ship:Mothership):
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(&"restart"):
 		get_tree().reload_current_scene()
-	$Highscore.text="Highscore: "+str(data.highscore)	
+	$Highscore.text="Highscore: "+str(highscore)	
 	pass

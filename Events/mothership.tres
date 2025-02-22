@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://ch1fdia4l3v7"]
+[gd_resource type="Resource" script_class="Event" load_steps=3 format=3 uid="uid://cl5raret62ini"]
 
 [ext_resource type="PackedScene" uid="uid://c2a4d5fjdqmd2" path="res://mothership.tscn" id="1_vbt6s"]
 [ext_resource type="Script" path="res://Event.gd" id="2_143df"]
 
 [resource]
 script = ExtResource("2_143df")
-duplications = 1
-difficulty_rating = 10.155
+duplications = 1.0
+difficulty_rating = 10.0
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_vbt6s")])
 name = "Mothership"
 dirty = true
 is_buff = false
+original_diff = 10.0

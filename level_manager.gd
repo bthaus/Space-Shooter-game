@@ -9,6 +9,7 @@ class_name LevelManager
 @export var wave_easing=1
 @export var hit_easing=0.5
 @export var death_easing=2
+var buffs:Buffs=load('user://Buffs.tres')
 var spawn_points:Array
 
 var wave=1
@@ -19,6 +20,17 @@ var current_power_level=2.0:
 var current_events=[]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not buffs:
+		buffs=load("res://Buffs.tres")
+	for i in range(events.size()):
+		events[i]=events[i].get_user_data()
+	var temp=load("user://player_data.tres")
+	if temp:playerData=temp
+	if buffs.multishot:
+		events.erase(load("res://Ressources/multishot.tres"))
+	if buffs.flying:
+		events.erase(load("res://fly_while_laser.tscn"))
+	Engine.time_scale=remap(buffs.gamespeed,0,200,0,2)		
 	if debug_event:
 		events.clear()
 		events.append(debug_event)
@@ -36,6 +48,8 @@ func select_next_event()-> Array[Event]:
 	while wave_difficulty<current_power_level:
 		var temp = events.pick_random()
 		if temp.is_buff:
+			if buffs.multishot and temp.name=="1":continue
+			if buffs.flying and temp.name=="3":continue
 			if with_buf:continue
 			with_buf=true
 		if temp.difficulty_rating>current_power_level/2:
@@ -70,23 +84,29 @@ func spawn_entity(e,event):
 func increase_power_level():
 	if not player:return
 	wave+=1
-	current_power_level=wave+playerData.calculate_next_dr(wave,player.max_hp-player.hp)
-	
+	current_power_level=(wave+playerData.calculate_next_dr(wave,player.max_hp-player.hp))*buffs.diff
+	print(buffs.diff)
 	update_event_tags()
 	pass;	
 func update_event_tags():
 
 	pass;	
 var dirty=false	
+var boss=false
+var boss_done=false
 func start_event():
 	if not dirty:playerData.adjust_dr(wave,wave_easing)	
 	else:dirty=false
 	increase_power_level()
 	var events=select_next_event()
+	
+	if current_power_level>15 and not boss_done:
+		events=[load("res://Events/mothership.tres")]
+		boss=true
 	current_events.push_back(events)
 	if current_events.size()>3:
 		var remove=current_events.pop_back()
-		change_event_difficulty(wave_easing,remove,false)
+		change_event_difficulty(-wave_easing,remove,false)
 	
 	var delay=0
 	var longest_delay=0
@@ -100,7 +120,8 @@ func start_event():
 				get_tree().create_timer(delay).timeout.connect(spawn_entity.bind(e,event))
 				delay+=randf_range(0,4)
 				if debug_event:return
-	get_tree().create_timer(longest_delay).timeout.connect(start_event)	
+	if not boss:
+		get_tree().create_timer(longest_delay).timeout.connect(start_event)	
 	pass;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -116,7 +137,7 @@ func change_event_difficulty(val,es,dirty):
 		changed_events.push_back(e)
 		e.difficulty_rating=clamp(e.difficulty_rating+val*0.01,0.3,200)
 		e.dirty=dirty
-		ResourceSaver.save(e)
+		e.store()
 	update_event_tags()		
 	pass;
 func change_current_difficulty(val):
