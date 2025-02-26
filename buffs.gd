@@ -15,6 +15,8 @@ func _ready() -> void:
 	$speed.text=str($speed_slider.value)+"%"
 	$difftext.text=str(buffs.diff)
 	$diff_slider.value=buffs.diff
+	$player_speed_slider.value=buffs.player_speed
+	$player_speed_label.text=str(buffs.player_speed)+"%"
 	pass # Replace with function body.
 
 
@@ -32,7 +34,7 @@ func _on_apply_pressed() -> void:
 	buffs.hp=$hp.value
 	buffs.gamespeed=$speed_slider.value
 	buffs.diff=$diff_slider.value
-	
+	buffs.player_speed=$player_speed_slider.value
 	ResourceSaver.save(buffs,"user://Buffs.tres")
 	pass # Replace with function body.
 
@@ -61,4 +63,9 @@ func _on_speed_slider_value_changed(value: float) -> void:
 
 func _on_speed_slider_2_value_changed(value: float) -> void:
 	$difftext.text=str(value)
+	pass # Replace with function body.
+
+
+func _on_player_speed_slider_value_changed(value: float) -> void:
+	$player_speed_label.text=str(value)+"%"
 	pass # Replace with function body.

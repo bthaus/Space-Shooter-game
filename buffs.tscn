@@ -85,17 +85,17 @@ ticks_on_borders = true
 
 [node name="apply" type="Button" parent="."]
 offset_left = 360.0
-offset_top = 309.0
+offset_top = 363.0
 offset_right = 598.0
-offset_bottom = 340.0
+offset_bottom = 394.0
 text = "Apply
 "
 
 [node name="reset" type="Button" parent="."]
 offset_left = 362.0
-offset_top = 359.0
+offset_top = 413.0
 offset_right = 600.0
-offset_bottom = 413.0
+offset_bottom = 467.0
 text = "reset
 
 "
@@ -120,18 +120,41 @@ offset_top = 265.0
 offset_right = 668.0
 offset_bottom = 288.0
 
+[node name="player_speed" type="Label" parent="."]
+offset_left = 336.0
+offset_top = 288.0
+offset_right = 429.0
+offset_bottom = 311.0
+text = "PlayerSpeed"
+
+[node name="player_speed_slider" type="HSlider" parent="."]
+offset_left = 440.0
+offset_top = 292.0
+offset_right = 620.0
+offset_bottom = 308.0
+max_value = 200.0
+value = 100.0
+tick_count = 20
+ticks_on_borders = true
+
+[node name="player_speed_label" type="Label" parent="."]
+offset_left = 623.0
+offset_top = 292.0
+offset_right = 663.0
+offset_bottom = 315.0
+
 [node name="Label3" type="Label" parent="."]
 offset_left = 258.0
-offset_top = 288.0
+offset_top = 316.0
 offset_right = 431.0
-offset_bottom = 311.0
+offset_bottom = 339.0
 text = "diff_increase per wave"
 
 [node name="diff_slider" type="HSlider" parent="."]
 offset_left = 444.0
-offset_top = 293.0
+offset_top = 321.0
 offset_right = 624.0
-offset_bottom = 309.0
+offset_bottom = 337.0
 max_value = 5.0
 step = 0.1
 value = 5.0
@@ -140,13 +163,14 @@ ticks_on_borders = true
 
 [node name="difftext" type="Label" parent="."]
 offset_left = 627.0
-offset_top = 293.0
+offset_top = 320.0
 offset_right = 667.0
-offset_bottom = 316.0
+offset_bottom = 343.0
 
 [connection signal="value_changed" from="speed_slider" to="." method="_on_speed_slider_value_changed"]
 [connection signal="value_changed" from="hp" to="." method="_on_hp_value_changed"]
 [connection signal="pressed" from="apply" to="." method="_on_apply_pressed"]
 [connection signal="pressed" from="reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="player_speed_slider" to="." method="_on_player_speed_slider_value_changed"]
 [connection signal="value_changed" from="diff_slider" to="." method="_on_speed_slider_2_value_changed"]

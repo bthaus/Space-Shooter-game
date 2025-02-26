@@ -780,15 +780,10 @@ texture = SubResource("ViewportTexture_7moqm")
 material = SubResource("ShaderMaterial_xac6l")
 position = Vector2(-4, -383)
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(19, -51)
-scale = Vector2(36.9, 26.4)
-
 [node name="death_anim" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(20, -53)
 scale = Vector2(1.32364, 1.32364)
 sprite_frames = SubResource("SpriteFrames_yao65")
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="animation_finished" from="death_anim" to="." method="_on_death_anim_animation_finished"]

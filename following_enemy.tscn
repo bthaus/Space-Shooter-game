@@ -398,4 +398,9 @@ texture = SubResource("ViewportTexture_mhetk")
 [node name="Progress" parent="." index="7"]
 material = SubResource("ShaderMaterial_atcbq")
 
+[node name="death_anim" parent="." index="9"]
+position = Vector2(20, -53)
+scale = Vector2(1.32364, 1.32364)
+
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

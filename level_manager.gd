@@ -35,6 +35,8 @@ func _ready() -> void:
 		events.clear()
 		events.append(debug_event)
 	spawn_points=Array(spawn_polygon.polygon)
+	for e in events:
+		e.instantiate_objects(15)
 	pass # Replace with function body.
 func too_high_event_level(item:Event):
 	if item.is_buff:
@@ -65,18 +67,20 @@ func select_next_event()-> Array[Event]:
 		var chance=randf()
 		if chance < temp.likelyhood:
 			selected_events.append(temp)
-		wave_difficulty+=temp.difficulty_rating	
+			wave_difficulty+=temp.difficulty_rating	
 	return selected_events
 	pass;
 func spawn_entity(e,event):
 	
 	if not player:return
-	var q=e.instantiate()
+	var q=e
 	q.event=event
 	q.player=player
+	
 	q.global_position=spawn_points.pick_random()
 	if debug_event: q.global_position=player.global_position+Vector2.UP*3000
 	add_sibling(q)
+	q._ready()
 	pass;
 
 

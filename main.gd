@@ -37,3 +37,17 @@ func _process(delta: float) -> void:
 		get_tree().reload_current_scene()
 	$Highscore.text="Highscore: "+str(highscore)	
 	pass
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_killbox_area_entered(area: Area2D) -> void:
+	var p=area.get_parent()
+	if p is Enemy:
+		p.remove()
+		return
+	if p is PlayerShip: return
+	if p is Projectile: p.queue_free()	
+	pass # Replace with function body.

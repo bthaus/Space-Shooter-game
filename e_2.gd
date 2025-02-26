@@ -3,6 +3,11 @@ class_name Enemy
 @export var difficulty=1
 @export var shoot_frequency:float
 @export var show_particles=false;
+var pooltimes=0
+func _on_death_anim_animation_finished() -> void:
+	remove()
+	#queue_free()
+	pass # Replace with function body.
 
 func _ready() -> void:
 	$Shoot_timer.wait_time=shoot_frequency
@@ -29,7 +34,13 @@ func attack(projectile:Projectile):
 	projectile.shoot(Vector2.DOWN)
 	pass;
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	if not active:return
+func remove():
+	pooltimes+=1;
+	if pooltimes>1:
+		print("hi")
+	print(pooltimes)
+	global_position=Vector2.ZERO
+	hp=max_hp
+	get_parent().remove_child(self)
 	queue_free()
-	pass # Replace with function body.
+	pass;

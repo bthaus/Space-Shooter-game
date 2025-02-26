@@ -9,6 +9,7 @@ class_name Event
 @export var is_buff=false
 @export var original_diff:float
 var data:Eventtemp
+var pool=[]
 func get_user_data():
 	var temp=load("user://"+name+"new.tres")
 	if temp: return temp
@@ -33,11 +34,18 @@ func _init() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-func instantiate_objects():
-	
+func instantiate_objects(val=1):
+	for i in range(val):
+		pool.append(objects.front().instantiate())
+		if pool.size()>15:return
 	pass;
 func get_objects():
-	return objects
+	if pool.size()<7:
+		call_deferred("instantiate_objects")
+	if pool.is_empty():
+		return [objects.front().instantiate()]
+	
+	return [pool.pop_back()]
 	pass;	
 func store():
 	

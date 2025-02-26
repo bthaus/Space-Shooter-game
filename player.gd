@@ -61,6 +61,7 @@ func handle_laser(active,delta):
 	super(active,delta)		
 		
 func _process(delta: float) -> void:
+	delta*=(buffs.player_speed/100)
 	super(delta)
 	if not active:return
 	

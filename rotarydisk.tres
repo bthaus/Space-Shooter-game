@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("2_16i3w")
 duplications = 1.0
-difficulty_rating = 4.0
+difficulty_rating = 6.0
 likelyhood = 1.0
 objects = Array[PackedScene]([ExtResource("1_4gdm4")])
 name = "Disk"
 dirty = false
 is_buff = false
-original_diff = 4.0
+original_diff = 5.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://7tp73lmuclet"]
+[gd_scene load_steps=33 format=3 uid="uid://7tp73lmuclet"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8pwlk"]
 [ext_resource type="Shader" path="res://pixel.gdshader" id="1_gyqkj"]
@@ -200,6 +200,9 @@ shader_parameter/invert = false
 shader_parameter/gradient_x = SubResource("GradientTexture1D_du16p")
 shader_parameter/gradient_y = SubResource("GradientTexture1D_qsi8q")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tcpr2"]
+size = Vector2(9693, 602.664)
+
 [node name="Node2D" type="Polygon2D"]
 material = SubResource("ShaderMaterial_yxdeh")
 polygon = PackedVector2Array(-4533, -3800, -4513, 1472, 4861, 1441, 4830, -3921)
@@ -283,5 +286,18 @@ scale = Vector2(30.16, 3.60938)
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 visible = false
 
+[node name="killbox" type="Area2D" parent="."]
+position = Vector2(-3848.53, 1752.66)
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killbox"]
+position = Vector2(4134.03, -68.6636)
+shape = SubResource("RectangleShape2D_tcpr2")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="player_died" from="Player" to="LevelManager" method="_on_player_player_died"]
 [connection signal="player_hit" from="Player" to="LevelManager" method="_on_player_player_hit"]
+[connection signal="area_entered" from="killbox" to="." method="_on_killbox_area_entered"]
+[connection signal="timeout" from="Timer" to="LevelManager" method="_on_timer_timeout"]

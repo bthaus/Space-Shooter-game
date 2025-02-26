@@ -12,8 +12,9 @@ func die():
 	super()
 func _ready() -> void:
 	
-	create_tween().tween_property(self,^"position",position+Vector2(0,500),2)
 	if not active:return
+	create_tween().tween_property(self,^"position",position+Vector2(0,500),2)
+	
 	MainScene.instance.prepare_boss_fight(self)
 	pick_attack(2)
 	pass # Replace with function body.
@@ -50,6 +51,8 @@ func cascade():
 		f.push_angle=current
 		f.player=player
 		f.immortal=true
+		if not get_tree():
+			return
 		get_tree().create_timer(delay).timeout.connect(add_sibling.bind(f))
 		current+=angle
 		delay+=0.5
@@ -68,7 +71,7 @@ func pick_attack(timeout):
 	count+=1
 	if count==4:
 		pick_attack(2)
-		
+	if not get_tree():return	
 	get_tree().create_timer(timeout).timeout.connect(actions.pick_random())
 	pass;		
 func _on_shoot_timer_timeout() -> void:

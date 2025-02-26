@@ -735,6 +735,12 @@ material = SubResource("ShaderMaterial_21y45")
 position = Vector2(681.111, -651.111)
 scale = Vector2(12.9557, 1.87587)
 
+[node name="death_anim" parent="." index="9"]
+position = Vector2(20, -53)
+scale = Vector2(1.32364, 1.32364)
+
 [node name="Camera2D" type="Camera2D" parent="." index="10"]
 position = Vector2(674, 131)
 zoom = Vector2(0.18, 0.18)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -12,7 +12,7 @@ func _ready() -> void:
 	if not ship:
 		set_player_ship()
 		return
-	var instance=ship.get_objects().front().instantiate()
+	var instance=ship.get_objects().front()
 	$SubViewport/Camera2D.active=rotating
 	instance.active=false
 	instance.scale*=representation_scale
