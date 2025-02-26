@@ -72,6 +72,7 @@ func spawn_entity(e,event):
 	
 	if not player:return
 	var q=e.instantiate()
+	q.event=event
 	q.player=player
 	q.global_position=spawn_points.pick_random()
 	if debug_event: q.global_position=player.global_position+Vector2.UP*3000
